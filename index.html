@@ -2722,7 +2722,12 @@ updateBadges();
     if (logoutBtn) {
       logoutBtn.addEventListener('click', function () {
         sessionStorage.removeItem('mqSession');
-        window.location.href = 'landing.html';
+        // Use window.top so redirect escapes the Streamlit iframe
+        try {
+          window.top.location.href = 'landing.html';
+        } catch (e) {
+          window.location.href = 'landing.html';
+        }
       });
     }
   })();
