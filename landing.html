@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MegaQash Writers · Translation Platform</title>
-  <meta name="description" content="MegaQash Writers — Find translation tasks, submit your work, and get paid instantly via M-Pesa. Join 12,000+ translators earning daily." />
+  <title>MegaQash Writers · Welcome</title>
+  <meta name="description" content="MegaQash Writers — Translation task platform. Sign in to access your dashboard." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,459 +13,336 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --brand:       #e8185c;
-      --brand-dark:  #c0144e;
-      --brand-glow:  rgba(232, 24, 92, 0.35);
-      --accent:      #00e5a0;
-      --dark:        #0d0d1a;
-      --dark2:       #13132a;
-      --text-light:  #e8eaf6;
-      --text-muted:  #8888aa;
-      --panel-bg:    #ffffff;
-      --input-bg:    #f4f6fb;
-      --input-border:#dde1ef;
-      --transition:  0.3s cubic-bezier(.4,0,.2,1);
+      --brand:      #e8185c;
+      --brand-dark: #c0144e;
+      --brand-glow: rgba(232, 24, 92, 0.3);
+      --accent:     #00e5a0;
+      --dark-bg:    #0e0e1c;
+      --dark-mid:   #13132a;
+      --text-hero:  #ffffff;
+      --text-muted: #9090aa;
+      --panel-bg:   #ffffff;
+      --input-bg:   #f2f4fb;
+      --input-bd:   #e0e4f0;
+      --ease:       cubic-bezier(.4,0,.2,1);
     }
 
     html, body {
-      min-height: 100%;
+      height: 100%;
       font-family: 'Inter', sans-serif;
-      background: var(--dark);
+      background: var(--dark-bg);
       -webkit-font-smoothing: antialiased;
     }
 
-    /* =============================================
-       LAYOUT — side-by-side on desktop,
-                stacked on mobile
-    ============================================= */
-    .auth-wrapper {
+    /* ── WRAPPER ── */
+    .wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
       min-height: 100vh;
     }
 
-    /* =============================================
-       LEFT  — Hero panel
-    ============================================= */
+    /* ══════════════════════════════
+       LEFT — dark hero
+    ══════════════════════════════ */
     .hero {
-      background: linear-gradient(140deg, #0d0d1a 0%, #13132a 55%, #1c1c38 100%);
+      background: linear-gradient(160deg, #0e0e1c 0%, #12122a 60%, #181830 100%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 2.5rem 3rem;
+      padding: 2.8rem 3.2rem;
       position: relative;
       overflow: hidden;
-      min-height: 360px;
     }
 
-    /* decorative blobs */
+    /* soft glow blobs */
     .hero::before {
       content: '';
       position: absolute;
-      width: 380px; height: 380px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,24,92,.20) 0%, transparent 70%);
-      top: -90px; left: -90px; pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 280px; height: 280px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,229,160,.13) 0%, transparent 70%);
-      bottom: -60px; right: -40px; pointer-events: none;
-    }
-
-    /* floating dots */
-    .dots-canvas { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .dot {
-      position: absolute; border-radius: 50%; opacity: 0;
-      animation: floatDot linear infinite;
-    }
-    @keyframes floatDot {
-      0%   { opacity: 0;   transform: translateY(0)     scale(0.5); }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.4; }
-      100% { opacity: 0;   transform: translateY(-92vh) scale(1.2); }
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 10% 15%, rgba(232,24,92,.14) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 85% 85%, rgba(0,229,160,.08) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     /* logo */
-    .hero-logo {
-      display: flex; align-items: center; gap: .7rem;
-      z-index: 2; position: relative;
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      position: relative;
+      z-index: 2;
     }
-    .hero-logo .logo-icon {
-      width: 38px; height: 38px; border-radius: 10px;
+    .logo-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
       background: var(--brand);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 1.1rem; color: #fff;
-      box-shadow: 0 4px 18px var(--brand-glow);
+      font-weight: 900; font-size: 1rem; color: #fff;
+      box-shadow: 0 3px 14px var(--brand-glow);
       flex-shrink: 0;
     }
-    .hero-logo span {
+    .logo-name {
       font-size: .95rem; font-weight: 700;
-      color: var(--text-light); letter-spacing: -.01em;
+      color: var(--text-hero); letter-spacing: -.01em;
     }
 
-    /* body copy */
-    .hero-body { z-index: 2; position: relative; }
-    .hero-eyebrow {
+    /* hero copy */
+    .hero-body {
+      position: relative; z-index: 2;
+    }
+    .eyebrow {
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--brand); margin-bottom: 1.6rem;
+    }
+    .headline {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text-hero);
+      letter-spacing: -.04em;
+    }
+    .headline .green { color: var(--accent); }
+
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-size: .9rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 340px;
+    }
+
+    /* footer */
+    .hero-foot {
+      font-size: .68rem;
+      color: #33334d;
+      position: relative; z-index: 2;
+      letter-spacing: .02em;
+    }
+
+    /* ══════════════════════════════
+       RIGHT — auth panel
+    ══════════════════════════════ */
+    .panel {
+      background: var(--panel-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2.5rem;
+    }
+    .form-box {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* welcome label */
+    .welcome-label {
       font-size: .68rem; font-weight: 700;
       letter-spacing: .18em; text-transform: uppercase;
-      color: var(--brand); margin-bottom: 1.1rem;
-    }
-    .hero-headline {
-      font-size: clamp(1.9rem, 3.8vw, 3.2rem);
-      font-weight: 900; line-height: 1.09;
-      color: var(--text-light); letter-spacing: -.03em;
-    }
-    .hero-headline .acc { color: var(--accent); }
-    .hero-sub {
-      margin-top: 1.2rem; font-size: .92rem;
-      line-height: 1.7; color: var(--text-muted);
-      max-width: 360px;
+      color: var(--text-muted); margin-bottom: .6rem;
     }
 
-    /* pills / badges */
-    .hero-pills {
-      display: flex; flex-wrap: wrap; gap: .5rem;
-      margin-top: 1.5rem; z-index: 2; position: relative;
+    /* heading */
+    .form-heading {
+      font-size: 2.2rem; font-weight: 800;
+      letter-spacing: -.04em; color: #0d0d1a;
+      line-height: 1.1; margin-bottom: .35rem;
     }
-    .pill {
-      display: inline-flex; align-items: center; gap: .35rem;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      color: #c8d0e8; font-size: .72rem; font-weight: 600;
-      padding: .3rem .75rem; border-radius: 50px;
+    .form-sub {
+      font-size: .83rem; color: #999;
+      margin-bottom: 2rem; font-weight: 400;
     }
-    .pill .dot-live {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      animation: blink 1.4s ease-in-out infinite;
-    }
-    @keyframes blink {
-      0%,100% { opacity: 1; } 50% { opacity: .3; }
-    }
-
-    /* stats */
-    .hero-stats {
-      display: flex; gap: 1.8rem; flex-wrap: wrap;
-      margin-top: 2rem; z-index: 2; position: relative;
-    }
-    .stat-item { display: flex; flex-direction: column; }
-    .stat-value {
-      font-size: 1.4rem; font-weight: 800;
-      color: var(--text-light); letter-spacing: -.03em;
-    }
-    .stat-label {
-      font-size: .68rem; font-weight: 500;
-      color: var(--text-muted); margin-top: 2px;
-    }
-
-    .hero-footer {
-      font-size: .68rem; color: #333355;
-      z-index: 2; position: relative;
-    }
-
-    /* =============================================
-       RIGHT — Auth panel
-    ============================================= */
-    .auth-panel {
-      background: var(--panel-bg);
-      display: flex; align-items: center; justify-content: center;
-      padding: 2.5rem 2rem;
-    }
-    .auth-box { width: 100%; max-width: 420px; }
-
-    /* tab switcher */
-    .tab-switcher {
-      display: flex; background: var(--input-bg);
-      border-radius: 10px; padding: 4px;
-      margin-bottom: 2rem; gap: 4px;
-    }
-    .tab-btn {
-      flex: 1; padding: .6rem 0;
-      font-size: .85rem; font-weight: 600;
-      border: none; border-radius: 7px;
-      cursor: pointer; background: transparent;
-      color: #888; transition: var(--transition);
-      font-family: 'Inter', sans-serif;
-    }
-    .tab-btn.active {
-      background: #fff; color: #0d0d1a;
-      box-shadow: 0 2px 10px rgba(0,0,0,.10);
-    }
-
-    /* headings */
-    .auth-welcome {
-      font-size: .68rem; font-weight: 700;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: .4rem;
-    }
-    .auth-title {
-      font-size: 1.8rem; font-weight: 800;
-      letter-spacing: -.04em; color: #0d0d1a; margin-bottom: .25rem;
-    }
-    .auth-desc {
-      font-size: .82rem; color: var(--brand);
-      font-weight: 500; margin-bottom: 1.6rem;
-    }
-
-    /* form */
-    .form-group { margin-bottom: 1.1rem; }
-    .form-label {
-      display: block; font-size: .78rem;
-      font-weight: 600; color: #333; margin-bottom: .4rem;
-    }
-    .form-input {
-      width: 100%; padding: .82rem 1rem;
-      background: var(--input-bg);
-      border: 1.5px solid var(--input-border);
-      border-radius: 10px;
-      font-size: .92rem; font-family: 'Inter', sans-serif;
-      color: #0d0d1a; outline: none;
-      transition: var(--transition);
-      /* prevent iOS zoom */
-      font-size: 16px;
-    }
-    .form-input::placeholder { color: #b0b8cc; }
-    .form-input:focus {
-      border-color: var(--brand); background: #fff;
-      box-shadow: 0 0 0 3px var(--brand-glow);
-    }
-
-    /* submit button */
-    .btn-submit {
-      width: 100%; padding: .92rem;
-      background: var(--brand); color: #fff;
-      border: none; border-radius: 10px;
-      font-size: .95rem; font-weight: 700;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer; margin-top: .4rem;
-      display: flex; align-items: center;
-      justify-content: center; gap: .5rem;
-      letter-spacing: -.01em;
-      transition: var(--transition);
-      box-shadow: 0 4px 18px var(--brand-glow);
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-submit:hover {
-      background: var(--brand-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 28px var(--brand-glow);
-    }
-    .btn-submit:active { transform: translateY(0); }
-
-    /* switch link */
-    .auth-switch {
-      text-align: center; margin-top: 1.2rem;
-      font-size: .82rem; color: var(--text-muted);
-    }
-    .auth-switch a {
-      color: var(--brand); font-weight: 600;
-      text-decoration: none; cursor: pointer;
-    }
-    .auth-switch a:hover { text-decoration: underline; }
 
     /* toast */
     .toast {
       display: none; padding: .7rem .9rem;
-      border-radius: 10px; font-size: .82rem;
-      font-weight: 500; margin-bottom: .9rem;
-      animation: fadeIn .3s ease;
+      border-radius: 9px; font-size: .82rem;
+      font-weight: 500; margin-bottom: 1rem;
     }
-    .toast.error   { background: #fff0f3; color: #c0144e; border: 1px solid #ffd6e0; }
-    .toast.success { background: #edfff8; color: #047857; border: 1px solid #a7f3d0; }
-    .toast.show    { display: block; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-6px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .toast.error   { background: #fff0f3; color: #c0144e; border: 1px solid #ffd6e0; display:block; }
+    .toast.success { background: #edfff8; color: #047857; border: 1px solid #a7f3d0; display:block; }
+
+    /* fields */
+    .field { margin-bottom: 1.1rem; }
+    .field label {
+      display: block; font-size: .8rem;
+      font-weight: 600; color: #222;
+      margin-bottom: .4rem;
+    }
+    .field input {
+      width: 100%;
+      padding: .82rem 1rem;
+      background: var(--input-bg);
+      border: 1.5px solid var(--input-bd);
+      border-radius: 10px;
+      font-size: 16px;          /* prevent iOS zoom */
+      font-family: 'Inter', sans-serif;
+      color: #0d0d1a;
+      outline: none;
+      transition: border .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    .field input::placeholder { color: #bbc0d0; }
+    .field input:focus {
+      border-color: var(--brand);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(232,24,92,.15);
     }
 
     /* strength bar */
-    .strength-wrap { margin-top: .4rem; display: none; }
-    .strength-bar  { height: 4px; border-radius: 4px; background: var(--input-bg); overflow: hidden; }
-    .strength-fill { height: 100%; width: 0%; border-radius: 4px; transition: width .4s ease, background .4s ease; }
-    .strength-text { font-size: .68rem; margin-top: 3px; font-weight: 600; }
+    .strength-bar-wrap { margin-top: .4rem; display: none; }
+    .strength-track { height: 4px; background: var(--input-bg); border-radius: 4px; overflow: hidden; }
+    .strength-fill  { height: 100%; width: 0; border-radius: 4px; transition: width .4s, background .4s; }
+    .strength-label { font-size: .68rem; margin-top: 3px; font-weight: 600; }
 
-    /* =============================================
-       RESPONSIVE — mobile-first breakpoints
-    ============================================= */
-
-    /* Tablet: collapse hero height */
-    @media (max-width: 900px) {
-      .hero { padding: 2rem 2rem; }
+    /* cta button */
+    .btn-cta {
+      width: 100%; padding: .9rem;
+      background: var(--brand); color: #fff;
+      border: none; border-radius: 10px;
+      font-size: .95rem; font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer; margin-top: .3rem;
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      letter-spacing: -.01em;
+      transition: background .2s var(--ease), transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px var(--brand-glow);
+      -webkit-tap-highlight-color: transparent;
     }
+    .btn-cta:hover  { background: var(--brand-dark); transform: translateY(-1px); box-shadow: 0 8px 28px var(--brand-glow); }
+    .btn-cta:active { transform: translateY(0); }
+    .btn-arrow { font-size: 1rem; }
 
-    /* Mobile: stack hero above form */
-    @media (max-width: 680px) {
-      .auth-wrapper {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-      }
+    /* switch link */
+    .switch-line {
+      text-align: center;
+      margin-top: 1.3rem;
+      font-size: .82rem;
+      color: var(--text-muted);
+    }
+    .switch-line a {
+      color: var(--brand); font-weight: 600;
+      text-decoration: none; cursor: pointer;
+    }
+    .switch-line a:hover { text-decoration: underline; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 700px) {
+      .wrap { grid-template-columns: 1fr; }
 
       .hero {
-        padding: 1.6rem 1.4rem 2rem;
+        padding: 1.8rem 1.4rem 2rem;
         min-height: auto;
-        border-radius: 0 0 24px 24px;
+        border-radius: 0 0 20px 20px;
       }
-
-      /* shrink decorative blobs on mobile */
-      .hero::before { width: 200px; height: 200px; top: -50px; left: -50px; }
-      .hero::after  { width: 150px; height: 150px; }
-
-      .hero-logo span { font-size: .85rem; }
-
-      .hero-headline {
-        font-size: clamp(1.6rem, 7vw, 2.2rem);
+      .hero::before {
+        background:
+          radial-gradient(ellipse 80% 60% at 10% 10%, rgba(232,24,92,.16) 0%, transparent 65%);
       }
+      .headline { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .hero-sub  { font-size: .84rem; margin-top: 1rem; max-width: 100%; }
+      .hero-foot { display: none; }
 
-      .hero-sub   { font-size: .85rem; max-width: 100%; }
-      .hero-stats { gap: 1.2rem; margin-top: 1.4rem; }
-      .stat-value { font-size: 1.15rem; }
-      .hero-footer { display: none; } /* hide copyright on mobile to save space */
-
-      .hero-pills { margin-top: 1rem; }
-
-      .auth-panel {
-        padding: 1.8rem 1.2rem 2.5rem;
-        border-radius: 0;
-        align-items: flex-start;
-      }
-
-      .auth-box { max-width: 100%; }
-
-      .auth-title { font-size: 1.5rem; }
-
-      .tab-btn { font-size: .8rem; padding: .55rem 0; }
+      .panel { padding: 1.8rem 1.2rem 2.5rem; align-items: flex-start; }
+      .form-box { max-width: 100%; }
+      .form-heading { font-size: 1.7rem; }
     }
 
-    /* Very small phones */
     @media (max-width: 380px) {
-      .hero { padding: 1.3rem 1rem 1.6rem; }
-      .hero-headline { font-size: 1.5rem; }
-      .hero-stats { gap: .9rem; }
-      .stat-value { font-size: 1rem; }
+      .hero  { padding: 1.4rem 1rem 1.6rem; }
+      .headline { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-<div class="auth-wrapper">
+<div class="wrap">
 
-  <!-- ====== LEFT: HERO ====== -->
-  <section class="hero" id="heroPanel">
-    <div class="dots-canvas" id="dotsCanvas"></div>
-
-    <div class="hero-logo">
+  <!-- ════ LEFT: HERO ════ -->
+  <section class="hero">
+    <div class="logo-row">
       <div class="logo-icon">M</div>
-      <span>MegaQash Technologies</span>
+      <span class="logo-name">MegaQash Technologies</span>
     </div>
 
     <div class="hero-body">
-      <p class="hero-eyebrow">Translation Task Platform</p>
-
-      <h1 class="hero-headline">
-        Translate tasks.<br>
-        <span class="acc">Get paid<br>instantly.</span>
+      <p class="eyebrow" id="heroEyebrow">Your Next Chapter</p>
+      <h1 class="headline" id="heroHeadline">
+        Build momentum<br>
+        <span class="green">that<br>compounds.</span>
       </h1>
-
-      <p class="hero-sub">
-        Find freelance translation jobs from global university clients,
-        submit your work, and receive instant M-Pesa payouts — all in one place.
+      <p class="hero-sub" id="heroSub">
+        One workspace for your membership, referrals, and the work
+        that moves your business forward.
       </p>
-
-      <div class="hero-pills">
-        <span class="pill"><span class="dot-live"></span>200 tasks live now</span>
-        <span class="pill">💳 Instant M-Pesa payout</span>
-        <span class="pill">🌍 20 target languages</span>
-      </div>
-
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-value">12k+</span>
-          <span class="stat-label">Active Translators</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">$2.4M</span>
-          <span class="stat-label">Paid Out</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">98%</span>
-          <span class="stat-label">On-Time Rate</span>
-        </div>
-      </div>
     </div>
 
-    <p class="hero-footer">MegaQash Technologies / 2026</p>
+    <p class="hero-foot">MegaQash Technologies / 2026</p>
   </section>
 
-  <!-- ====== RIGHT: AUTH FORM ====== -->
-  <section class="auth-panel">
-    <div class="auth-box">
-
-      <div class="tab-switcher" role="tablist">
-        <button class="tab-btn active" id="loginTab"    onclick="switchTab('login')"    role="tab" aria-selected="true">Sign In</button>
-        <button class="tab-btn"        id="registerTab" onclick="switchTab('register')" role="tab" aria-selected="false">Create Account</button>
-      </div>
+  <!-- ════ RIGHT: AUTH ════ -->
+  <section class="panel">
+    <div class="form-box">
 
       <div class="toast" id="toast"></div>
 
-      <!-- LOGIN -->
-      <div id="loginForm">
-        <p class="auth-welcome">Welcome Back</p>
-        <h2 class="auth-title">Enter your space.</h2>
-        <p class="auth-desc">Your translation dashboard is waiting.</p>
+      <!-- LOGIN VIEW -->
+      <div id="loginView">
+        <p class="welcome-label">Welcome Back</p>
+        <h2 class="form-heading">Enter your space.</h2>
+        <p class="form-sub">Your business dashboard is waiting.</p>
 
-        <form onsubmit="handleLogin(event)" novalidate>
-          <div class="form-group">
-            <label class="form-label" for="loginEmail">Email</label>
-            <input id="loginEmail" class="form-input" type="email" placeholder="you@example.com" autocomplete="email" required />
+        <form onsubmit="doLogin(event)" novalidate>
+          <div class="field">
+            <label for="lEmail">Email</label>
+            <input id="lEmail" type="email" placeholder="client@example.com" autocomplete="email" />
           </div>
-          <div class="form-group">
-            <label class="form-label" for="loginPassword">Password</label>
-            <input id="loginPassword" class="form-input" type="password" placeholder="••••••••" autocomplete="current-password" required />
+          <div class="field">
+            <label for="lPass">Password</label>
+            <input id="lPass" type="password" placeholder="••••••••" autocomplete="current-password" />
           </div>
-          <button type="submit" class="btn-submit">
-            Open dashboard &nbsp;↗
+          <button type="submit" class="btn-cta">
+            Open dashboard <span class="btn-arrow">↗</span>
           </button>
         </form>
 
-        <p class="auth-switch">Need an account? <a onclick="switchTab('register')">Register</a></p>
+        <p class="switch-line">Need an account? <a onclick="show('register')">Register</a></p>
       </div>
 
-      <!-- REGISTER -->
-      <div id="registerForm" style="display:none">
-        <p class="auth-welcome">Get Started</p>
-        <h2 class="auth-title">Create your space.</h2>
-        <p class="auth-desc">Join translators earning $0.20–$1.00 per task.</p>
+      <!-- REGISTER VIEW -->
+      <div id="registerView" style="display:none">
+        <p class="welcome-label">Get Started</p>
+        <h2 class="form-heading">Create your space.</h2>
+        <p class="form-sub">Join thousands of translators earning daily.</p>
 
-        <form onsubmit="handleRegister(event)" novalidate>
-          <div class="form-group">
-            <label class="form-label" for="regName">Full Name</label>
-            <input id="regName" class="form-input" type="text" placeholder="Jane Doe" autocomplete="name" required />
+        <form onsubmit="doRegister(event)" novalidate>
+          <div class="field">
+            <label for="rName">Full Name</label>
+            <input id="rName" type="text" placeholder="Jane Doe" autocomplete="name" />
           </div>
-          <div class="form-group">
-            <label class="form-label" for="regEmail">Email</label>
-            <input id="regEmail" class="form-input" type="email" placeholder="you@example.com" autocomplete="email" required />
+          <div class="field">
+            <label for="rEmail">Email</label>
+            <input id="rEmail" type="email" placeholder="you@example.com" autocomplete="email" />
           </div>
-          <div class="form-group">
-            <label class="form-label" for="regPassword">Password</label>
-            <input id="regPassword" class="form-input" type="password" placeholder="Min. 6 characters"
-                   autocomplete="new-password" required oninput="checkStrength(this.value)" />
-            <div class="strength-wrap" id="strengthWrap">
-              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
-              <p class="strength-text" id="strengthText"></p>
+          <div class="field">
+            <label for="rPass">Password</label>
+            <input id="rPass" type="password" placeholder="Min. 6 characters"
+                   autocomplete="new-password" oninput="strength(this.value)" />
+            <div class="strength-bar-wrap" id="sbWrap">
+              <div class="strength-track"><div class="strength-fill" id="sbFill"></div></div>
+              <p class="strength-label" id="sbLabel"></p>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="regConfirm">Confirm Password</label>
-            <input id="regConfirm" class="form-input" type="password" placeholder="••••••••" autocomplete="new-password" required />
+          <div class="field">
+            <label for="rConf">Confirm Password</label>
+            <input id="rConf" type="password" placeholder="••••••••" autocomplete="new-password" />
           </div>
-          <button type="submit" class="btn-submit">
-            Create account &nbsp;↗
+          <button type="submit" class="btn-cta">
+            Create account <span class="btn-arrow">↗</span>
           </button>
         </form>
 
-        <p class="auth-switch">Already have an account? <a onclick="switchTab('login')">Sign in</a></p>
+        <p class="switch-line">Already have an account? <a onclick="show('login')">Sign in</a></p>
       </div>
 
     </div>
@@ -473,116 +350,101 @@
 </div>
 
 <script>
-  /* floating dots */
-  (function spawnDots() {
-    const canvas = document.getElementById('dotsCanvas');
-    const colors = ['#e8185c','#00e5a0','#a78bfa','#38bdf8'];
-    for (let i = 0; i < 22; i++) {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      const size = Math.random() * 5 + 2;
-      dot.style.cssText = `
-        width:${size}px;height:${size}px;
-        left:${Math.random()*100}%;
-        bottom:${-10+Math.random()*10}%;
-        background:${colors[Math.floor(Math.random()*colors.length)]};
-        animation-duration:${7+Math.random()*12}s;
-        animation-delay:${Math.random()*10}s;
-      `;
-      canvas.appendChild(dot);
-    }
-  })();
+  /* ── view switch ── */
+  function show(v) {
+    document.getElementById('loginView').style.display    = v==='login'    ? 'block' : 'none';
+    document.getElementById('registerView').style.display = v==='register' ? 'block' : 'none';
+    clearToast();
 
-  /* tab switch */
-  function switchTab(tab) {
-    document.getElementById('loginForm').style.display    = tab==='login'    ? 'block' : 'none';
-    document.getElementById('registerForm').style.display = tab==='register' ? 'block' : 'none';
-    document.getElementById('loginTab').classList.toggle('active',    tab==='login');
-    document.getElementById('registerTab').classList.toggle('active', tab==='register');
-    document.getElementById('loginTab').setAttribute('aria-selected',    tab==='login');
-    document.getElementById('registerTab').setAttribute('aria-selected', tab==='register');
-    hideToast();
+    /* update hero copy per view */
+    const eye = document.getElementById('heroEyebrow');
+    const hl  = document.getElementById('heroHeadline');
+    const sub = document.getElementById('heroSub');
+    if (v === 'register') {
+      eye.textContent = 'Join The Platform';
+      hl.innerHTML    = 'Start earning<br><span class="green">one task<br>at a time.</span>';
+      sub.textContent = 'Pick translation tasks from global clients, submit work, and get paid instantly via M-Pesa.';
+    } else {
+      eye.textContent = 'Your Next Chapter';
+      hl.innerHTML    = 'Build momentum<br><span class="green">that<br>compounds.</span>';
+      sub.textContent = 'One workspace for your membership, referrals, and the work that moves your business forward.';
+    }
   }
 
-  /* toast */
-  function showToast(msg, type='error') {
+  /* ── toast ── */
+  function toast(msg, type) {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = `toast ${type} show`;
+    t.className = 'toast ' + type;
   }
-  function hideToast() { document.getElementById('toast').className = 'toast'; }
+  function clearToast() { document.getElementById('toast').className = 'toast'; }
 
-  /* password strength */
-  function checkStrength(val) {
-    const wrap = document.getElementById('strengthWrap');
-    const fill = document.getElementById('strengthFill');
-    const text = document.getElementById('strengthText');
-    if (!val) { wrap.style.display='none'; return; }
+  /* ── password strength ── */
+  function strength(v) {
+    const wrap  = document.getElementById('sbWrap');
+    const fill  = document.getElementById('sbFill');
+    const label = document.getElementById('sbLabel');
+    if (!v) { wrap.style.display='none'; return; }
     wrap.style.display = 'block';
-    let score = 0;
-    if (val.length>=6)  score++;
-    if (val.length>=10) score++;
-    if (/[A-Z]/.test(val)) score++;
-    if (/[0-9]/.test(val)) score++;
-    if (/[^A-Za-z0-9]/.test(val)) score++;
-    const levels = [
-      {pct:'20%',color:'#f87171',label:'Weak'},
-      {pct:'40%',color:'#fb923c',label:'Fair'},
-      {pct:'60%',color:'#facc15',label:'Moderate'},
-      {pct:'80%',color:'#4ade80',label:'Strong'},
-      {pct:'100%',color:'#00e5a0',label:'Very Strong'},
-    ];
-    const lvl = levels[Math.min(score,4)];
-    fill.style.width=lvl.pct; fill.style.background=lvl.color;
-    text.textContent=lvl.label; text.style.color=lvl.color;
+    let s = 0;
+    if (v.length>=6) s++;  if (v.length>=10) s++;
+    if (/[A-Z]/.test(v)) s++; if (/[0-9]/.test(v)) s++; if (/[^A-Za-z0-9]/.test(v)) s++;
+    const lvl = [
+      {w:'20%',c:'#f87171',l:'Weak'},
+      {w:'40%',c:'#fb923c',l:'Fair'},
+      {w:'60%',c:'#facc15',l:'Moderate'},
+      {w:'80%',c:'#4ade80',l:'Strong'},
+      {w:'100%',c:'#00e5a0',l:'Very Strong'},
+    ][Math.min(s,4)];
+    fill.style.width=lvl.w; fill.style.background=lvl.c;
+    label.textContent=lvl.l; label.style.color=lvl.c;
   }
 
-  /* storage */
-  function getUsers()   { try { return JSON.parse(localStorage.getItem('mqUsers')||'{}'); } catch { return {}; } }
-  function saveUsers(u) { localStorage.setItem('mqUsers', JSON.stringify(u)); }
-  function setSession(email,name) { sessionStorage.setItem('mqSession', JSON.stringify({email,name,ts:Date.now()})); }
+  /* ── storage ── */
+  const getUsers   = () => { try { return JSON.parse(localStorage.getItem('mqUsers')||'{}'); } catch { return {}; } };
+  const saveUsers  = u  => localStorage.setItem('mqUsers', JSON.stringify(u));
+  const setSession = (e,n) => sessionStorage.setItem('mqSession', JSON.stringify({email:e,name:n}));
 
-  /* register */
-  function handleRegister(e) {
+  /* ── login ── */
+  function doLogin(e) {
     e.preventDefault();
-    const name     = document.getElementById('regName').value.trim();
-    const email    = document.getElementById('regEmail').value.trim().toLowerCase();
-    const password = document.getElementById('regPassword').value;
-    const confirm  = document.getElementById('regConfirm').value;
-    if (!name)                                   return showToast('Please enter your full name.');
-    if (!email||!/\S+@\S+\.\S+/.test(email))     return showToast('Please enter a valid email.');
-    if (password.length<6)                       return showToast('Password must be at least 6 characters.');
-    if (password!==confirm)                      return showToast('Passwords do not match.');
+    const email = document.getElementById('lEmail').value.trim().toLowerCase();
+    const pass  = document.getElementById('lPass').value;
+    if (!email || !pass) return toast('Please fill in all fields.','error');
     const users = getUsers();
-    if (users[email])                            return showToast('Account already exists. Please sign in.');
-    users[email] = {name, password};
+    const user  = users[email];
+    if (!user)                return toast('No account found. Please register.','error');
+    if (user.password!==pass) return toast('Incorrect password. Try again.','error');
+    setSession(email, user.name);
+    toast(`Welcome back, ${user.name}!`, 'success');
+    setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+  }
+
+  /* ── register ── */
+  function doRegister(e) {
+    e.preventDefault();
+    const name  = document.getElementById('rName').value.trim();
+    const email = document.getElementById('rEmail').value.trim().toLowerCase();
+    const pass  = document.getElementById('rPass').value;
+    const conf  = document.getElementById('rConf').value;
+    if (!name || !email || !pass || !conf) return toast('Please fill in all fields.','error');
+    if (!/\S+@\S+\.\S+/.test(email))      return toast('Enter a valid email address.','error');
+    if (pass.length<6)                    return toast('Password must be at least 6 characters.','error');
+    if (pass!==conf)                       return toast('Passwords do not match.','error');
+    const users = getUsers();
+    if (users[email])                      return toast('Account already exists. Sign in.','error');
+    users[email] = { name, password: pass };
     saveUsers(users);
     setSession(email, name);
-    showToast(`Welcome, ${name}! Redirecting…`, 'success');
+    toast(`Welcome, ${name}! Redirecting…`, 'success');
     setTimeout(() => { window.location.href = 'index.html'; }, 1200);
   }
 
-  /* login */
-  function handleLogin(e) {
-    e.preventDefault();
-    const email    = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const password = document.getElementById('loginPassword').value;
-    if (!email)    return showToast('Please enter your email.');
-    if (!password) return showToast('Please enter your password.');
-    const users = getUsers();
-    const user  = users[email];
-    if (!user)                    return showToast('No account found. Please register first.');
-    if (user.password!==password) return showToast('Incorrect password. Please try again.');
-    setSession(email, user.name);
-    showToast(`Welcome back, ${user.name}!`, 'success');
-    setTimeout(() => { window.location.href = 'index.html'; }, 1100);
-  }
-
-  /* auto-redirect if already logged in */
-  (function checkSession() {
+  /* ── auto-redirect if session exists ── */
+  (function check() {
     try {
-      const data = JSON.parse(sessionStorage.getItem('mqSession')||'null');
-      if (data && data.email) window.location.href = 'index.html';
+      const d = JSON.parse(sessionStorage.getItem('mqSession')||'null');
+      if (d && d.email) window.location.href = 'index.html';
     } catch {}
   })();
 </script>
