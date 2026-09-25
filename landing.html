@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MegaQash Writers · Welcome</title>
+  <meta name="description" content="Join MegaQash Writers — one workspace for your membership, referrals, and the work that moves your business forward." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --brand:       #e8185c;
+      --brand-dark:  #c0144e;
+      --brand-glow:  rgba(232, 24, 92, 0.35);
+      --dark:        #0d0d1a;
+      --dark2:       #13132a;
+      --dark3:       #1a1a35;
+      --accent:      #00e5a0;
+      --text-light:  #e8eaf6;
+      --text-muted:  #8888aa;
+      --panel-bg:    #ffffff;
+      --input-bg:    #f4f6fb;
+      --input-border:#dde1ef;
+      --radius:      14px;
+      --transition:  0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+    }
+
+    /* ===== LAYOUT ===== */
+    .auth-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* ===== LEFT PANEL – Hero ===== */
+    .hero {
+      background: linear-gradient(135deg, #0d0d1a 0%, #13132a 50%, #1a1a35 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,24,92,0.18) 0%, transparent 70%);
+      top: -80px; left: -80px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,160,0.12) 0%, transparent 70%);
+      bottom: -60px; right: -60px;
+      pointer-events: none;
+    }
+
+    /* Animated floating dots */
+    .dots-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatDot linear infinite;
+    }
+
+    @keyframes floatDot {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { opacity: 0; transform: translateY(-90vh) scale(1.2); }
+    }
+
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-logo .logo-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: var(--brand);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.1rem; color: #fff;
+      box-shadow: 0 4px 18px var(--brand-glow);
+    }
+    .hero-logo span {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-body {
+      z-index: 2;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 1.4rem;
+    }
+    .hero-headline {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      color: var(--text-light);
+      letter-spacing: -0.03em;
+    }
+    .hero-headline .accent-word {
+      color: var(--accent);
+      display: block;
+    }
+    .hero-sub {
+      margin-top: 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 340px;
+    }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.8rem;
+      z-index: 2;
+      position: relative;
+    }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-value {
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--text-light); letter-spacing: -0.03em;
+    }
+    .stat-label {
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--text-muted); margin-top: 2px;
+    }
+
+    .hero-footer {
+      font-size: 0.72rem;
+      color: #444466;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* ===== RIGHT PANEL – Auth Form ===== */
+    .auth-panel {
+      background: var(--panel-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2.5rem;
+    }
+
+    .auth-box {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* Tab switcher */
+    .tab-switcher {
+      display: flex;
+      background: var(--input-bg);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 2.2rem;
+      gap: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 0.6rem 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      background: transparent;
+      color: #888;
+      transition: var(--transition);
+    }
+    .tab-btn.active {
+      background: #fff;
+      color: #0d0d1a;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    }
+
+    /* Welcome text */
+    .auth-welcome {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .auth-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #0d0d1a;
+      margin-bottom: 0.3rem;
+    }
+    .auth-desc {
+      font-size: 0.83rem;
+      color: var(--brand);
+      font-weight: 500;
+      margin-bottom: 1.9rem;
+    }
+
+    /* Form */
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.45rem;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--input-bg);
+      border: 1.5px solid var(--input-border);
+      border-radius: 10px;
+      font-size: 0.93rem;
+      font-family: 'Inter', sans-serif;
+      color: #0d0d1a;
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-input::placeholder { color: #b0b8cc; }
+    .form-input:focus {
+      border-color: var(--brand);
+      background: #fff;
+      box-shadow: 0 0 0 3px var(--brand-glow);
+    }
+
+    /* Submit btn */
+    .btn-submit {
+      width: 100%;
+      padding: 0.95rem;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      letter-spacing: -0.01em;
+      transition: var(--transition);
+      box-shadow: 0 4px 18px var(--brand-glow);
+    }
+    .btn-submit:hover {
+      background: var(--brand-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px var(--brand-glow);
+    }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-arrow { font-size: 1.1rem; }
+
+    /* Switch link */
+    .auth-switch {
+      text-align: center;
+      margin-top: 1.4rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .auth-switch a {
+      color: var(--brand);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .auth-switch a:hover { text-decoration: underline; }
+
+    /* Error / success toast */
+    .toast {
+      display: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .toast.error   { background: #fff0f3; color: #c0144e; border: 1px solid #ffd6e0; }
+    .toast.success { background: #edfff8; color: #047857; border: 1px solid #a7f3d0; }
+    .toast.show    { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1.4rem 0;
+      color: var(--input-border);
+      font-size: 0.75rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--input-border);
+    }
+
+    /* Password strength bar */
+    .strength-wrap { margin-top: 0.4rem; display: none; }
+    .strength-bar  {
+      height: 4px; border-radius: 4px;
+      background: var(--input-bg);
+      overflow: hidden;
+    }
+    .strength-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 4px;
+      transition: width 0.4s ease, background 0.4s ease;
+    }
+    .strength-text {
+      font-size: 0.7rem;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 760px) {
+      .auth-wrapper { grid-template-columns: 1fr; }
+      .hero {
+        padding: 2rem 1.5rem 2.5rem;
+        min-height: auto;
+      }
+      .hero-stats { display: none; }
+      .auth-panel { padding: 2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-wrapper">
+
+  <!-- ======= LEFT: HERO ======= -->
+  <section class="hero" id="heroPanel">
+    <div class="dots-canvas" id="dotsCanvas"></div>
+
+    <div class="hero-logo">
+      <div class="logo-icon">M</div>
+      <span>MegaQash Technologies</span>
+    </div>
+
+    <div class="hero-body">
+      <p class="hero-eyebrow">Your Next Chapter</p>
+      <h1 class="hero-headline">
+        Build momentum<br>
+        <span class="accent-word">that<br>compounds.</span>
+      </h1>
+      <p class="hero-sub">
+        One workspace for your membership, referrals, and the work
+        that moves your business forward.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value">12k+</span>
+          <span class="stat-label">Active Writers</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">$2.4M</span>
+          <span class="stat-label">Paid Out</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">98%</span>
+          <span class="stat-label">Satisfaction</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero-footer">MegaQash Technologies / 2026</p>
+  </section>
+
+  <!-- ======= RIGHT: AUTH ======= -->
+  <section class="auth-panel">
+    <div class="auth-box">
+
+      <!-- Tab Switcher -->
+      <div class="tab-switcher" role="tablist">
+        <button class="tab-btn active" id="loginTab" onclick="switchTab('login')" role="tab" aria-selected="true">Sign In</button>
+        <button class="tab-btn" id="registerTab" onclick="switchTab('register')" role="tab" aria-selected="false">Create Account</button>
+      </div>
+
+      <!-- Toast messages -->
+      <div class="toast" id="toast"></div>
+
+      <!-- ---- LOGIN FORM ---- -->
+      <div id="loginForm">
+        <p class="auth-welcome">Welcome Back</p>
+        <h2 class="auth-title">Enter your space.</h2>
+        <p class="auth-desc">Your business dashboard is waiting.</p>
+
+        <form onsubmit="handleLogin(event)" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">Email</label>
+            <input id="loginEmail" class="form-input" type="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input id="loginPassword" class="form-input" type="password" placeholder="••••••••" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="btn-submit" id="loginBtn">
+            Open dashboard <span class="btn-arrow">↗</span>
+          </button>
+        </form>
+
+        <p class="auth-switch">
+          Need an account? <a onclick="switchTab('register')">Register</a>
+        </p>
+      </div>
+
+      <!-- ---- REGISTER FORM ---- -->
+      <div id="registerForm" style="display:none">
+        <p class="auth-welcome">Get Started</p>
+        <h2 class="auth-title">Create your space.</h2>
+        <p class="auth-desc">Join thousands of writers earning today.</p>
+
+        <form onsubmit="handleRegister(event)" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="regName">Full Name</label>
+            <input id="regName" class="form-input" type="text" placeholder="Jane Doe" autocomplete="name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regEmail">Email</label>
+            <input id="regEmail" class="form-input" type="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regPassword">Password</label>
+            <input id="regPassword" class="form-input" type="password" placeholder="Min. 6 characters"
+                   autocomplete="new-password" required oninput="checkStrength(this.value)" />
+            <div class="strength-wrap" id="strengthWrap">
+              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+              <p class="strength-text" id="strengthText"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regConfirm">Confirm Password</label>
+            <input id="regConfirm" class="form-input" type="password" placeholder="••••••••" autocomplete="new-password" required />
+          </div>
+          <button type="submit" class="btn-submit" id="registerBtn">
+            Create account <span class="btn-arrow">↗</span>
+          </button>
+        </form>
+
+        <p class="auth-switch">
+          Already have an account? <a onclick="switchTab('login')">Sign in</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+  /* ======= FLOATING DOTS ANIMATION ======= */
+  (function spawnDots() {
+    const canvas = document.getElementById('dotsCanvas');
+    const colors = ['#e8185c','#00e5a0','#a78bfa','#38bdf8'];
+    for (let i = 0; i < 28; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      const size = Math.random() * 5 + 2;
+      dot.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        bottom:${-10 + Math.random()*10}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${6 + Math.random()*12}s;
+        animation-delay:${Math.random()*10}s;
+      `;
+      canvas.appendChild(dot);
+    }
+  })();
+
+  /* ======= TAB SWITCH ======= */
+  function switchTab(tab) {
+    const loginForm    = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginTab     = document.getElementById('loginTab');
+    const registerTab  = document.getElementById('registerTab');
+    hideToast();
+
+    if (tab === 'login') {
+      loginForm.style.display    = 'block';
+      registerForm.style.display = 'none';
+      loginTab.classList.add('active');
+      registerTab.classList.remove('active');
+      loginTab.setAttribute('aria-selected','true');
+      registerTab.setAttribute('aria-selected','false');
+    } else {
+      loginForm.style.display    = 'none';
+      registerForm.style.display = 'block';
+      registerTab.classList.add('active');
+      loginTab.classList.remove('active');
+      registerTab.setAttribute('aria-selected','true');
+      loginTab.setAttribute('aria-selected','false');
+    }
+  }
+
+  /* ======= TOAST HELPERS ======= */
+  function showToast(msg, type = 'error') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+  }
+  function hideToast() {
+    const t = document.getElementById('toast');
+    t.className = 'toast';
+  }
+
+  /* ======= PASSWORD STRENGTH ======= */
+  function checkStrength(val) {
+    const wrap = document.getElementById('strengthWrap');
+    const fill = document.getElementById('strengthFill');
+    const text = document.getElementById('strengthText');
+    if (!val) { wrap.style.display='none'; return; }
+    wrap.style.display = 'block';
+
+    let score = 0;
+    if (val.length >= 6)  score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const levels = [
+      { pct:'20%', color:'#f87171', label:'Weak' },
+      { pct:'40%', color:'#fb923c', label:'Fair' },
+      { pct:'60%', color:'#facc15', label:'Moderate' },
+      { pct:'80%', color:'#4ade80', label:'Strong' },
+      { pct:'100%',color:'#00e5a0', label:'Very Strong' },
+    ];
+    const lvl = levels[Math.min(score, 4)];
+    fill.style.width      = lvl.pct;
+    fill.style.background = lvl.color;
+    text.textContent      = lvl.label;
+    text.style.color      = lvl.color;
+  }
+
+  /* ======= USER STORAGE (localStorage) ======= */
+  function getUsers() {
+    try { return JSON.parse(localStorage.getItem('mqUsers') || '{}'); }
+    catch { return {}; }
+  }
+  function saveUsers(u) {
+    localStorage.setItem('mqUsers', JSON.stringify(u));
+  }
+  function setSession(email, name) {
+    sessionStorage.setItem('mqSession', JSON.stringify({ email, name, ts: Date.now() }));
+  }
+
+  /* ======= REGISTER ======= */
+  function handleRegister(e) {
+    e.preventDefault();
+    const name     = document.getElementById('regName').value.trim();
+    const email    = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPassword').value;
+    const confirm  = document.getElementById('regConfirm').value;
+
+    if (!name)                         return showToast('Please enter your full name.');
+    if (!email || !/\S+@\S+\.\S+/.test(email)) return showToast('Please enter a valid email.');
+    if (password.length < 6)           return showToast('Password must be at least 6 characters.');
+    if (password !== confirm)          return showToast('Passwords do not match.');
+
+    const users = getUsers();
+    if (users[email])                  return showToast('An account with this email already exists. Please sign in.');
+
+    users[email] = { name, password };
+    saveUsers(users);
+    setSession(email, name);
+
+    showToast(`Welcome, ${name}! Redirecting…`, 'success');
+    setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+  }
+
+  /* ======= LOGIN ======= */
+  function handleLogin(e) {
+    e.preventDefault();
+    const email    = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+
+    if (!email)    return showToast('Please enter your email.');
+    if (!password) return showToast('Please enter your password.');
+
+    const users = getUsers();
+    const user  = users[email];
+
+    if (!user)                    return showToast('No account found with this email. Please register.');
+    if (user.password !== password) return showToast('Incorrect password. Please try again.');
+
+    setSession(email, user.name);
+    showToast(`Welcome back, ${user.name}! Opening dashboard…`, 'success');
+    setTimeout(() => { window.location.href = 'index.html'; }, 1100);
+  }
+
+  /* ======= AUTO-REDIRECT IF ALREADY LOGGED IN ======= */
+  (function checkSession() {
+    const s = sessionStorage.getItem('mqSession');
+    if (s) {
+      try {
+        const data = JSON.parse(s);
+        if (data && data.email) window.location.href = 'index.html';
+      } catch {}
+    }
+  })();
+</script>
+</body>
+</html>

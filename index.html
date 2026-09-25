@@ -209,6 +209,31 @@ border-radius: 30px;
 font-weight: 700;
 margin-left: 0.3rem;
 }
+/* ---------- LOGOUT BUTTON ---------- */
+.btn-logout {
+display: flex;
+align-items: center;
+gap: 0.45rem;
+background: rgba(232,24,92,0.15);
+color: #ff6b8a;
+border: 1px solid rgba(232,24,92,0.35);
+padding: 0.38rem 0.9rem;
+border-radius: 50px;
+font-size: 0.78rem;
+font-weight: 700;
+font-family: inherit;
+cursor: pointer;
+transition: 0.2s;
+letter-spacing: 0.01em;
+white-space: nowrap;
+}
+.btn-logout:hover {
+background: rgba(232,24,92,0.30);
+color: #fff;
+border-color: rgba(232,24,92,0.7);
+transform: translateY(-1px);
+}
+.btn-logout:active { transform: translateY(0); }
 /* ---------- PENDING DRAWER (right side) ---------- */
 .pending-drawer {
 position: fixed;
@@ -1805,13 +1830,16 @@ border-left-color: #e67e22;
 <span class="tasks-badge hidden" id="tasksBadge">0</span>
 </div>
 <div class="user-profile">
-<div class="user-avatar">TL</div>
+<div class="user-avatar" id="navAvatar">TL</div>
 <div class="user-info">
-<span class="name">Translator</span>
+<span class="name" id="navName">Translator</span>
 <span class="role">Freelance</span>
 </div>
 <span class="nav-badge">3</span>
 </div>
+<button class="btn-logout" id="logoutBtn" title="Sign out">
+&#x23FB; Logout
+</button>
 </div>
 </nav>
 <!-- ========== MAIN APP ========== -->
@@ -2675,6 +2703,29 @@ renderSidebarActiveTasks();
 renderPendingDrawer();
 updateBadges();
 })();
+
+  /* ===== SESSION: personalise navbar & logout ===== */
+  (function initSession() {
+    try {
+      const raw  = sessionStorage.getItem('mqSession');
+      const data = raw ? JSON.parse(raw) : null;
+      if (data && data.name) {
+        const initials = data.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+        const navAvatar = document.getElementById('navAvatar');
+        const navName   = document.getElementById('navName');
+        if (navAvatar) navAvatar.textContent = initials;
+        if (navName)   navName.textContent   = data.name.split(' ')[0];
+      }
+    } catch (e) { /* silent */ }
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function () {
+        sessionStorage.removeItem('mqSession');
+        window.location.href = 'landing.html';
+      });
+    }
+  })();
 </script>
 </body>
 </html>
