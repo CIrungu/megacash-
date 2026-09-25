@@ -148,39 +148,39 @@ def show_auth():
     st.markdown("""
     <div style="
         background:linear-gradient(135deg,#0d0d1a 0%,#13132a 55%,#1a1a35 100%);
-        padding:2.5rem 3rem;
-        border-radius:16px;
-        margin-bottom:0;
-        min-height:480px;
+        padding:1.4rem 1.5rem 1.8rem;
+        border-radius:14px;
         position:relative;
         overflow:hidden;
     ">
-      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:3rem;">
-        <div style="width:38px;height:38px;border-radius:10px;background:#e8185c;
+      <!-- logo row -->
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1.4rem;">
+        <div style="width:32px;height:32px;border-radius:9px;background:#e8185c;
              display:flex;align-items:center;justify-content:center;
-             font-weight:900;font-size:1.1rem;color:#fff;
-             box-shadow:0 4px 18px rgba(232,24,92,.35);">M</div>
-        <span style="font-size:1rem;font-weight:700;color:#e8eaf6;">MegaQash Technologies</span>
+             font-weight:900;font-size:1rem;color:#fff;flex-shrink:0;">M</div>
+        <span style="font-size:.85rem;font-weight:700;color:#e8eaf6;">MegaQash Technologies</span>
       </div>
-      <p style="font-size:.72rem;font-weight:600;letter-spacing:.16em;
-                text-transform:uppercase;color:#e8185c;margin-bottom:1.2rem;">Translation Task Platform</p>
-      <h2 style="font-size:2.8rem;font-weight:900;line-height:1.08;
+      <!-- eyebrow -->
+      <p style="font-size:.65rem;font-weight:700;letter-spacing:.15em;
+                text-transform:uppercase;color:#e8185c;margin-bottom:.8rem;">Translation Task Platform</p>
+      <!-- headline -->
+      <h2 style="font-size:clamp(1.4rem,5vw,2.2rem);font-weight:900;line-height:1.1;
                  color:#e8eaf6;letter-spacing:-.03em;margin:0;">
         Translate tasks.<br>
-        <span style="color:#00e5a0;">Get paid<br>instantly.</span>
+        <span style="color:#00e5a0;">Get paid instantly.</span>
       </h2>
-      <p style="margin-top:1.2rem;font-size:.93rem;line-height:1.65;
-                color:#8888aa;max-width:340px;">
-        Find freelance translation jobs from global university clients,
-        submit your work, and receive instant M-Pesa payouts — all in one place.
+      <!-- sub -->
+      <p style="margin-top:.8rem;font-size:.82rem;line-height:1.6;color:#8888aa;">
+        Find translation jobs, submit work, receive instant M-Pesa payouts.
       </p>
-      <div style="display:flex;gap:2rem;margin-top:2rem;">
-        <div><div style="font-size:1.4rem;font-weight:800;color:#e8eaf6;">12k+</div>
-             <div style="font-size:.7rem;color:#8888aa;">Active Writers</div></div>
-        <div><div style="font-size:1.4rem;font-weight:800;color:#e8eaf6;">$2.4M</div>
-             <div style="font-size:.7rem;color:#8888aa;">Paid Out</div></div>
-        <div><div style="font-size:1.4rem;font-weight:800;color:#e8eaf6;">98%</div>
-             <div style="font-size:.7rem;color:#8888aa;">Satisfaction</div></div>
+      <!-- stats row -->
+      <div style="display:flex;gap:1.2rem;margin-top:1.2rem;flex-wrap:wrap;">
+        <div><div style="font-size:1.1rem;font-weight:800;color:#e8eaf6;">12k+</div>
+             <div style="font-size:.65rem;color:#8888aa;">Translators</div></div>
+        <div><div style="font-size:1.1rem;font-weight:800;color:#e8eaf6;">$2.4M</div>
+             <div style="font-size:.65rem;color:#8888aa;">Paid Out</div></div>
+        <div><div style="font-size:1.1rem;font-weight:800;color:#e8eaf6;">98%</div>
+             <div style="font-size:.65rem;color:#8888aa;">On-Time</div></div>
       </div>
     </div>
     """, unsafe_allow_html=True)
