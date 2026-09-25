@@ -90,7 +90,7 @@ margin-left: 0.3rem;
 .navbar-right {
 display: flex;
 align-items: center;
-gap: 1rem;
+gap: 0.8rem;
 }
 .notification-bell {
 position: relative;
@@ -114,7 +114,7 @@ background: #e74c3c;
 border-radius: 50%;
 border: 1.5px solid #0b2d44;
 }
-/* ---------- TASKS ICON (the new toggle) ---------- */
+/* ---------- TASKS ICON ---------- */
 .tasks-icon {
 position: relative;
 cursor: pointer;
@@ -160,6 +160,55 @@ line-height: 1.2;
 .tasks-badge.hidden {
 display: none;
 }
+
+/* AUTH NAV BUTTONS & PROFILE */
+.auth-btn-nav {
+background: #1a6e8c;
+color: white;
+border: 1px solid rgba(255,255,255,0.2);
+padding: 0.45rem 1rem;
+border-radius: 40px;
+font-size: 0.78rem;
+font-weight: 700;
+cursor: pointer;
+transition: 0.15s;
+display: flex;
+align-items: center;
+gap: 0.3rem;
+}
+.auth-btn-nav:hover {
+background: #238bb0;
+transform: translateY(-1px);
+}
+.auth-btn-nav.outline {
+background: transparent;
+border-color: rgba(255,255,255,0.3);
+}
+.auth-btn-nav.outline:hover {
+background: rgba(255,255,255,0.1);
+}
+.post-task-nav-btn {
+background: linear-gradient(135deg, #27ae60, #1e824c);
+color: white;
+border: none;
+padding: 0.45rem 0.95rem;
+border-radius: 40px;
+font-size: 0.78rem;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+transition: 0.15s;
+display: flex;
+align-items: center;
+gap: 0.35rem;
+}
+.post-task-nav-btn:hover {
+background: linear-gradient(135deg, #2ecc71, #27ae60);
+transform: translateY(-1px);
+}
+.user-profile-wrapper {
+position: relative;
+}
 .user-profile {
 display: flex;
 align-items: center;
@@ -200,16 +249,281 @@ color: white;
 font-size: 0.65rem;
 color: #a8d8ea;
 }
-.nav-badge {
-background: #e74c3c;
-color: white;
-font-size: 0.6rem;
-padding: 0.15rem 0.5rem;
-border-radius: 30px;
-font-weight: 700;
-margin-left: 0.3rem;
+
+/* USER DROPDOWN MENU */
+.user-dropdown {
+position: absolute;
+top: 115%;
+right: 0;
+width: 240px;
+background: white;
+border-radius: 16px;
+box-shadow: 0 10px 30px rgba(0, 20, 40, 0.2);
+border: 1px solid #d4e8f2;
+padding: 0.6rem;
+display: none;
+flex-direction: column;
+gap: 0.3rem;
+z-index: 250;
+animation: fadeSlide 0.18s ease;
 }
-/* ---------- PENDING DRAWER (right side) ---------- */
+.user-dropdown.show {
+display: flex;
+}
+.user-dropdown-header {
+padding: 0.6rem;
+border-bottom: 1px solid #edf4f8;
+display: flex;
+flex-direction: column;
+gap: 0.15rem;
+}
+.user-dropdown-header .email {
+font-size: 0.72rem;
+color: #6b93aa;
+word-break: break-all;
+}
+.user-dropdown-header .role-badge {
+font-size: 0.62rem;
+font-weight: 700;
+background: #e2f0e9;
+color: #106a4b;
+padding: 0.1rem 0.5rem;
+border-radius: 20px;
+width: fit-content;
+margin-top: 0.2rem;
+}
+.user-dropdown-item {
+padding: 0.55rem 0.7rem;
+border-radius: 10px;
+font-size: 0.8rem;
+color: #1b3e4f;
+font-weight: 600;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+transition: 0.15s;
+}
+.user-dropdown-item:hover {
+background: #f0f7fc;
+color: #1a6e8c;
+}
+.user-dropdown-item.logout {
+color: #c0392b;
+}
+.user-dropdown-item.logout:hover {
+background: #fdf0ed;
+}
+
+/* ---------- AUTH MODAL ---------- */
+.auth-modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(11, 45, 68, 0.65);
+backdrop-filter: blur(4px);
+z-index: 999;
+display: none;
+align-items: center;
+justify-content: center;
+padding: 1rem;
+animation: fadeIn 0.2s ease;
+}
+.auth-modal-overlay.active {
+display: flex;
+}
+.auth-modal {
+background: white;
+width: 100%;
+max-width: 440px;
+border-radius: 24px;
+box-shadow: 0 20px 45px rgba(0, 30, 60, 0.3);
+padding: 2rem;
+position: relative;
+border: 1px solid #d4e8f2;
+display: flex;
+flex-direction: column;
+gap: 1.2rem;
+animation: scaleUp 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes scaleUp {
+0% { opacity: 0; transform: scale(0.92); }
+100% { opacity: 1; transform: scale(1); }
+}
+.auth-modal-close {
+position: absolute;
+top: 1.2rem;
+right: 1.2rem;
+background: #f0f4f8;
+border: none;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+font-size: 1.1rem;
+color: #6b93aa;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: 0.15s;
+}
+.auth-modal-close:hover {
+background: #e1ecf4;
+color: #0b2d44;
+}
+.auth-header {
+text-align: center;
+}
+.auth-header h3 {
+font-size: 1.4rem;
+color: #0b2d44;
+font-weight: 800;
+}
+.auth-header p {
+font-size: 0.82rem;
+color: #6b93aa;
+margin-top: 0.3rem;
+}
+.auth-tabs {
+display: flex;
+background: #f0f4f8;
+border-radius: 40px;
+padding: 0.3rem;
+gap: 0.3rem;
+}
+.auth-tab {
+flex: 1;
+border: none;
+background: transparent;
+padding: 0.55rem;
+border-radius: 30px;
+font-size: 0.8rem;
+font-weight: 700;
+color: #6b93aa;
+cursor: pointer;
+transition: 0.15s;
+text-align: center;
+}
+.auth-tab.active {
+background: white;
+color: #0b2d44;
+box-shadow: 0 4px 10px rgba(0,20,40,0.08);
+}
+.auth-form {
+display: flex;
+flex-direction: column;
+gap: 0.9rem;
+}
+.auth-group {
+display: flex;
+flex-direction: column;
+gap: 0.35rem;
+}
+.auth-group label {
+font-size: 0.75rem;
+font-weight: 700;
+color: #1b3e4f;
+}
+.auth-group input, .auth-group select, .auth-group textarea {
+width: 100%;
+padding: 0.7rem 0.9rem;
+border-radius: 12px;
+border: 1.5px solid #d4e8f2;
+font-size: 0.85rem;
+font-family: inherit;
+outline: none;
+transition: 0.15s;
+background: #fafcfe;
+color: #0b2d44;
+}
+.auth-group input:focus, .auth-group select:focus, .auth-group textarea:focus {
+border-color: #1a6e8c;
+box-shadow: 0 0 0 3.5px rgba(26, 110, 140, 0.15);
+background: white;
+}
+.role-pill-group {
+display: flex;
+gap: 0.5rem;
+}
+.role-pill {
+flex: 1;
+border: 1.5px solid #d4e8f2;
+background: #fafcfe;
+padding: 0.6rem 0.5rem;
+border-radius: 12px;
+cursor: pointer;
+text-align: center;
+transition: 0.15s;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.2rem;
+}
+.role-pill span.icon { font-size: 1.2rem; }
+.role-pill span.title { font-size: 0.75rem; font-weight: 700; color: #1b3e4f; }
+.role-pill.active {
+border-color: #1a6e8c;
+background: #eaf4fa;
+box-shadow: 0 4px 12px rgba(26, 110, 140, 0.12);
+}
+.auth-submit-btn {
+background: linear-gradient(135deg, #0b2d44, #1a6e8c);
+color: white;
+border: none;
+padding: 0.8rem;
+border-radius: 40px;
+font-size: 0.88rem;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 6px 14px rgba(11, 45, 68, 0.25);
+transition: 0.15s;
+margin-top: 0.4rem;
+}
+.auth-submit-btn:hover {
+background: linear-gradient(135deg, #103b57, #238bb0);
+transform: translateY(-1px);
+}
+.demo-accounts-block {
+background: #f8fbfe;
+border: 1px dashed #c5ddef;
+border-radius: 14px;
+padding: 0.75rem;
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+.demo-title {
+font-size: 0.68rem;
+font-weight: 700;
+color: #6b93aa;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+.demo-btns {
+display: flex;
+gap: 0.4rem;
+}
+.demo-btn {
+flex: 1;
+border: 1px solid #c8deed;
+background: white;
+padding: 0.4rem 0.5rem;
+border-radius: 8px;
+font-size: 0.7rem;
+font-weight: 600;
+color: #1a6e8c;
+cursor: pointer;
+transition: 0.15s;
+white-space: nowrap;
+}
+.demo-btn:hover {
+background: #eaf4fa;
+border-color: #1a6e8c;
+}
+
+/* ---------- PENDING DRAWER ---------- */
 .pending-drawer {
 position: fixed;
 top: 0;
@@ -459,7 +773,8 @@ border: 1px dashed #d4e8f2;
 font-size: 2rem;
 opacity: 0.5;
 }
-/* ---------- SIDEBAR (LEFT DRAWER) ---------- */
+
+/* ---------- SIDEBAR ---------- */
 .sidebar {
 position: fixed;
 top: 0;
@@ -508,7 +823,6 @@ transition: 0.15s;
 background: #eef5fa;
 color: #0b2d44;
 }
-/* Sidebar nav items (Active Tasks toggle) */
 .sidebar-nav {
 display: flex;
 flex-direction: column;
@@ -568,7 +882,6 @@ text-align: center;
 background: #b8d0e0;
 color: #3f6c83;
 }
-/* Collapsible active tasks container inside sidebar */
 .sidebar-active-tasks {
 max-height: 0;
 overflow: hidden;
@@ -668,7 +981,6 @@ background: #e5f5e8;
 border-color: #b8dfc6;
 animation: none;
 }
-/* Inline submission textarea inside sidebar card */
 .sidebar-active-textarea {
 width: 100%;
 border: 1px solid #bed7e7;
@@ -770,7 +1082,6 @@ border: 1px dashed #d4e8f2;
 font-size: 1.6rem;
 opacity: 0.5;
 }
-/* Translator Rating Card (sidebar) */
 .translator-card {
 background: linear-gradient(135deg, #fefefe, #f4fafd);
 border: 1px solid #d4e8f2;
@@ -1009,7 +1320,6 @@ max-width: 1300px;
 width: 100%;
 padding: 1.5rem 1.5rem 2rem 1.5rem;
 }
-/* ---------- PLATFORM STATS BAR ---------- */
 .platform-stats {
 display: flex;
 flex-wrap: wrap;
@@ -1047,7 +1357,6 @@ font-weight: 700;
 color: #0b2d44;
 font-size: 1rem;
 }
-/* ---------- SECTION HEADER ---------- */
 .section-header {
 display: flex;
 justify-content: space-between;
@@ -1079,7 +1388,6 @@ animation: blink 1.5s infinite;
 0%, 100% { opacity: 1; }
 50% { opacity: 0.5; }
 }
-/* ---------- FILTER TABS ---------- */
 .filter-tabs {
 display: flex;
 gap: 0.4rem;
@@ -1105,7 +1413,6 @@ color: white;
 border-color: #0b2d44;
 box-shadow: 0 4px 10px -4px #0b2d44;
 }
-/* ---------- TASK GRID ---------- */
 .task-grid {
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -1149,11 +1456,6 @@ background: #f2faf5;
 border-left: 5px solid #2b8c5a;
 opacity: 0.92;
 }
-.task-card.highlighted.taken {
-border: 3px solid #f39c12;
-background: #fffdf5;
-}
-/* ---------- CLIENT INFO ---------- */
 .client-info {
 display: flex;
 align-items: center;
@@ -1223,7 +1525,6 @@ padding: 0.2rem 0.5rem;
 border-radius: 30px;
 white-space: nowrap;
 }
-/* ---------- TASK CONTENT ---------- */
 .task-top-row {
 display: flex;
 justify-content: space-between;
@@ -1318,29 +1619,7 @@ flex-wrap: wrap;
 gap: 0.5rem;
 margin-bottom: 0.6rem;
 }
-.task-lang {
-display: flex;
-align-items: center;
-gap: 0.3rem;
-font-size: 0.72rem;
-color: #3f6c83;
-background: #f0f6fb;
-padding: 0.25rem 0.7rem;
-border-radius: 50px;
-font-weight: 500;
-}
-.task-deadline {
-display: flex;
-align-items: center;
-gap: 0.3rem;
-font-size: 0.72rem;
-color: #8a6d1a;
-background: #fef8e8;
-padding: 0.25rem 0.7rem;
-border-radius: 50px;
-font-weight: 500;
-}
-.task-wordcount {
+.task-wordcount, .task-deadline {
 display: flex;
 align-items: center;
 gap: 0.3rem;
@@ -1351,6 +1630,10 @@ padding: 0.25rem 0.7rem;
 border-radius: 50px;
 font-weight: 500;
 }
+.task-deadline {
+color: #8a6d1a;
+background: #fef8e8;
+}
 .task-posted {
 font-size: 0.68rem;
 color: #9ab8cc;
@@ -1359,9 +1642,6 @@ align-items: center;
 gap: 0.25rem;
 margin-bottom: 0.7rem;
 font-weight: 500;
-}
-.task-posted .clock {
-font-size: 0.75rem;
 }
 .task-actions {
 display: flex;
@@ -1396,11 +1676,6 @@ box-shadow: 0 6px 12px -6px #1a6e8c60;
 background: #0f5875;
 transform: scale(1.01);
 }
-.btn:disabled {
-opacity: 0.5;
-cursor: not-allowed;
-filter: grayscale(0.4);
-}
 .status-indicator {
 font-size: 0.7rem;
 padding: 0.3rem 0.8rem;
@@ -1412,15 +1687,6 @@ display: inline-block;
 align-self: flex-start;
 margin-top: 0.5rem;
 }
-.submitted .status-indicator {
-background: #c4e6d1;
-color: #135c32;
-}
-.taken .status-indicator {
-background: #f3e1b3;
-color: #885e1a;
-}
-/* ---------- SUBMISSION PANEL ---------- */
 .submission-panel {
 margin-top: 0.9rem;
 background: #fafdff;
@@ -1433,10 +1699,6 @@ animation: fadeSlide 0.2s ease;
 .submission-panel.open {
 display: block;
 }
-@keyframes fadeSlide {
-0% { opacity: 0; transform: translateY(-6px); }
-100% { opacity: 1; transform: translateY(0); }
-}
 .submission-panel textarea {
 width: 100%;
 border: 1px solid #bed7e7;
@@ -1447,13 +1709,7 @@ font-family: inherit;
 resize: vertical;
 min-height: 80px;
 background: #ffffff;
-transition: 0.15s;
-color: #0d3142;
-}
-.submission-panel textarea:focus {
 outline: none;
-border-color: #1a6e8c;
-box-shadow: 0 0 0 3px #1a6e8c20;
 }
 .submission-panel .panel-actions {
 display: flex;
@@ -1472,18 +1728,11 @@ background: transparent;
 border: 1px solid #b8cfdd;
 color: #1e5777;
 }
-.btn-ghost:hover:not(:disabled) {
-background: #e6f0f7;
-}
 .btn-send {
 background: #288f5b;
 color: white;
 box-shadow: 0 4px 10px -4px #288f5b;
 }
-.btn-send:hover:not(:disabled) {
-background: #1f7349;
-}
-/* ---------- LOAD MORE ---------- */
 .load-more-wrap {
 display: flex;
 justify-content: center;
@@ -1501,12 +1750,6 @@ cursor: pointer;
 transition: 0.15s;
 box-shadow: 0 4px 12px -4px rgba(0,0,0,0.06);
 }
-.load-more-btn:hover {
-background: #f0f8ff;
-border-color: #1a6e8c;
-transform: translateY(-1px);
-}
-/* ---------- FOOTER ---------- */
 .site-footer {
 width: 100%;
 background: #0b2d44;
@@ -1527,7 +1770,6 @@ color: white;
 font-size: 0.85rem;
 margin-bottom: 0.8rem;
 font-weight: 700;
-letter-spacing: 0.3px;
 }
 .footer-col a {
 display: block;
@@ -1535,10 +1777,6 @@ color: #a8c8da;
 text-decoration: none;
 font-size: 0.78rem;
 margin-bottom: 0.5rem;
-transition: 0.15s;
-}
-.footer-col a:hover {
-color: white;
 }
 .footer-bottom {
 max-width: 1300px;
@@ -1552,20 +1790,6 @@ font-size: 0.72rem;
 color: #7a9fb5;
 gap: 0.5rem;
 }
-.trust-badges {
-display: flex;
-gap: 1rem;
-align-items: center;
-flex-wrap: wrap;
-}
-.trust-badges span {
-display: flex;
-align-items: center;
-gap: 0.3rem;
-font-size: 0.7rem;
-color: #8bb8d0;
-}
-/* ---------- TOAST ---------- */
 .toast-message {
 position: fixed;
 bottom: 2rem;
@@ -1593,31 +1817,144 @@ transform: translateX(-50%) scale(1);
 .toast-message.warning {
 border-left-color: #e67e22;
 }
-@media (max-width: 700px) {
-.navbar { padding: 0.7rem 1rem; }
-.navbar-brand h1 { font-size: 1.1rem; }
-.navbar-brand span { display: none; }
-.navbar-right .user-info { display: none; }
-.app-wrapper { padding: 1rem; }
-.platform-stats { gap: 0.5rem; }
-.stat-pill { padding: 0.5rem 0.9rem; font-size: 0.75rem; }
-.task-grid { grid-template-columns: 1fr; }
-.section-header h2 { font-size: 1.1rem; }
-.footer-inner { flex-direction: column; gap: 1.2rem; }
-.sidebar { width: 320px; padding: 1.2rem; }
-.pending-drawer { width: 340px; padding: 1.2rem; }
-.tasks-icon .label { display: none; }
-}
 </style>
 </head>
 <body>
-<!-- ========== SIDEBAR (LEFT DRAWER) ========== -->
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-overlay" id="authModalOverlay">
+<div class="auth-modal">
+<button class="auth-modal-close" id="authModalCloseBtn">✕</button>
+<div class="auth-header">
+<h3 id="authModalTitle">Welcome Back</h3>
+<p id="authModalSub">Log in to your MegaQash account</p>
+</div>
+
+<div class="auth-tabs">
+<button class="auth-tab active" id="tabLoginBtn">Log In</button>
+<button class="auth-tab" id="tabRegisterBtn">Create Account</button>
+</div>
+
+<!-- LOGIN FORM -->
+<form class="auth-form" id="loginForm">
+<div class="auth-group">
+<label>Email Address</label>
+<input type="email" id="loginEmail" placeholder="e.g. client@nyu.edu" required>
+</div>
+<div class="auth-group">
+<label>Password</label>
+<input type="password" id="loginPassword" placeholder="••••••••" required>
+</div>
+<button type="submit" class="auth-submit-btn">⚡ Log In</button>
+
+<div class="demo-accounts-block">
+<span class="demo-title">Quick 1-Click Demo Logins</span>
+<div class="demo-btns">
+<button type="button" class="demo-btn" id="demoClientBtn">🎓 Demo Client (NYU)</button>
+<button type="button" class="demo-btn" id="demoWriterBtn">✍️ Demo Translator</button>
+</div>
+</div>
+</form>
+
+<!-- REGISTER FORM -->
+<form class="auth-form" id="registerForm" style="display: none;">
+<div class="auth-group">
+<label>Account Type</label>
+<div class="role-pill-group">
+<div class="role-pill active" id="roleClientPill" data-role="client">
+<span class="icon">🎓</span>
+<span class="title">Client / Employer</span>
+</div>
+<div class="role-pill" id="roleWriterPill" data-role="writer">
+<span class="icon">✍️</span>
+<span class="title">Freelance Writer</span>
+</div>
+</div>
+</div>
+<div class="auth-group">
+<label>Full Name</label>
+<input type="text" id="regName" placeholder="e.g. Emily Carter" required>
+</div>
+<div class="auth-group">
+<label>Email Address</label>
+<input type="email" id="regEmail" placeholder="e.g. emily@nyu.edu" required>
+</div>
+<div class="auth-group">
+<label>Password</label>
+<input type="password" id="regPassword" placeholder="Minimum 6 characters" required minlength="6">
+</div>
+<div class="auth-group" id="uniGroup">
+<label>University / Institution Name</label>
+<input type="text" id="regUni" placeholder="e.g. NYU / Oxford / Harvard">
+</div>
+<div class="auth-group">
+<label>Country</label>
+<input type="text" id="regCountry" placeholder="e.g. United States 🇺🇸">
+</div>
+<button type="submit" class="auth-submit-btn">🚀 Create Account</button>
+</form>
+</div>
+</div>
+
+<!-- CLIENT POST TASK MODAL -->
+<div class="auth-modal-overlay" id="postTaskModalOverlay">
+<div class="auth-modal" style="max-width: 500px;">
+<button class="auth-modal-close" id="postTaskModalCloseBtn">✕</button>
+<div class="auth-header">
+<h3>Post New Translation Task</h3>
+<p>Publish a paragraph for freelance translators</p>
+</div>
+<form class="auth-form" id="postTaskForm">
+<div class="auth-group">
+<label>Target Language</label>
+<select id="postLang" required>
+<option value="Spanish 🇪🇸">Spanish 🇪🇸</option>
+<option value="French 🇫🇷">French 🇫🇷</option>
+<option value="German 🇩🇪">German 🇩🇪</option>
+<option value="Japanese 🇯🇵">Japanese 🇯🇵</option>
+<option value="Mandarin 🇨🇳">Mandarin 🇨🇳</option>
+<option value="Swahili 🇰🇪">Swahili 🇰🇪</option>
+</select>
+</div>
+<div class="auth-group">
+<label>English Source Paragraph</label>
+<textarea id="postParagraph" rows="4" placeholder="Enter the English text to be translated..." required></textarea>
+</div>
+<div class="auth-group">
+<label>Reward Pay ($ USD)</label>
+<select id="postPrice" required>
+<option value="0.20">$0.20</option>
+<option value="0.30">$0.30</option>
+<option value="0.40">$0.40</option>
+<option value="0.50" selected>$0.50</option>
+<option value="0.75">$0.75</option>
+<option value="0.80">$0.80</option>
+<option value="1.00">$1.00</option>
+</select>
+</div>
+<div class="auth-group">
+<label>Turnaround Deadline</label>
+<select id="postDeadline" required>
+<option value="2">2 Hours (Urgent)</option>
+<option value="4">4 Hours</option>
+<option value="8">8 Hours</option>
+<option value="12">12 Hours</option>
+<option value="24">24 Hours</option>
+</select>
+</div>
+<button type="submit" class="auth-submit-btn" style="background: linear-gradient(135deg, #27ae60, #1e824c);">
+✨ Publish Task to Marketplace
+</button>
+</form>
+</div>
+</div>
+
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
 <div class="sidebar-header">
 <h3>👤 Account</h3>
 <button class="sidebar-close" id="sidebarCloseBtn" aria-label="Close sidebar">✕</button>
 </div>
-<!-- Sidebar Navigation: Active Tasks toggle -->
 <div class="sidebar-nav">
 <div class="sidebar-nav-item" id="activeTasksToggle" role="button" aria-expanded="false">
 <div class="sidebar-nav-left">
@@ -1630,17 +1967,15 @@ border-left-color: #e67e22;
 </div>
 </div>
 </div>
-<!-- Collapsible Active Tasks panel -->
 <div class="sidebar-active-tasks" id="sidebarActiveTasks">
 <div class="sidebar-active-list" id="sidebarActiveList"></div>
 </div>
-<!-- Translator Rating Card (name removed) -->
 <div class="translator-card">
 <div class="translator-card-header">
-<div class="translator-big-avatar">TL</div>
+<div class="translator-big-avatar" id="sidebarAvatar">TL</div>
 <div class="translator-name-block">
-<span class="t-name">Translator</span>
-<span class="t-tier">🏅 Gold Tier</span>
+<span class="t-name" id="sidebarUserName">Translator</span>
+<span class="t-tier" id="sidebarUserRole">🏅 Gold Tier</span>
 </div>
 </div>
 <div class="rating-grid">
@@ -1661,37 +1996,7 @@ border-left-color: #e67e22;
 <span class="rs-value green">96%</span>
 </div>
 </div>
-<div class="rating-bars">
-<div class="rating-bar-row">
-<div class="rating-bar-top">
-<span>Translation Quality</span>
-<span>96%</span>
 </div>
-<div class="rating-bar-track">
-<div class="rating-bar-fill quality" style="width: 96%;"></div>
-</div>
-</div>
-<div class="rating-bar-row">
-<div class="rating-bar-top">
-<span>Timely Delivery</span>
-<span>98%</span>
-</div>
-<div class="rating-bar-track">
-<div class="rating-bar-fill timely" style="width: 98%;"></div>
-</div>
-</div>
-<div class="rating-bar-row">
-<div class="rating-bar-top">
-<span>Client Acceptance</span>
-<span>96%</span>
-</div>
-<div class="rating-bar-track">
-<div class="rating-bar-fill accept" style="width: 96%;"></div>
-</div>
-</div>
-</div>
-</div>
-<!-- Withdrawal History -->
 <div class="section-label">
 <span>📤 Withdrawal history · M-Pesa</span>
 </div>
@@ -1712,80 +2017,28 @@ border-left-color: #e67e22;
 </div>
 <span class="withdrawal-status">✅ Success</span>
 </div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 3.20</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8634-KE</span>
 </div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 7.00</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8521-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 12.40</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8409-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 4.80</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8317-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 6.30</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8205-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 9.10</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8112-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-</div>
-<!-- Sidebar Footer Links -->
 <div class="sidebar-footer">
 <div class="sidebar-footer-item">⚙️ Account Settings</div>
-<div class="sidebar-footer-item">🔔 Notification Preferences</div>
 <div class="sidebar-footer-item">🛡️ Security & Privacy</div>
-<div class="sidebar-footer-item">❓ Help & Support</div>
 </div>
 </aside>
-<!-- ========== PENDING DRAWER (RIGHT SIDE) ========== -->
+
+<!-- PENDING DRAWER -->
 <aside class="pending-drawer" id="pendingDrawer">
 <div class="pending-drawer-header">
 <h3>📋 Pending Tasks · Awaiting Approval</h3>
-<button class="pending-drawer-close" id="pendingDrawerCloseBtn" aria-label="Close pending drawer">✕</button>
+<button class="pending-drawer-close" id="pendingDrawerCloseBtn">✕</button>
 </div>
 <div class="pending-drawer-list" id="pendingDrawerList"></div>
 </aside>
-<!-- Overlay for sidebar & pending drawer -->
 <div class="overlay" id="overlay"></div>
-<!-- ========== NAVIGATION BAR ========== -->
+
+<!-- NAVIGATION BAR -->
 <nav class="navbar">
 <div class="navbar-left">
-<button class="menu-toggle" id="menuToggleBtn" aria-label="Toggle sidebar">
-<span></span>
-<span></span>
-<span></span>
+<button class="menu-toggle" id="menuToggleBtn">
+<span></span><span></span><span></span>
 </button>
 <div class="navbar-brand">
 <span class="logo-icon">✍️</span>
@@ -1793,30 +2046,56 @@ border-left-color: #e67e22;
 <span>Translation Division</span>
 </div>
 </div>
+
 <div class="navbar-right">
+<!-- Post Task button for Clients -->
+<button class="post-task-nav-btn" id="navPostTaskBtn" style="display: none;">
+<span>➕</span> Post Task
+</button>
+
 <div class="notification-bell" title="Notifications">
-🔔
-<span class="bell-dot"></span>
+🔔 <span class="bell-dot"></span>
 </div>
-<!-- TASKS ICON — opens pending tasks awaiting approval -->
-<div class="tasks-icon" id="tasksIconBtn" title="My pending tasks · awaiting approval">
+
+<div class="tasks-icon" id="tasksIconBtn" title="My pending tasks">
 <span class="icon">📋</span>
 <span class="label">Tasks</span>
 <span class="tasks-badge hidden" id="tasksBadge">0</span>
 </div>
-<div class="user-profile">
-<div class="user-avatar">TL</div>
-<div class="user-info">
-<span class="name">Translator</span>
-<span class="role">Freelance</span>
+
+<!-- LOGGED OUT NAV BUTTONS -->
+<div id="loggedOutNav" style="display: flex; gap: 0.5rem;">
+<button class="auth-btn-nav outline" id="navLoginBtn">🔑 Log In</button>
+<button class="auth-btn-nav" id="navRegisterBtn">📝 Sign Up</button>
 </div>
-<span class="nav-badge">3</span>
+
+<!-- LOGGED IN USER PROFILE -->
+<div class="user-profile-wrapper" id="loggedInNav" style="display: none;">
+<div class="user-profile" id="userProfileBtn">
+<div class="user-avatar" id="navAvatar">TL</div>
+<div class="user-info">
+<span class="name" id="navUserName">Translator</span>
+<span class="role" id="navUserRole">Freelance</span>
+</div>
+<span class="nav-badge" id="navRoleBadge">Writter</span>
+</div>
+<!-- DROPDOWN -->
+<div class="user-dropdown" id="userDropdown">
+<div class="user-dropdown-header">
+<strong id="dropName">User Name</strong>
+<span class="email" id="dropEmail">user@example.com</span>
+<span class="role-badge" id="dropRole">Client Account</span>
+</div>
+<div class="user-dropdown-item" id="dropPostTask" style="display:none;">➕ Post New Task</div>
+<div class="user-dropdown-item" id="dropAccount">👤 My Account Profile</div>
+<div class="user-dropdown-item logout" id="dropLogout">🚪 Log Out</div>
+</div>
 </div>
 </div>
 </nav>
-<!-- ========== MAIN APP ========== -->
+
+<!-- MAIN APP -->
 <div class="app-wrapper">
-<!-- Platform Stats -->
 <div class="platform-stats">
 <div class="stat-pill">
 <span class="dot"></span>
@@ -1832,12 +2111,9 @@ border-left-color: #e67e22;
 <span>✅</span> 1,247 tasks completed
 </div>
 </div>
-<!-- ========== SECTION HEADER ========== -->
+
 <div class="section-header">
-<h2>
-Available Translation Tasks
-<span class="live-tag">Live</span>
-</h2>
+<h2>Available Translation Tasks <span class="live-tag">Live</span></h2>
 <div class="filter-tabs" id="filterTabs">
 <button class="filter-tab active" data-filter="all">All</button>
 <button class="filter-tab" data-filter="0.20">$0.20</button>
@@ -1849,14 +2125,15 @@ Available Translation Tasks
 <button class="filter-tab" data-filter="1.00">$1.00</button>
 </div>
 </div>
-<!-- ========== TASK GRID ========== -->
+
 <div class="task-grid" id="taskGrid"></div>
-<!-- ========== LOAD MORE ========== -->
+
 <div class="load-more-wrap" id="loadMoreWrap">
 <button class="load-more-btn" id="loadMoreBtn">Load more questions</button>
 </div>
 </div>
-<!-- ========== FOOTER ========== -->
+
+<!-- FOOTER -->
 <footer class="site-footer">
 <div class="footer-inner">
 <div class="footer-col">
@@ -1864,29 +2141,16 @@ Available Translation Tasks
 <a href="#">About Us</a>
 <a href="#">How It Works</a>
 <a href="#">Careers</a>
-<a href="#">Contact</a>
 </div>
 <div class="footer-col">
 <h4>For Translators</h4>
 <a href="#">Task Guidelines</a>
 <a href="#">Payment Methods</a>
-<a href="#">Quality Standards</a>
-<a href="#">FAQ</a>
 </div>
 <div class="footer-col">
-<h4>Legal</h4>
+<h4>Legal & Trust</h4>
 <a href="#">Terms of Service</a>
 <a href="#">Privacy Policy</a>
-<a href="#">Cookie Policy</a>
-<a href="#">GDPR Compliance</a>
-</div>
-<div class="footer-col">
-<h4>Trust & Security</h4>
-<div class="trust-badges">
-<span>🔒 SSL Secured</span>
-<span>🛡️ GDPR</span>
-<span>💳 PCI DSS</span>
-</div>
 </div>
 </div>
 <div class="footer-bottom">
@@ -1894,10 +2158,332 @@ Available Translation Tasks
 <span>Made with 🌍 for translators worldwide</span>
 </div>
 </footer>
-<!-- ========== TOAST ========== -->
+
 <div class="toast-message" id="toast"></div>
+
 <script>
 (function() {
+// ---------- AUTHENTICATION & USER MANAGEMENT ----------
+const DEFAULT_USERS = [
+    {
+        name: "Emily Carter",
+        email: "client@nyu.edu",
+        password: "password123",
+        role: "client",
+        uni: "NYU",
+        country: "United States 🇺🇸",
+        flag: "🇺🇸"
+    },
+    {
+        name: "Freelance Translator",
+        email: "translator@megaqash.com",
+        password: "password123",
+        role: "writer",
+        uni: "Gold Writer",
+        country: "Kenya 🇰🇪",
+        flag: "🇰🇪"
+    }
+];
+
+function getUsers() {
+    const saved = localStorage.getItem('megaqash_users');
+    if (saved) return JSON.parse(saved);
+    localStorage.setItem('megaqash_users', JSON.stringify(DEFAULT_USERS));
+    return DEFAULT_USERS;
+}
+
+function saveUser(user) {
+    const users = getUsers();
+    users.push(user);
+    localStorage.setItem('megaqash_users', JSON.stringify(users));
+}
+
+function getCurrentUser() {
+    const saved = localStorage.getItem('megaqash_current_user');
+    return saved ? JSON.parse(saved) : DEFAULT_USERS[1]; // default to translator
+}
+
+function setCurrentUser(user) {
+    if (user) {
+        localStorage.setItem('megaqash_current_user', JSON.stringify(user));
+    } else {
+        localStorage.removeItem('megaqash_current_user');
+    }
+    updateAuthNavbarUI();
+}
+
+// Navbar UI updates
+const loggedOutNav = document.getElementById('loggedOutNav');
+const loggedInNav = document.getElementById('loggedInNav');
+const navPostTaskBtn = document.getElementById('navPostTaskBtn');
+const navAvatar = document.getElementById('navAvatar');
+const navUserName = document.getElementById('navUserName');
+const navUserRole = document.getElementById('navUserRole');
+const navRoleBadge = document.getElementById('navRoleBadge');
+const userDropdown = document.getElementById('userDropdown');
+const dropName = document.getElementById('dropName');
+const dropEmail = document.getElementById('dropEmail');
+const dropRole = document.getElementById('dropRole');
+const dropPostTask = document.getElementById('dropPostTask');
+
+function updateAuthNavbarUI() {
+    const user = getCurrentUser();
+    if (user) {
+        loggedOutNav.style.display = 'none';
+        loggedInNav.style.display = 'flex';
+        
+        const initials = user.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        navAvatar.textContent = initials;
+        navUserName.textContent = user.name;
+        navUserRole.textContent = user.role === 'client' ? 'Client / Employer' : 'Freelance Writer';
+        navRoleBadge.textContent = user.role === 'client' ? 'Client' : 'Writer';
+        
+        dropName.textContent = user.name;
+        dropEmail.textContent = user.email;
+        dropRole.textContent = user.role === 'client' ? '🎓 Client (Employer)' : '✍️ Freelance Writer';
+        
+        if (user.role === 'client') {
+            navPostTaskBtn.style.display = 'flex';
+            dropPostTask.style.display = 'flex';
+        } else {
+            navPostTaskBtn.style.display = 'none';
+            dropPostTask.style.display = 'none';
+        }
+        
+        document.getElementById('sidebarUserName').textContent = user.name;
+        document.getElementById('sidebarAvatar').textContent = initials;
+        document.getElementById('sidebarUserRole').textContent = user.role === 'client' ? '🎓 Client Account' : '🏅 Gold Tier';
+    } else {
+        loggedOutNav.style.display = 'flex';
+        loggedInNav.style.display = 'none';
+        navPostTaskBtn.style.display = 'none';
+    }
+}
+
+// AUTH MODAL LOGIC
+const authModalOverlay = document.getElementById('authModalOverlay');
+const authModalCloseBtn = document.getElementById('authModalCloseBtn');
+const tabLoginBtn = document.getElementById('tabLoginBtn');
+const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const navLoginBtn = document.getElementById('navLoginBtn');
+const navRegisterBtn = document.getElementById('navRegisterBtn');
+const userProfileBtn = document.getElementById('userProfileBtn');
+const dropLogout = document.getElementById('dropLogout');
+const roleClientPill = document.getElementById('roleClientPill');
+const roleWriterPill = document.getElementById('roleWriterPill');
+let selectedRegRole = 'client';
+
+function openAuthModal(mode) {
+    authModalOverlay.classList.add('active');
+    if (mode === 'register') {
+        tabRegisterBtn.click();
+    } else {
+        tabLoginBtn.click();
+    }
+}
+function closeAuthModal() {
+    authModalOverlay.classList.remove('active');
+}
+
+navLoginBtn.addEventListener('click', () => openAuthModal('login'));
+navRegisterBtn.addEventListener('click', () => openAuthModal('register'));
+authModalCloseBtn.addEventListener('click', closeAuthModal);
+
+tabLoginBtn.addEventListener('click', () => {
+    tabLoginBtn.classList.add('active');
+    tabRegisterBtn.classList.remove('active');
+    loginForm.style.display = 'flex';
+    registerForm.style.display = 'none';
+    document.getElementById('authModalTitle').textContent = 'Welcome Back';
+    document.getElementById('authModalSub').textContent = 'Log in to your MegaQash account';
+});
+
+tabRegisterBtn.addEventListener('click', () => {
+    tabRegisterBtn.classList.add('active');
+    tabLoginBtn.classList.remove('active');
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'flex';
+    document.getElementById('authModalTitle').textContent = 'Create Account';
+    document.getElementById('authModalSub').textContent = 'Join as a Client or Freelance Writer';
+});
+
+roleClientPill.addEventListener('click', () => {
+    selectedRegRole = 'client';
+    roleClientPill.classList.add('active');
+    roleWriterPill.classList.remove('active');
+    document.getElementById('uniGroup').style.display = 'flex';
+});
+
+roleWriterPill.addEventListener('click', () => {
+    selectedRegRole = 'writer';
+    roleWriterPill.classList.add('active');
+    roleClientPill.classList.remove('active');
+    document.getElementById('uniGroup').style.display = 'none';
+});
+
+// LOGIN ACTION
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    
+    const users = getUsers();
+    const found = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+    
+    if (found) {
+        setCurrentUser(found);
+        closeAuthModal();
+        showToast(`Logged in successfully as ${found.name}!`);
+    } else {
+        showToast('Invalid email or password. Please try again.', true);
+    }
+});
+
+// REGISTER ACTION
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const uni = document.getElementById('regUni').value.trim() || 'Independent';
+    const country = document.getElementById('regCountry').value.trim() || 'Global 🌍';
+    
+    const users = getUsers();
+    if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        showToast('An account with this email already exists!', true);
+        return;
+    }
+    
+    const newUser = {
+        name,
+        email,
+        password,
+        role: selectedRegRole,
+        uni,
+        country,
+        flag: country.includes('🇺🇸') ? '🇺🇸' : (country.includes('🇬🇧') ? '🇬🇧' : '🌍')
+    };
+    
+    saveUser(newUser);
+    setCurrentUser(newUser);
+    closeAuthModal();
+    showToast(`Account created! Welcome, ${newUser.name}.`);
+});
+
+// 1-CLICK DEMO LOGINS
+document.getElementById('demoClientBtn').addEventListener('click', () => {
+    const users = getUsers();
+    const client = users.find(u => u.role === 'client') || DEFAULT_USERS[0];
+    setCurrentUser(client);
+    closeAuthModal();
+    showToast(`Logged in as Demo Client (${client.name})`);
+});
+
+document.getElementById('demoWriterBtn').addEventListener('click', () => {
+    const users = getUsers();
+    const writer = users.find(u => u.role === 'writer') || DEFAULT_USERS[1];
+    setCurrentUser(writer);
+    closeAuthModal();
+    showToast(`Logged in as Demo Writer (${writer.name})`);
+});
+
+// DROPDOWN & LOGOUT
+userProfileBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    userDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+    if (!userDropdown.contains(e.target) && e.target !== userProfileBtn) {
+        userDropdown.classList.remove('show');
+    }
+});
+
+dropLogout.addEventListener('click', () => {
+    setCurrentUser(null);
+    userDropdown.classList.remove('show');
+    showToast('Logged out successfully.');
+});
+
+// POST TASK MODAL (FOR CLIENTS)
+const postTaskModalOverlay = document.getElementById('postTaskModalOverlay');
+const postTaskModalCloseBtn = document.getElementById('postTaskModalCloseBtn');
+const postTaskForm = document.getElementById('postTaskForm');
+
+function openPostTaskModal() {
+    const user = getCurrentUser();
+    if (!user || user.role !== 'client') {
+        showToast('Please log in with a Client account to post tasks.', true);
+        openAuthModal('login');
+        return;
+    }
+    postTaskModalOverlay.classList.add('active');
+}
+function closePostTaskModal() {
+    postTaskModalOverlay.classList.remove('active');
+}
+
+navPostTaskBtn.addEventListener('click', openPostTaskModal);
+dropPostTask.addEventListener('click', () => {
+    userDropdown.classList.remove('show');
+    openPostTaskModal();
+});
+postTaskModalCloseBtn.addEventListener('click', closePostTaskModal);
+
+postTaskForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = getCurrentUser();
+    const lang = document.getElementById('postLang').value;
+    const paragraph = document.getElementById('postParagraph').value.trim();
+    const price = parseFloat(document.getElementById('postPrice').value);
+    const deadlineHours = parseInt(document.getElementById('postDeadline').value, 10);
+    
+    if (!paragraph) return;
+    
+    const newTaskId = translationTasks.length + 1;
+    const refId = `#MQ-2024-${String(newTaskId).padStart(4, '0')}`;
+    
+    const newTask = {
+        id: newTaskId,
+        refId: refId,
+        description: `Translate the following paragraph into ${lang.split(' ')[0]}: '${paragraph}'`,
+        lang: `English → ${lang.split(' ')[0]}`,
+        langFlag: lang.split(' ')[1] || '🌍',
+        price: price,
+        deadlineHours: deadlineHours,
+        isHot: true,
+        difficulty: { label: "Intermediate", class: "intermediate" },
+        wordCount: Math.max(1, Math.round(paragraph.length / 5)),
+        postedMinutesAgo: 0,
+        client: {
+            name: user ? user.name : 'Client',
+            flag: user ? user.flag : '🎓',
+            country: user ? user.country : 'United States',
+            uni: user ? user.uni : 'University',
+            rating: '5.0',
+            responseTime: 1
+        }
+    };
+    
+    translationTasks.unshift(newTask);
+    tasksState.unshift({
+        ...newTask,
+        taken: false,
+        submitted: false,
+        submissionOpen: false,
+        takenAt: null,
+        sidebarDraft: ''
+    });
+    
+    renderTasks();
+    closePostTaskModal();
+    postTaskForm.reset();
+    showToast(`Task ${refId} published successfully!`);
+});
+
+
 // ---------- SIDEBAR & DRAWER TOGGLE LOGIC ----------
 const sidebar = document.getElementById('sidebar');
 const pendingDrawer = document.getElementById('pendingDrawer');
@@ -1908,6 +2494,7 @@ const pendingDrawerCloseBtn = document.getElementById('pendingDrawerCloseBtn');
 const tasksIconBtn = document.getElementById('tasksIconBtn');
 const activeTasksToggle = document.getElementById('activeTasksToggle');
 const sidebarActiveTasks = document.getElementById('sidebarActiveTasks');
+
 function openSidebar() {
 closePendingDrawer();
 sidebar.classList.add('open');
@@ -1940,19 +2527,8 @@ overlay.addEventListener('click', () => {
 closeSidebar();
 closePendingDrawer();
 });
-document.addEventListener('keydown', (e) => {
-if (e.key === 'Escape') {
-if (sidebar.classList.contains('open')) closeSidebar();
-if (pendingDrawer.classList.contains('open')) closePendingDrawer();
-}
-});
-// Active Tasks collapsible toggle
-activeTasksToggle.addEventListener('click', () => {
-const isOpen = sidebarActiveTasks.classList.toggle('open');
-activeTasksToggle.classList.toggle('active', isOpen);
-activeTasksToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-});
-// ---------- CLIENT DATA ----------
+
+// ---------- CLIENT DATA & DATASET ----------
 const clients = [
 { name: "Emily Carter", flag: "🇺🇸", country: "United States", uni: "NYU" },
 { name: "Liam O'Sullivan", flag: "🇮🇪", country: "Ireland", uni: "Trinity College" },
@@ -1960,30 +2536,7 @@ const clients = [
 { name: "James Whitfield", flag: "🇬🇧", country: "United Kingdom", uni: "Oxford" },
 { name: "Chloé Dubois", flag: "🇫🇷", country: "France", uni: "Sorbonne" },
 { name: "Isabella Rossi", flag: "🇮🇹", country: "Italy", uni: "Bocconi" },
-{ name: "Lucas van der Berg", flag: "🇳🇱", country: "Netherlands", uni: "Utrecht" },
-{ name: "Ava Thompson", flag: "🇨🇦", country: "Canada", uni: "UofT" },
-{ name: "Oliver Hansen", flag: "🇩🇰", country: "Denmark", uni: "Copenhagen" },
-{ name: "Mia Andersson", flag: "🇸🇪", country: "Sweden", uni: "Lund" },
-{ name: "Noah Williams", flag: "🇦🇺", country: "Australia", uni: "Melbourne" },
-{ name: "Charlotte Evans", flag: "🇳🇿", country: "New Zealand", uni: "Auckland" },
-{ name: "Ethan Brooks", flag: "🇺🇸", country: "United States", uni: "Stanford" },
-{ name: "Freya Lindqvist", flag: "🇳🇴", country: "Norway", uni: "Oslo" },
-{ name: "Henry Clarke", flag: "🇬🇧", country: "United Kingdom", uni: "Cambridge" },
-{ name: "Zoe Martin", flag: "🇫🇷", country: "France", uni: "Sciences Po" },
-{ name: "Alexander Weber", flag: "🇦🇹", country: "Austria", uni: "Vienna" },
-{ name: "Grace O'Connor", flag: "🇮🇪", country: "Ireland", uni: "UCD" },
-{ name: "Benjamin Scott", flag: "🇨🇦", country: "Canada", uni: "McGill" },
-{ name: "Lily van Dijk", flag: "🇧🇪", country: "Belgium", uni: "Leuven" },
-{ name: "Jack Mitchell", flag: "🇦🇺", country: "Australia", uni: "Sydney" },
-{ name: "Emma Johansson", flag: "🇸🇪", country: "Sweden", uni: "Uppsala" },
-{ name: "Daniel Murphy", flag: "🇺🇸", country: "United States", uni: "Harvard" },
-{ name: "Sofia García", flag: "🇪🇸", country: "Spain", uni: "Complutense" },
-{ name: "Thomas Anderson", flag: "🇬🇧", country: "United Kingdom", uni: "LSE" },
-{ name: "Hannah Schmidt", flag: "🇩🇪", country: "Germany", uni: "Munich" },
-{ name: "Ryan O'Brien", flag: "🇮🇪", country: "Ireland", uni: "UCC" },
-{ name: "Nathan Tremblay", flag: "🇨🇦", country: "Canada", uni: "UBC" },
-{ name: "Ella Nilsson", flag: "🇸🇪", country: "Sweden", uni: "KTH" },
-{ name: "William Foster", flag: "🇺🇸", country: "United States", uni: "MIT" }
+{ name: "Lucas van der Berg", flag: "🇳🇱", country: "Netherlands", uni: "Utrecht" }
 ];
 const responseTimes = [1, 2, 3, 4, 6, 8, 12, 24];
 const languagePairs = [
@@ -1994,53 +2547,26 @@ const languagePairs = [
 { code: "pt", name: "Portuguese",flag: "🇵🇹" },
 { code: "ja", name: "Japanese", flag: "🇯🇵" },
 { code: "zh", name: "Mandarin", flag: "🇨🇳" },
-{ code: "ko", name: "Korean", flag: "🇰🇷" },
-{ code: "ru", name: "Russian", flag: "🇷🇺" },
-{ code: "ar", name: "Arabic", flag: "🇸🇦" },
-{ code: "hi", name: "Hindi", flag: "🇮🇳" },
-{ code: "nl", name: "Dutch", flag: "🇳🇱" },
-{ code: "sv", name: "Swedish", flag: "🇸🇪" },
-{ code: "tr", name: "Turkish", flag: "🇹🇷" },
-{ code: "pl", name: "Polish", flag: "🇵🇱" },
-{ code: "vi", name: "Vietnamese",flag: "🇻🇳" },
-{ code: "th", name: "Thai", flag: "🇹🇭" },
-{ code: "id", name: "Indonesian",flag: "🇮🇩" },
-{ code: "el", name: "Greek", flag: "🇬🇷" },
-{ code: "he", name: "Hebrew", flag: "🇮🇱" }
+{ code: "sw", name: "Swahili", flag: "🇰🇪" }
 ];
 const paragraphTemplates = [
-"Hi, how are you today?",
-"Thank you so much!",
-"See you tomorrow morning.",
-"The meeting starts at nine.",
-"Please send me the file.",
-"I love this weather.",
-"Where is the bathroom?",
-"Have a great weekend!",
 "Good morning, I hope you are having a wonderful day. The weather today is perfect for a walk in the park.",
 "Thank you very much for your help yesterday. I really appreciated your advice about the project.",
 "Excuse me, could you please tell me where the nearest train station is? I need to catch a train.",
 "I would like to order a large coffee with milk and a croissant, please. Also, a glass of water.",
-"The weather is absolutely beautiful today. The sun is shining, and there is a gentle breeze. I think it would be a great idea to go for a picnic by the river.",
-"Can you help me with this translation project? I have a document that needs to be ready by Friday, but I am struggling with some of the technical terms.",
-"This product is designed for people who love outdoor adventures. It is lightweight, durable, and completely waterproof. It also comes with a two-year warranty.",
-"Dear Mr. Johnson, I am writing to introduce myself as the new project manager for the marketing campaign. I have reviewed your previous work and I am very impressed. I would like to schedule a meeting next week to discuss our goals and timeline. Please let me know what time works best for you.",
-"The information provided in this document is for general informational purposes only. All information is provided in good faith, however we make no representation or warranty of any kind regarding the accuracy or completeness of any information. Under no circumstance shall we have any liability for any loss or damage incurred.",
-"The system architecture consists of three main layers: the presentation layer, the business logic layer, and the data access layer. The presentation layer handles user interactions through a web interface. The business logic layer processes requests and applies validation rules. The data access layer communicates with the database for efficient query performance.",
-"Our company is committed to reducing its environmental impact. We have implemented recycling programs in all offices and switched to renewable energy sources. Employees are encouraged to carpool or use public transportation. Together, we can make a meaningful difference."
+"Can you help me with this translation project? I have a document that needs to be ready by Friday.",
+"This product is designed for people who love outdoor adventures. It is lightweight, durable, and completely waterproof."
 ];
+
 function getPriceForParagraph(text, index) {
 const len = text.length;
-let price;
-if (len < 40) price = 0.20;
-else if (len < 70) price = 0.30;
-else if (len < 120) price = 0.40;
-else if (len < 170) price = 0.50;
-else if (len < 220) price = 0.75;
-else if (len < 280) price = 0.80;
-else price = 1.00;
-if (index % 5 === 0 && price < 1.00) price = Math.min(1.00, +(price + 0.05).toFixed(2));
-return +price.toFixed(2);
+if (len < 40) return 0.20;
+if (len < 70) return 0.30;
+if (len < 120) return 0.40;
+if (len < 170) return 0.50;
+if (len < 220) return 0.75;
+if (len < 280) return 0.80;
+return 1.00;
 }
 function getDifficulty(text) {
 const len = text.length;
@@ -2048,26 +2574,17 @@ if (len < 70) return { label: "Beginner", class: "beginner" };
 if (len < 180) return { label: "Intermediate", class: "intermediate" };
 return { label: "Advanced", class: "advanced" };
 }
-function getWordCount(text) {
-return Math.max(1, Math.round(text.length / 5));
-}
+
 const translationTasks = [];
 let idCounter = 1;
-const TOTAL_TASKS = 200;
-const priceTiers = [0.20, 0.30, 0.40, 0.50, 0.75, 0.80, 1.00];
+const TOTAL_TASKS = 50;
 for (let i = 0; i < TOTAL_TASKS; i++) {
 const lang = languagePairs[i % languagePairs.length];
 const paragraph = paragraphTemplates[i % paragraphTemplates.length];
 const client = clients[i % clients.length];
-let price = priceTiers[i % priceTiers.length];
-const lenPrice = getPriceForParagraph(paragraph, i);
-if (i % 3 === 0) price = lenPrice;
+let price = getPriceForParagraph(paragraph, i);
 const deadlineHours = [2, 4, 6, 8, 12, 24][i % 6];
 const rating = (4.5 + (i % 6) * 0.1).toFixed(1);
-const responseTime = responseTimes[i % responseTimes.length];
-const difficulty = getDifficulty(paragraph);
-const wordCount = getWordCount(paragraph);
-const postedMinutesAgo = (i * 7) % 240;
 const refId = `#MQ-2024-${String(idCounter).padStart(4, '0')}`;
 translationTasks.push({
 id: idCounter++,
@@ -2077,20 +2594,21 @@ lang: `English → ${lang.name}`,
 langFlag: lang.flag,
 price: price,
 deadlineHours: deadlineHours,
-isHot: i % 9 === 0,
-difficulty: difficulty,
-wordCount: wordCount,
-postedMinutesAgo: postedMinutesAgo,
+isHot: i % 5 === 0,
+difficulty: getDifficulty(paragraph),
+wordCount: Math.max(1, Math.round(paragraph.length / 5)),
+postedMinutesAgo: (i * 12) % 240,
 client: {
 name: client.name,
 flag: client.flag,
 country: client.country,
 uni: client.uni,
 rating: rating,
-responseTime: responseTime
+responseTime: responseTimes[i % responseTimes.length]
 }
 });
 }
+
 let tasksState = translationTasks.map(task => ({
 ...task,
 taken: false,
@@ -2099,13 +2617,13 @@ submissionOpen: false,
 takenAt: null,
 sidebarDraft: ''
 }));
-// ---------- LIFETIME TASK LIMIT (3 total, hidden from user) ----------
-const LIFETIME_TAKE_LIMIT = 3;
+
+const LIFETIME_TAKE_LIMIT = 5;
 let lifetimeTasksTaken = 0;
-const PAGE_SIZE = 20;
-let visibleCount = PAGE_SIZE;
+let visibleCount = 20;
 let currentFilter = 'all';
 let countdownInterval = null;
+
 const taskGrid = document.getElementById('taskGrid');
 const toastEl = document.getElementById('toast');
 const loadMoreWrap = document.getElementById('loadMoreWrap');
@@ -2115,6 +2633,7 @@ const activeTasksCount = document.getElementById('activeTasksCount');
 const pendingDrawerList = document.getElementById('pendingDrawerList');
 const tasksBadge = document.getElementById('tasksBadge');
 let toastTimer = null;
+
 function showToast(message, isWarning) {
 toastEl.textContent = message;
 toastEl.classList.toggle('warning', !!isWarning);
@@ -2122,6 +2641,7 @@ toastEl.classList.add('show');
 if (toastTimer) clearTimeout(toastTimer);
 toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
 }
+
 function formatPostedTime(mins) {
 if (mins < 1) return "just now";
 if (mins < 60) return `${mins} minute${mins === 1 ? '' : 's'} ago`;
@@ -2130,17 +2650,14 @@ return `${hours} hour${hours === 1 ? '' : 's'} ago`;
 }
 function formatResponseTime(hours) {
 if (hours === 1) return "Usually responds in 1 hour";
-if (hours < 24) return `Usually responds in ${hours} hours`;
-return "Usually responds in 1 day";
+return `Usually responds in ${hours} hours`;
 }
 function formatCountdown(msRemaining) {
 if (msRemaining <= 0) return "Expired";
 const totalSeconds = Math.floor(msRemaining / 1000);
-const hours = Math.floor(totalSeconds / 3600);
 const minutes = Math.floor((totalSeconds % 3600) / 60);
 const seconds = totalSeconds % 60;
 const pad = (n) => String(n).padStart(2, '0');
-if (hours > 0) return `${hours}h ${pad(minutes)}m ${pad(seconds)}s`;
 return `${minutes}m ${pad(seconds)}s`;
 }
 function getRemainingMs(task) {
@@ -2149,7 +2666,7 @@ const deadlineMs = task.deadlineHours * 60 * 60 * 1000;
 const elapsed = Date.now() - task.takenAt;
 return Math.max(0, deadlineMs - elapsed);
 }
-// ---------- UPDATE BADGES (tasks icon & sidebar count) ----------
+
 function updateBadges() {
 const pendingCount = tasksState.filter(t => t.taken && !t.submitted).length;
 if (pendingCount > 0) {
@@ -2161,9 +2678,8 @@ tasksBadge.classList.add('hidden');
 activeTasksCount.textContent = pendingCount;
 activeTasksCount.classList.toggle('zero', pendingCount === 0);
 }
-// ---------- RENDER: PENDING DRAWER (awaiting approval) ----------
+
 function renderPendingDrawer() {
-// Show ALL taken tasks — both pending & submitted (awaiting approval)
 const pendingTasks = tasksState.filter(t => t.taken);
 if (pendingTasks.length === 0) {
 pendingDrawerList.innerHTML = `
@@ -2179,213 +2695,93 @@ let html = '';
 pendingTasks.forEach(task => {
 const isSubmitted = task.submitted;
 const remainingMs = getRemainingMs(task);
-const isUrgent = !isSubmitted && remainingMs > 0 && remainingMs < 30 * 60 * 1000;
-const isExpired = !isSubmitted && remainingMs <= 0;
-const countdownText = isExpired ? "Expired" : formatCountdown(remainingMs);
-const timerClass = isSubmitted ? 'submitted' : (isUrgent || isExpired ? 'urgent' : '');
-let bodyHtml = '';
-if (isSubmitted) {
-bodyHtml = `
-<textarea class="pending-card-textarea" disabled rows="3" placeholder="Translation submitted.">${task.sidebarDraft || ''}</textarea>
+const countdownText = formatCountdown(remainingMs);
+let bodyHtml = isSubmitted ? `
+<textarea class="pending-card-textarea" disabled rows="3">${task.sidebarDraft || ''}</textarea>
 <div class="pending-card-submitted-note">✅ Submitted · awaiting approval</div>
-<div class="pending-card-actions">
-<button class="pending-card-btn view" data-action="scroll-to-task" data-id="${task.id}" style="flex:1;">
-🔍 View card
-</button>
-</div>
-`;
-} else {
-bodyHtml = `
+` : `
 <textarea class="pending-card-textarea" rows="3" placeholder="Type your translation here…" data-pending-draft-id="${task.id}">${task.sidebarDraft || ''}</textarea>
 <div class="pending-card-actions">
-<button class="pending-card-btn send" data-action="pending-submit" data-id="${task.id}">
-📤 Submit for approval
-</button>
-<button class="pending-card-btn view" data-action="scroll-to-task" data-id="${task.id}">
-🔍 View
-</button>
+<button class="pending-card-btn send" data-action="pending-submit" data-id="${task.id}">📤 Submit for approval</button>
 </div>
 `;
-}
 html += `
-<div class="pending-card ${isSubmitted ? 'submitted' : ''}" data-pending-id="${task.id}">
+<div class="pending-card ${isSubmitted ? 'submitted' : ''}">
 <div class="pending-card-top">
 <span class="pending-card-ref">${task.refId}</span>
 <span class="pending-card-price">$${task.price.toFixed(2)}</span>
 </div>
-<div class="pending-card-lang">
-${task.langFlag} ${task.lang}
-</div>
-<div class="pending-card-client">
-<span>${task.client.flag}</span> ${task.client.name}
-</div>
-<div class="pending-card-desc">
-${task.description}
-</div>
-<div class="pending-card-timer ${timerClass}" data-pending-timer-id="${task.id}">
-<span>${isSubmitted ? '✅' : (isExpired ? '⚠️' : '⏳')}</span>
-<span class="pending-timer-text">${isSubmitted ? 'Awaiting approval' : countdownText}</span>
-</div>
+<div class="pending-card-lang">${task.langFlag} ${task.lang}</div>
+<div class="pending-card-client"><span>${task.client.flag}</span> ${task.client.name}</div>
+<div class="pending-card-desc">${task.description}</div>
 ${bodyHtml}
 </div>
 `;
 });
 pendingDrawerList.innerHTML = html;
 }
-// ---------- RENDER: SIDEBAR ACTIVE TASKS ----------
+
 function renderSidebarActiveTasks() {
 const relevantTasks = tasksState.filter(t => t.taken);
-const activeCount = relevantTasks.filter(t => !t.submitted).length;
-activeTasksCount.textContent = activeCount;
-activeTasksCount.classList.toggle('zero', activeCount === 0);
 if (relevantTasks.length === 0) {
-sidebarActiveList.innerHTML = `
-<div class="sidebar-active-empty">
-<span class="empty-icon">📭</span>
-<span>No active tasks right now.</span>
-<span>Take a task from the main page to see it here.</span>
-</div>
-`;
+sidebarActiveList.innerHTML = `<div class="sidebar-active-empty"><span class="empty-icon">📭</span><span>No active tasks right now.</span></div>`;
 return;
 }
 let html = '';
 relevantTasks.forEach(task => {
 const isSubmitted = task.submitted;
-const remainingMs = getRemainingMs(task);
-const isUrgent = !isSubmitted && remainingMs > 0 && remainingMs < 30 * 60 * 1000;
-const isExpired = !isSubmitted && remainingMs <= 0;
-const countdownText = isExpired ? "Expired" : formatCountdown(remainingMs);
-const timerClass = isSubmitted ? 'submitted' : (isUrgent || isExpired ? 'urgent' : '');
-let bodyHtml = '';
-if (isSubmitted) {
-bodyHtml = `
-<textarea class="sidebar-active-textarea" disabled rows="3" placeholder="Translation submitted.">${task.sidebarDraft || ''}</textarea>
-<div class="sidebar-active-submitted-note">✅ Submitted · awaiting review · cannot resubmit</div>
-<div class="sidebar-active-actions">
-<button class="sidebar-active-btn view" data-action="scroll-to-task" data-id="${task.id}" style="flex:1;">
-🔍 View card
-</button>
-</div>
-`;
-} else {
-bodyHtml = `
+let bodyHtml = isSubmitted ? `
+<textarea class="sidebar-active-textarea" disabled rows="3">${task.sidebarDraft || ''}</textarea>
+<div class="sidebar-active-submitted-note">✅ Submitted · awaiting review</div>
+` : `
 <textarea class="sidebar-active-textarea" rows="3" placeholder="Type your translation here…" data-draft-id="${task.id}">${task.sidebarDraft || ''}</textarea>
 <div class="sidebar-active-actions">
-<button class="sidebar-active-btn send" data-action="sidebar-submit" data-id="${task.id}">
-📤 Submit
-</button>
-<button class="sidebar-active-btn view" data-action="scroll-to-task" data-id="${task.id}">
-🔍 View
-</button>
+<button class="sidebar-active-btn send" data-action="sidebar-submit" data-id="${task.id}">📤 Submit</button>
 </div>
 `;
-}
 html += `
-<div class="sidebar-active-card ${isSubmitted ? 'submitted' : ''}" data-active-id="${task.id}">
+<div class="sidebar-active-card ${isSubmitted ? 'submitted' : ''}">
 <div class="sidebar-active-top">
 <span class="sidebar-active-ref">${task.refId}</span>
 <span class="sidebar-active-price">$${task.price.toFixed(2)}</span>
 </div>
-<div class="sidebar-active-lang">
-${task.langFlag} ${task.lang}
-</div>
-<div class="sidebar-active-client">
-<span>${task.client.flag}</span> ${task.client.name}
-</div>
-<div class="sidebar-active-timer ${timerClass}" data-timer-id="${task.id}">
-<span>${isSubmitted ? '✅' : (isExpired ? '⚠️' : '⏳')}</span>
-<span class="timer-text">${isSubmitted ? 'Completed' : countdownText}</span>
-</div>
+<div class="sidebar-active-lang">${task.langFlag} ${task.lang}</div>
 ${bodyHtml}
 </div>
 `;
 });
 sidebarActiveList.innerHTML = html;
 }
-function tickCountdowns() {
-const activeTasks = tasksState.filter(t => t.taken && !t.submitted);
-// Sidebar timers
-activeTasks.forEach(task => {
-const timerText = document.querySelector(`.sidebar-active-timer[data-timer-id="${task.id}"] .timer-text`);
-const timerContainer = document.querySelector(`.sidebar-active-timer[data-timer-id="${task.id}"]`);
-if (timerText) {
-const remainingMs = getRemainingMs(task);
-const isUrgent = remainingMs > 0 && remainingMs < 30 * 60 * 1000;
-const isExpired = remainingMs <= 0;
-timerText.textContent = isExpired ? "Expired" : formatCountdown(remainingMs);
-if (timerContainer) {
-timerContainer.classList.toggle('urgent', isUrgent || isExpired);
-}
-}
-});
-// Pending drawer timers
-activeTasks.forEach(task => {
-const timerText = document.querySelector(`.pending-card-timer[data-pending-timer-id="${task.id}"] .pending-timer-text`);
-const timerContainer = document.querySelector(`.pending-card-timer[data-pending-timer-id="${task.id}"]`);
-if (timerText) {
-const remainingMs = getRemainingMs(task);
-const isUrgent = remainingMs > 0 && remainingMs < 30 * 60 * 1000;
-const isExpired = remainingMs <= 0;
-timerText.textContent = isExpired ? "Expired" : formatCountdown(remainingMs);
-if (timerContainer) {
-timerContainer.classList.toggle('urgent', isUrgent || isExpired);
-}
-}
-});
-}
-function startCountdownTicker() {
-if (countdownInterval) return;
-countdownInterval = setInterval(tickCountdowns, 1000);
-}
-// ---------- RENDER: MAIN TASK GRID ----------
+
 function renderTasks() {
 let allMatching = tasksState;
 if (currentFilter !== 'all') {
 const filterPrice = parseFloat(currentFilter);
 allMatching = tasksState.filter(t => Math.abs(t.price - filterPrice) < 0.001);
 }
-let visibleTasks;
-if (currentFilter === 'all') {
-visibleTasks = allMatching.slice(0, visibleCount);
-} else {
-visibleTasks = allMatching.slice(0, 100);
-}
+let visibleTasks = allMatching.slice(0, visibleCount);
 document.getElementById('availableCount').textContent = tasksState.length;
 let html = '';
 visibleTasks.forEach(task => {
 const isTaken = task.taken;
 const isSubmitted = task.submitted;
 const panelOpen = task.submissionOpen;
-const isHighlighted = currentFilter !== 'all' &&
-Math.abs(task.price - parseFloat(currentFilter)) < 0.001;
-let cardClass = 'task-card';
-if (isSubmitted) cardClass += ' submitted';
-else if (isTaken) cardClass += ' taken';
-if (isHighlighted) cardClass += ' highlighted';
 const priceFormatted = `$${task.price.toFixed(2)}`;
 const clientInitials = task.client.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
 let actionButtons = '';
 if (isSubmitted) {
-actionButtons = `
-<div style="display: flex; width: 100%;">
-<span class="status-indicator" style="background:#c4e6d1; color:#135c32; font-weight:600;">✅ Pending approval</span>
-</div>
-`;
+actionButtons = `<span class="status-indicator" style="background:#c4e6d1; color:#135c32;">✅ Pending approval</span>`;
 } else if (isTaken) {
-actionButtons = `
-<button class="btn btn-primary" data-action="toggle-submit" data-id="${task.id}">
-${panelOpen ? '📝 Close submission' : '📤 Open submission'}
-</button>
-`;
+actionButtons = `<button class="btn btn-primary" data-action="toggle-submit" data-id="${task.id}">${panelOpen ? '📝 Close submission' : '📤 Open submission'}</button>`;
 } else {
-actionButtons = `
-<button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take task</button>
-`;
+actionButtons = `<button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take task</button>`;
 }
+
 let submissionPanelHtml = '';
 if (isTaken && !isSubmitted && panelOpen) {
 submissionPanelHtml = `
-<div class="submission-panel open" data-panel-id="${task.id}">
+<div class="submission-panel open">
 <textarea id="textarea-${task.id}" placeholder="Paste or type your translation here…" rows="4">${task.sidebarDraft || ''}</textarea>
 <div class="panel-actions">
 <button class="btn btn-ghost btn-small" data-action="cancel-submit" data-id="${task.id}">Cancel</button>
@@ -2394,184 +2790,73 @@ submissionPanelHtml = `
 </div>
 `;
 }
-const deadlineText = task.deadlineHours <= 4
-? `⏰ ${task.deadlineHours}h left`
-: `📅 ${task.deadlineHours}h deadline`;
-const hotBadge = task.isHot ? '<span class="badge hot">🔥 Urgent</span>' : '';
-const diffBadge = `<span class="badge ${task.difficulty.class}">${task.difficulty.label}</span>`;
+
 html += `
-<div class="${cardClass}" data-task-id="${task.id}" data-price="${task.price}">
+<div class="task-card ${isSubmitted ? 'submitted' : (isTaken ? 'taken' : '')}">
 <div class="client-info">
 <div class="client-avatar">${clientInitials}</div>
 <div class="client-details">
-<div class="client-name">
-<span class="flag">${task.client.flag}</span>
-${task.client.name}
+<div class="client-name"><span class="flag">${task.client.flag}</span> ${task.client.name}</div>
+<div class="client-meta"><span class="uni">🎓 ${task.client.uni}</span> · <span>${task.client.country}</span></div>
 </div>
-<div class="client-meta">
-<span class="uni">🎓 ${task.client.uni}</span>
-<span class="dot-sep">·</span>
-<span>${task.client.country}</span>
-<span class="dot-sep">·</span>
-<span class="response-time">⚡ ${formatResponseTime(task.client.responseTime)}</span>
-</div>
-</div>
-<div class="client-rating">
-⭐ ${task.client.rating}
-</div>
+<div class="client-rating">⭐ ${task.client.rating}</div>
 </div>
 <div class="task-top-row">
 <span class="task-id">${task.refId}</span>
-<span class="price-tag ${task.price < 1 ? 'small' : ''}">${priceFormatted}</span>
+<span class="price-tag">${priceFormatted}</span>
 </div>
 <div class="badge-row">
 <span class="badge">${task.langFlag} ${task.lang}</span>
-${diffBadge}
-${hotBadge}
+<span class="badge ${task.difficulty.class}">${task.difficulty.label}</span>
+${task.isHot ? '<span class="badge hot">🔥 Urgent</span>' : ''}
 </div>
 <div class="task-desc">${task.description}</div>
 <div class="task-meta">
 <span class="task-wordcount">📝 ${task.wordCount} words</span>
-<span class="task-deadline">${deadlineText}</span>
-<span class="escrow-badge">💰 Escrow protected</span>
+<span class="task-deadline">⏰ ${task.deadlineHours}h deadline</span>
 </div>
-<div class="task-posted">
-<span class="clock">🕐</span> Posted ${formatPostedTime(task.postedMinutesAgo)}
-</div>
-<div class="task-actions">
-${actionButtons}
-</div>
+<div class="task-actions">${actionButtons}</div>
 ${submissionPanelHtml}
-${isTaken && !isSubmitted && !panelOpen ? '<div class="status-indicator" style="margin-top:0.5rem;">⏳ Task taken — open submission when ready</div>' : ''}
-${isSubmitted ? '<div class="status-indicator" style="margin-top:0.5rem;">💸 Submitted · awaiting approval</div>' : ''}
 </div>
 `;
 });
 taskGrid.innerHTML = html;
-const totalFiltered = allMatching.length;
-if (currentFilter !== 'all') {
-loadMoreWrap.style.display = 'none';
-} else if (visibleCount >= totalFiltered) {
-loadMoreWrap.style.display = 'none';
-} else {
-loadMoreWrap.style.display = 'flex';
 }
-}
-// ---------- ACTIONS ----------
+
 function takeTask(taskId) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-if (task.submitted) { showToast('This task is already submitted.'); return; }
-if (task.taken) { showToast('You already took this task.'); return; }
-if (lifetimeTasksTaken >= LIFETIME_TAKE_LIMIT) {
-showToast('❌ This question has already been picked by another person. Please try a different one.', true);
+const user = getCurrentUser();
+if (user && user.role === 'client') {
+showToast('Clients post tasks. Switch to a Translator account to take tasks.', true);
 return;
 }
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (task.taken) { showToast('You already took this task.'); return; }
 task.taken = true;
-task.submissionOpen = false;
 task.takenAt = Date.now();
-task.sidebarDraft = '';
-lifetimeTasksTaken++;
 showToast(`Task ${task.refId} taken: ${task.lang} · $${task.price.toFixed(2)}`);
 renderTasks();
 renderSidebarActiveTasks();
 renderPendingDrawer();
 updateBadges();
-startCountdownTicker();
 }
-function toggleSubmissionPanel(taskId) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-if (!task.taken) { showToast('Take the task first.'); return; }
-if (task.submitted) { showToast('This task is already submitted.'); return; }
-task.submissionOpen = !task.submissionOpen;
-renderTasks();
-}
-// Submit from main card
+
 function confirmSubmit(taskId) {
 const task = tasksState.find(t => t.id === taskId);
 if (!task) return;
-if (task.submitted) { showToast('Already submitted.'); return; }
-if (!task.taken) { showToast('You must take the task first.'); return; }
 const textarea = document.getElementById(`textarea-${taskId}`);
-const translationText = textarea ? textarea.value.trim() : '';
-if (!translationText) {
-showToast('Please enter your translation before submitting.');
-return;
-}
-task.submitted = true;
-task.submissionOpen = false;
-task.takenAt = null;
-task.sidebarDraft = translationText;
-showToast(`✅ ${task.refId} submitted to ${task.client.name}! $${task.price.toFixed(2)} · awaiting approval`);
-renderTasks();
-renderSidebarActiveTasks();
-renderPendingDrawer();
-updateBadges();
-}
-// Submit from sidebar card
-function submitFromSidebar(taskId) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-if (task.submitted) {
-showToast('This task has already been submitted and cannot be resubmitted.', true);
-return;
-}
-if (!task.taken) { showToast('Take the task first.'); return; }
-const textarea = document.querySelector(`.sidebar-active-textarea[data-draft-id="${taskId}"]`);
 const text = textarea ? textarea.value.trim() : '';
-if (!text) {
-showToast('Please type your translation before submitting.', true);
-return;
-}
+if (!text) { showToast('Please enter your translation before submitting.', true); return; }
 task.submitted = true;
 task.submissionOpen = false;
-task.takenAt = null;
 task.sidebarDraft = text;
-showToast(`✅ ${task.refId} submitted to ${task.client.name}! $${task.price.toFixed(2)} · awaiting approval`);
+showToast(`✅ ${task.refId} submitted to ${task.client.name}!`);
 renderTasks();
 renderSidebarActiveTasks();
 renderPendingDrawer();
 updateBadges();
 }
-// Submit from pending drawer
-function submitFromPending(taskId) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-if (task.submitted) {
-showToast('This task has already been submitted and cannot be resubmitted.', true);
-return;
-}
-if (!task.taken) { showToast('Take the task first.'); return; }
-const textarea = document.querySelector(`.pending-card-textarea[data-pending-draft-id="${taskId}"]`);
-const text = textarea ? textarea.value.trim() : '';
-if (!text) {
-showToast('Please type your translation before submitting.', true);
-return;
-}
-task.submitted = true;
-task.submissionOpen = false;
-task.takenAt = null;
-task.sidebarDraft = text;
-showToast(`✅ ${task.refId} submitted to ${task.client.name}! $${task.price.toFixed(2)} · awaiting approval`);
-renderTasks();
-renderSidebarActiveTasks();
-renderPendingDrawer();
-updateBadges();
-}
-function cancelSubmission(taskId) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-if (task.submitted) return;
-task.submissionOpen = false;
-renderTasks();
-}
-function saveDraft(taskId, value) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task || task.submitted) return;
-task.sidebarDraft = value;
-}
-// ---------- EVENT LISTENERS ----------
+
 taskGrid.addEventListener('click', (e) => {
 const button = e.target.closest('button');
 if (!button) return;
@@ -2579,97 +2864,32 @@ const action = button.dataset.action;
 const taskId = parseInt(button.dataset.id, 10);
 if (isNaN(taskId)) return;
 if (action === 'take') takeTask(taskId);
-else if (action === 'toggle-submit') toggleSubmissionPanel(taskId);
-else if (action === 'confirm-submit') confirmSubmit(taskId);
-else if (action === 'cancel-submit') cancelSubmission(taskId);
-});
-// Sidebar active tasks interactions
-sidebarActiveList.addEventListener('click', (e) => {
-const button = e.target.closest('button');
-if (!button) return;
-const action = button.dataset.action;
-const taskId = parseInt(button.dataset.id, 10);
-if (isNaN(taskId)) return;
-if (action === 'sidebar-submit') {
-submitFromSidebar(taskId);
-} else if (action === 'scroll-to-task') {
-closeSidebar();
-closePendingDrawer();
-setTimeout(() => {
-const card = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
-if (card) {
-card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-card.style.transition = 'box-shadow 0.3s ease';
-card.style.boxShadow = '0 0 0 4px rgba(26, 110, 140, 0.35), 0 20px 32px -10px rgba(18,80,110,0.25)';
-setTimeout(() => { card.style.boxShadow = ''; }, 1500);
-}
-}, 320);
+else if (action === 'toggle-submit') {
+const t = tasksState.find(x => x.id === taskId);
+if (t) { t.submissionOpen = !t.submissionOpen; renderTasks(); }
+} else if (action === 'confirm-submit') confirmSubmit(taskId);
+else if (action === 'cancel-submit') {
+const t = tasksState.find(x => x.id === taskId);
+if (t) { t.submissionOpen = false; renderTasks(); }
 }
 });
-// Pending drawer interactions
-pendingDrawerList.addEventListener('click', (e) => {
-const button = e.target.closest('button');
-if (!button) return;
-const action = button.dataset.action;
-const taskId = parseInt(button.dataset.id, 10);
-if (isNaN(taskId)) return;
-if (action === 'pending-submit') {
-submitFromPending(taskId);
-} else if (action === 'scroll-to-task') {
-closePendingDrawer();
-closeSidebar();
-setTimeout(() => {
-const card = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
-if (card) {
-card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-card.style.transition = 'box-shadow 0.3s ease';
-card.style.boxShadow = '0 0 0 4px rgba(26, 110, 140, 0.35), 0 20px 32px -10px rgba(18,80,110,0.25)';
-setTimeout(() => { card.style.boxShadow = ''; }, 1500);
-}
-}, 320);
-}
-});
-// Save drafts on typing (sidebar)
-sidebarActiveList.addEventListener('input', (e) => {
-const textarea = e.target.closest('.sidebar-active-textarea');
-if (!textarea) return;
-const draftId = textarea.dataset.draftId;
-if (!draftId) return;
-saveDraft(parseInt(draftId, 10), textarea.value);
-});
-// Save drafts on typing (pending drawer)
-pendingDrawerList.addEventListener('input', (e) => {
-const textarea = e.target.closest('.pending-card-textarea');
-if (!textarea) return;
-const draftId = textarea.dataset.pendingDraftId;
-if (!draftId) return;
-saveDraft(parseInt(draftId, 10), textarea.value);
-});
-document.querySelectorAll('.filter-tab').forEach(tab => {
-tab.addEventListener('click', () => {
+
+filterTabs.addEventListener('click', (e) => {
+const tab = e.target.closest('.filter-tab');
+if (!tab) return;
 document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
 tab.classList.add('active');
 currentFilter = tab.dataset.filter;
 renderTasks();
-if (currentFilter !== 'all') {
-setTimeout(() => {
-const firstHighlight = document.querySelector('.task-card.highlighted');
-if (firstHighlight) {
-firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-}, 50);
-showToast(`Highlighting all ${currentFilter === '1.00' ? '$1.00' : '$' + currentFilter} tasks`);
-} else {
-showToast('Showing all tasks');
-}
 });
-});
+
 loadMoreBtn.addEventListener('click', () => {
-visibleCount = Math.min(visibleCount + PAGE_SIZE, tasksState.length);
+visibleCount += 20;
 renderTasks();
-showToast(`Showing ${visibleCount} of ${tasksState.length} questions`);
 });
-// ---------- INITIAL RENDER ----------
+
+// INITIALIZE
+updateAuthNavbarUI();
 renderTasks();
 renderSidebarActiveTasks();
 renderPendingDrawer();
