@@ -2069,8 +2069,8 @@ border-left-color: #e67e22;
 <button class="auth-btn-nav" id="navRegisterBtn">📝 Sign Up</button>
 </div>
 
-<!-- LOGGED IN USER PROFILE -->
-<div class="user-profile-wrapper" id="loggedInNav" style="display: none;">
+<!-- LOGGED IN USER PROFILE & LOGOUT BUTTON -->
+<div class="user-profile-wrapper" id="loggedInNav" style="display: none; align-items: center; gap: 0.6rem;">
 <div class="user-profile" id="userProfileBtn">
 <div class="user-avatar" id="navAvatar">TL</div>
 <div class="user-info">
@@ -2079,6 +2079,10 @@ border-left-color: #e67e22;
 </div>
 <span class="nav-badge" id="navRoleBadge">Writter</span>
 </div>
+<!-- STANDALONE LOGOUT BUTTON IN NAVBAR -->
+<button class="auth-btn-nav outline" id="navLogoutBtn" style="background: rgba(231, 76, 60, 0.2); border-color: rgba(231, 76, 60, 0.5); color: #ffb3b3;" title="Log out of account">
+🚪 Log Out
+</button>
 <!-- DROPDOWN -->
 <div class="user-dropdown" id="userDropdown">
 <div class="user-dropdown-header">
@@ -2200,7 +2204,7 @@ function saveUser(user) {
 
 function getCurrentUser() {
     const saved = localStorage.getItem('megaqash_current_user');
-    return saved ? JSON.parse(saved) : DEFAULT_USERS[1]; // default to translator
+    return saved ? JSON.parse(saved) : null; // default to logged out if no session
 }
 
 function setCurrentUser(user) {
@@ -2401,11 +2405,16 @@ document.addEventListener('click', (e) => {
     }
 });
 
-dropLogout.addEventListener('click', () => {
+const navLogoutBtn = document.getElementById('navLogoutBtn');
+
+function performLogout() {
     setCurrentUser(null);
     userDropdown.classList.remove('show');
     showToast('Logged out successfully.');
-});
+}
+
+if (navLogoutBtn) navLogoutBtn.addEventListener('click', performLogout);
+dropLogout.addEventListener('click', performLogout);
 
 // POST TASK MODAL (FOR CLIENTS)
 const postTaskModalOverlay = document.getElementById('postTaskModalOverlay');

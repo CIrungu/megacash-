@@ -71,7 +71,7 @@ if 'users_db' not in st.session_state:
     ]
 
 if 'logged_in_user' not in st.session_state:
-    st.session_state['logged_in_user'] = st.session_state['users_db'][1] # default translator
+    st.session_state['logged_in_user'] = None  # Start in logged out mode
 
 # Sidebar Navigation
 st.sidebar.title("MegaQash Writers")
@@ -92,11 +92,23 @@ view_mode = st.sidebar.radio(
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 👤 Current Session")
 curr = st.session_state['logged_in_user']
-st.sidebar.markdown(f"**Name:** {curr['name']}")
-st.sidebar.markdown(f"**Email:** {curr['email']}")
-st.sidebar.markdown(f"**Role:** `{curr['role']}`")
-if curr['role'] == "Client":
-    st.sidebar.markdown(f"**University:** {curr['uni']}")
+
+if curr:
+    st.sidebar.markdown(f"**Name:** {curr['name']}")
+    st.sidebar.markdown(f"**Email:** {curr['email']}")
+    st.sidebar.markdown(f"**Role:** `{curr['role']}`")
+    if curr.get('uni'):
+        st.sidebar.markdown(f"**University:** {curr['uni']}")
+    
+    if st.sidebar.button("🚪 Log Out", key="sidebar_logout_btn"):
+        st.session_state['logged_in_user'] = None
+        st.success("Logged out.")
+        st.rerun()
+else:
+    st.sidebar.warning("Not Logged In")
+    if st.sidebar.button("🔑 Log In / Sign Up", key="sidebar_login_btn"):
+        st.session_state['logged_in_user'] = st.session_state['users_db'][0]
+        st.rerun()
 
 # --- VIEW 1: LIVE WEB PLATFORM ---
 if view_mode == "🌐 Live Web Platform":
