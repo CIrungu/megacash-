@@ -163,16 +163,16 @@ def show_auth():
         <span style="font-size:1rem;font-weight:700;color:#e8eaf6;">MegaQash Technologies</span>
       </div>
       <p style="font-size:.72rem;font-weight:600;letter-spacing:.16em;
-                text-transform:uppercase;color:#e8185c;margin-bottom:1.2rem;">Your Next Chapter</p>
+                text-transform:uppercase;color:#e8185c;margin-bottom:1.2rem;">Translation Task Platform</p>
       <h2 style="font-size:2.8rem;font-weight:900;line-height:1.08;
                  color:#e8eaf6;letter-spacing:-.03em;margin:0;">
-        Build momentum<br>
-        <span style="color:#00e5a0;">that<br>compounds.</span>
+        Translate tasks.<br>
+        <span style="color:#00e5a0;">Get paid<br>instantly.</span>
       </h2>
       <p style="margin-top:1.2rem;font-size:.93rem;line-height:1.65;
                 color:#8888aa;max-width:340px;">
-        One workspace for your membership, referrals,<br>
-        and the work that moves your business forward.
+        Find freelance translation jobs from global university clients,
+        submit your work, and receive instant M-Pesa payouts — all in one place.
       </p>
       <div style="display:flex;gap:2rem;margin-top:2rem;">
         <div><div style="font-size:1.4rem;font-weight:800;color:#e8eaf6;">12k+</div>
