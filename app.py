@@ -3,13 +3,13 @@ import streamlit.components.v1 as components
 import os
 
 st.set_page_config(
-    page_title="MegaQash Writers · Translation Task Platform",
+    page_title="MegaQash Writers · Global Translation Platform",
     page_icon="✍️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Hide Streamlit header, footer, and sidebar elements completely for a native web experience
+# Hide Streamlit header, footer, and sidebar elements completely for a 100% native landing page experience
 st.markdown("""
 <style>
     #MainMenu {visibility: hidden;}
@@ -31,12 +31,12 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-def load_app():
+def load_landing_page():
     html_path = os.path.join(os.path.dirname(__file__), "index.html")
     if os.path.exists(html_path):
         with open(html_path, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h3>Error: index.html file not found.</h3>"
+    return "<h3>Error: index.html landing page file not found.</h3>"
 
-html_content = load_app()
-components.html(html_content, height=1000, scrolling=True)
+html_content = load_landing_page()
+components.html(html_content, height=1200, scrolling=True)

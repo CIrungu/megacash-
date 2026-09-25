@@ -3,2906 +3,1232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MegaQash Writters · Translation Task Platform</title>
+<title>MegaQash Writers · Global Translation Micro-Task Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+:root {
+  --primary-dark: #0b2d44;
+  --primary-blue: #1a6e8c;
+  --primary-light: #4a9ec9;
+  --accent-gold: #f39c12;
+  --accent-green: #27ae60;
+  --bg-gradient: linear-gradient(135deg, #0b2d44 0%, #154a6b 50%, #0d3854 100%);
+  --card-shadow: 0 12px 32px -8px rgba(11, 45, 68, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+}
+
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
+
 body {
-background: #f0f4f8;
-min-height: 100vh;
-padding: 0;
-display: flex;
-flex-direction: column;
-align-items: center;
-position: relative;
+  background: #f4f8fb;
+  color: #1b3e4f;
+  min-height: 100vh;
+  line-height: 1.6;
 }
-/* ---------- TOP NAVIGATION BAR ---------- */
+
+/* ---------- NAVBAR ---------- */
 .navbar {
-width: 100%;
-background: #0b2d44;
-padding: 0.8rem 2rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
-box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-position: sticky;
-top: 0;
-z-index: 100;
+  width: 100%;
+  background: var(--primary-dark);
+  padding: 1rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
-.navbar-left {
-display: flex;
-align-items: center;
-gap: 1rem;
-}
-.menu-toggle {
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-width: 26px;
-height: 20px;
-cursor: pointer;
-background: transparent;
-border: none;
-padding: 0;
-z-index: 110;
-}
-.menu-toggle span {
-display: block;
-height: 3px;
-width: 100%;
-background: white;
-border-radius: 4px;
-transition: 0.2s;
-}
-.menu-toggle:hover span {
-background: #a8d8ea;
-}
+
 .navbar-brand {
-display: flex;
-align-items: center;
-gap: 0.6rem;
-color: white;
-}
-.navbar-brand .logo-icon {
-font-size: 1.6rem;
-}
-.navbar-brand h1 {
-font-size: 1.4rem;
-font-weight: 700;
-letter-spacing: -0.3px;
-background: linear-gradient(135deg, #ffffff, #a8d8ea);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-}
-.navbar-brand span {
-font-size: 0.7rem;
-color: #8bb8d0;
-font-weight: 400;
-letter-spacing: 0.5px;
-text-transform: uppercase;
-margin-left: 0.3rem;
-}
-.navbar-right {
-display: flex;
-align-items: center;
-gap: 0.8rem;
-}
-.notification-bell {
-position: relative;
-cursor: pointer;
-font-size: 1.2rem;
-padding: 0.4rem;
-border-radius: 50%;
-transition: 0.15s;
-color: white;
-}
-.notification-bell:hover {
-background: rgba(255,255,255,0.1);
-}
-.bell-dot {
-position: absolute;
-top: 4px;
-right: 4px;
-width: 8px;
-height: 8px;
-background: #e74c3c;
-border-radius: 50%;
-border: 1.5px solid #0b2d44;
-}
-/* ---------- TASKS ICON ---------- */
-.tasks-icon {
-position: relative;
-cursor: pointer;
-font-size: 1.2rem;
-padding: 0.4rem 0.6rem;
-border-radius: 40px;
-transition: 0.15s;
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 0.3rem;
-background: rgba(255,255,255,0.08);
-border: 1px solid rgba(255,255,255,0.12);
-}
-.tasks-icon:hover {
-background: rgba(255,255,255,0.18);
-}
-.tasks-icon .icon {
-font-size: 1.15rem;
-line-height: 1;
-}
-.tasks-icon .label {
-font-size: 0.7rem;
-font-weight: 600;
-letter-spacing: 0.3px;
-}
-.tasks-badge {
-position: absolute;
-top: -4px;
-right: -6px;
-background: #f39c12;
-color: #0b2d44;
-font-size: 0.6rem;
-font-weight: 800;
-padding: 0.1rem 0.4rem;
-border-radius: 30px;
-min-width: 18px;
-text-align: center;
-border: 1.5px solid #0b2d44;
-line-height: 1.2;
-}
-.tasks-badge.hidden {
-display: none;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
 }
 
-/* AUTH NAV BUTTONS & PROFILE */
-.auth-btn-nav {
-background: #1a6e8c;
-color: white;
-border: 1px solid rgba(255,255,255,0.2);
-padding: 0.45rem 1rem;
-border-radius: 40px;
-font-size: 0.78rem;
-font-weight: 700;
-cursor: pointer;
-transition: 0.15s;
-display: flex;
-align-items: center;
-gap: 0.3rem;
-}
-.auth-btn-nav:hover {
-background: #238bb0;
-transform: translateY(-1px);
-}
-.auth-btn-nav.outline {
-background: transparent;
-border-color: rgba(255,255,255,0.3);
-}
-.auth-btn-nav.outline:hover {
-background: rgba(255,255,255,0.1);
-}
-.post-task-nav-btn {
-background: linear-gradient(135deg, #27ae60, #1e824c);
-color: white;
-border: none;
-padding: 0.45rem 0.95rem;
-border-radius: 40px;
-font-size: 0.78rem;
-font-weight: 700;
-cursor: pointer;
-box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
-transition: 0.15s;
-display: flex;
-align-items: center;
-gap: 0.35rem;
-}
-.post-task-nav-btn:hover {
-background: linear-gradient(135deg, #2ecc71, #27ae60);
-transform: translateY(-1px);
-}
-.user-profile-wrapper {
-position: relative;
-}
-.user-profile {
-display: flex;
-align-items: center;
-gap: 0.6rem;
-background: rgba(255,255,255,0.1);
-padding: 0.35rem 0.9rem 0.35rem 0.5rem;
-border-radius: 50px;
-cursor: pointer;
-transition: 0.15s;
-border: 1px solid rgba(255,255,255,0.15);
-}
-.user-profile:hover {
-background: rgba(255,255,255,0.18);
-}
-.user-avatar {
-width: 32px;
-height: 32px;
-border-radius: 50%;
-background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: 700;
-color: white;
-font-size: 0.8rem;
-}
-.user-info {
-display: flex;
-flex-direction: column;
-line-height: 1.2;
-}
-.user-info .name {
-font-size: 0.8rem;
-font-weight: 600;
-color: white;
-}
-.user-info .role {
-font-size: 0.65rem;
-color: #a8d8ea;
+.logo-icon {
+  font-size: 1.8rem;
 }
 
-/* USER DROPDOWN MENU */
-.user-dropdown {
-position: absolute;
-top: 115%;
-right: 0;
-width: 240px;
-background: white;
-border-radius: 16px;
-box-shadow: 0 10px 30px rgba(0, 20, 40, 0.2);
-border: 1px solid #d4e8f2;
-padding: 0.6rem;
-display: none;
-flex-direction: column;
-gap: 0.3rem;
-z-index: 250;
-animation: fadeSlide 0.18s ease;
+.brand-text h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff, #a8d8ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.user-dropdown.show {
-display: flex;
+
+.brand-text span {
+  font-size: 0.68rem;
+  color: #8bb8d0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: -3px;
 }
-.user-dropdown-header {
-padding: 0.6rem;
-border-bottom: 1px solid #edf4f8;
-display: flex;
-flex-direction: column;
-gap: 0.15rem;
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-.user-dropdown-header .email {
-font-size: 0.72rem;
-color: #6b93aa;
-word-break: break-all;
+
+.nav-link-btn {
+  background: transparent;
+  color: #a8d8ea;
+  border: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  border-radius: 30px;
+  transition: 0.2s;
 }
-.user-dropdown-header .role-badge {
-font-size: 0.62rem;
-font-weight: 700;
-background: #e2f0e9;
-color: #106a4b;
-padding: 0.1rem 0.5rem;
-border-radius: 20px;
-width: fit-content;
-margin-top: 0.2rem;
+
+.nav-link-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
 }
-.user-dropdown-item {
-padding: 0.55rem 0.7rem;
-border-radius: 10px;
-font-size: 0.8rem;
-color: #1b3e4f;
-font-weight: 600;
-cursor: pointer;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-transition: 0.15s;
+
+.auth-btn {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-blue));
+  color: white;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 40px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 14px rgba(26, 110, 140, 0.3);
 }
-.user-dropdown-item:hover {
-background: #f0f7fc;
-color: #1a6e8c;
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 110, 140, 0.45);
 }
-.user-dropdown-item.logout {
-color: #c0392b;
+
+.auth-btn.outline {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
 }
-.user-dropdown-item.logout:hover {
-background: #fdf0ed;
+
+.auth-btn.outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: white;
+}
+
+.post-task-btn {
+  background: linear-gradient(135deg, #27ae60, #1e824c);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.3rem;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(39, 174, 96, 0.35);
+  transition: 0.2s;
+}
+
+.post-task-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+/* ---------- HERO SECTION ---------- */
+.hero {
+  background: var(--bg-gradient);
+  color: white;
+  padding: 4.5rem 2rem 5.5rem 2rem;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(74, 158, 201, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 1.1rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #a8d8ea;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(8px);
+}
+
+.hero-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27ae60;
+  animation: pulse 2s infinite;
+}
+
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  max-width: 900px;
+  margin: 0 auto 1.2rem auto;
+  letter-spacing: -1px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, #ffffff 30%, #a8d8ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: #b8d8ea;
+  max-width: 680px;
+  margin: 0 auto 2.2rem auto;
+  font-weight: 400;
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.cta-btn-primary {
+  background: linear-gradient(135deg, #27ae60, #1e824c);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
+  transition: 0.25s;
+}
+
+.cta-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(39, 174, 96, 0.55);
+}
+
+.cta-btn-secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: 0.25s;
+  backdrop-filter: blur(6px);
+}
+
+.cta-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* STATS STRIP */
+.stats-strip {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item .val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+}
+
+.stat-item .lbl {
+  font-size: 0.8rem;
+  color: #8bb8d0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.section-title h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.section-title p {
+  color: #6b93aa;
+  font-size: 1rem;
+  margin-top: 0.4rem;
+}
+
+/* ---------- FEATURES GRID ---------- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-bottom: 4rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e2edf5;
+  box-shadow: var(--card-shadow);
+  transition: 0.25s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-light);
+  box-shadow: 0 16px 36px -10px rgba(11, 45, 68, 0.18);
+}
+
+.feature-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: #eaf4fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: #557a90;
+  line-height: 1.5;
+}
+
+/* ---------- LIVE TASK MARKETPLACE SECTION ---------- */
+.marketplace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  background: white;
+  border: 1px solid #d4e4ef;
+  padding: 0.45rem 1.1rem;
+  border-radius: 40px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #2c5a73;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.filter-pill.active, .filter-pill:hover {
+  background: var(--primary-dark);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+.task-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1.5px solid #e2edf5;
+  box-shadow: 0 6px 20px rgba(0, 30, 50, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: 0.25s;
+}
+
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(11, 45, 68, 0.12);
+  border-color: var(--primary-light);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.client-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.client-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
+  color: white;
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.client-info .name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.client-info .sub {
+  font-size: 0.7rem;
+  color: #6b93aa;
+}
+
+.price-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #106a4b;
+  background: #e2f0e9;
+  padding: 0.2rem 0.8rem;
+  border-radius: 30px;
+}
+
+.badge-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 30px;
+  background: #eaf4fa;
+  color: #1a5c7c;
+}
+
+.badge.urgent {
+  background: #ffe8e8;
+  color: #b33a3a;
+}
+
+.task-desc {
+  font-size: 0.88rem;
+  color: #244b60;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid #f0f6fa;
+}
+
+.task-words {
+  font-size: 0.72rem;
+  color: #6b93aa;
+  font-weight: 600;
+}
+
+.take-btn {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.55rem 1.1rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.take-btn:hover {
+  background: #0f5875;
+}
+
+/* ---------- HOW IT WORKS ---------- */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.step-card {
+  text-align: center;
+  background: white;
+  padding: 2.2rem 1.5rem;
+  border-radius: 20px;
+  border: 1px solid #e2edf5;
+}
+
+.step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-dark);
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem auto;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  background: var(--primary-dark);
+  color: #a8c8da;
+  padding: 3rem 2rem 2rem 2rem;
+  margin-top: 5rem;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-col h4 {
+  color: white;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer-col a {
+  display: block;
+  color: #a8c8da;
+  text-decoration: none;
+  font-size: 0.82rem;
+  margin-bottom: 0.4rem;
+}
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 2rem auto 0 auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
 }
 
 /* ---------- AUTH MODAL ---------- */
-.auth-modal-overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(11, 45, 68, 0.65);
-backdrop-filter: blur(4px);
-z-index: 999;
-display: none;
-align-items: center;
-justify-content: center;
-padding: 1rem;
-animation: fadeIn 0.2s ease;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 45, 68, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
-.auth-modal-overlay.active {
-display: flex;
+
+.modal-overlay.active {
+  display: flex;
 }
+
 .auth-modal {
-background: white;
-width: 100%;
-max-width: 440px;
-border-radius: 24px;
-box-shadow: 0 20px 45px rgba(0, 30, 60, 0.3);
-padding: 2rem;
-position: relative;
-border: 1px solid #d4e8f2;
-display: flex;
-flex-direction: column;
-gap: 1.2rem;
-animation: scaleUp 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: white;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 24px;
+  padding: 2.2rem;
+  position: relative;
+  box-shadow: 0 24px 50px rgba(0,20,40,0.3);
 }
-@keyframes scaleUp {
-0% { opacity: 0; transform: scale(0.92); }
-100% { opacity: 1; transform: scale(1); }
+
+.modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: #f0f4f8;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
 }
-.auth-modal-close {
-position: absolute;
-top: 1.2rem;
-right: 1.2rem;
-background: #f0f4f8;
-border: none;
-width: 32px;
-height: 32px;
-border-radius: 50%;
-font-size: 1.1rem;
-color: #6b93aa;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: 0.15s;
-}
-.auth-modal-close:hover {
-background: #e1ecf4;
-color: #0b2d44;
-}
-.auth-header {
-text-align: center;
-}
-.auth-header h3 {
-font-size: 1.4rem;
-color: #0b2d44;
-font-weight: 800;
-}
-.auth-header p {
-font-size: 0.82rem;
-color: #6b93aa;
-margin-top: 0.3rem;
-}
+
 .auth-tabs {
-display: flex;
-background: #f0f4f8;
-border-radius: 40px;
-padding: 0.3rem;
-gap: 0.3rem;
+  display: flex;
+  background: #f0f4f8;
+  border-radius: 40px;
+  padding: 0.3rem;
+  margin: 1.2rem 0;
 }
+
 .auth-tab {
-flex: 1;
-border: none;
-background: transparent;
-padding: 0.55rem;
-border-radius: 30px;
-font-size: 0.8rem;
-font-weight: 700;
-color: #6b93aa;
-cursor: pointer;
-transition: 0.15s;
-text-align: center;
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.6rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #6b93aa;
+  cursor: pointer;
 }
+
 .auth-tab.active {
-background: white;
-color: #0b2d44;
-box-shadow: 0 4px 10px rgba(0,20,40,0.08);
+  background: white;
+  color: var(--primary-dark);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
-.auth-form {
-display: flex;
-flex-direction: column;
-gap: 0.9rem;
+
+.form-group {
+  margin-bottom: 1rem;
 }
-.auth-group {
-display: flex;
-flex-direction: column;
-gap: 0.35rem;
+
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
 }
-.auth-group label {
-font-size: 0.75rem;
-font-weight: 700;
-color: #1b3e4f;
+
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1.5px solid #d4e8f2;
+  font-size: 0.88rem;
+  outline: none;
 }
-.auth-group input, .auth-group select, .auth-group textarea {
-width: 100%;
-padding: 0.7rem 0.9rem;
-border-radius: 12px;
-border: 1.5px solid #d4e8f2;
-font-size: 0.85rem;
-font-family: inherit;
-outline: none;
-transition: 0.15s;
-background: #fafcfe;
-color: #0b2d44;
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(26, 110, 140, 0.15);
 }
-.auth-group input:focus, .auth-group select:focus, .auth-group textarea:focus {
-border-color: #1a6e8c;
-box-shadow: 0 0 0 3.5px rgba(26, 110, 140, 0.15);
-background: white;
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
 }
-.role-pill-group {
-display: flex;
-gap: 0.5rem;
+
+.demo-box {
+  margin-top: 1rem;
+  background: #f8fbfe;
+  border: 1px dashed #c5ddef;
+  border-radius: 12px;
+  padding: 0.8rem;
+  text-align: center;
 }
-.role-pill {
-flex: 1;
-border: 1.5px solid #d4e8f2;
-background: #fafcfe;
-padding: 0.6rem 0.5rem;
-border-radius: 12px;
-cursor: pointer;
-text-align: center;
-transition: 0.15s;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0.2rem;
-}
-.role-pill span.icon { font-size: 1.2rem; }
-.role-pill span.title { font-size: 0.75rem; font-weight: 700; color: #1b3e4f; }
-.role-pill.active {
-border-color: #1a6e8c;
-background: #eaf4fa;
-box-shadow: 0 4px 12px rgba(26, 110, 140, 0.12);
-}
-.auth-submit-btn {
-background: linear-gradient(135deg, #0b2d44, #1a6e8c);
-color: white;
-border: none;
-padding: 0.8rem;
-border-radius: 40px;
-font-size: 0.88rem;
-font-weight: 700;
-cursor: pointer;
-box-shadow: 0 6px 14px rgba(11, 45, 68, 0.25);
-transition: 0.15s;
-margin-top: 0.4rem;
-}
-.auth-submit-btn:hover {
-background: linear-gradient(135deg, #103b57, #238bb0);
-transform: translateY(-1px);
-}
-.demo-accounts-block {
-background: #f8fbfe;
-border: 1px dashed #c5ddef;
-border-radius: 14px;
-padding: 0.75rem;
-display: flex;
-flex-direction: column;
-gap: 0.4rem;
-}
-.demo-title {
-font-size: 0.68rem;
-font-weight: 700;
-color: #6b93aa;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-}
-.demo-btns {
-display: flex;
-gap: 0.4rem;
-}
+
 .demo-btn {
-flex: 1;
-border: 1px solid #c8deed;
-background: white;
-padding: 0.4rem 0.5rem;
-border-radius: 8px;
-font-size: 0.7rem;
-font-weight: 600;
-color: #1a6e8c;
-cursor: pointer;
-transition: 0.15s;
-white-space: nowrap;
-}
-.demo-btn:hover {
-background: #eaf4fa;
-border-color: #1a6e8c;
+  background: white;
+  border: 1px solid #c5ddef;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  cursor: pointer;
+  margin: 0.2rem;
 }
 
-/* ---------- PENDING DRAWER ---------- */
-.pending-drawer {
-position: fixed;
-top: 0;
-right: 0;
-width: 420px;
-height: 100vh;
-background: #ffffff;
-box-shadow: -4px 0 28px rgba(0, 20, 30, 0.15);
-z-index: 210;
-transform: translateX(100%);
-transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-display: flex;
-flex-direction: column;
-padding: 1.8rem 1.5rem 1.5rem 1.5rem;
-overflow-y: auto;
-border-left: 1px solid #d9e8f2;
-}
-.pending-drawer.open {
-transform: translateX(0);
-}
-.pending-drawer-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1.5rem;
-}
-.pending-drawer-header h3 {
-font-size: 1.15rem;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-}
-.pending-drawer-close {
-background: none;
-border: none;
-font-size: 1.6rem;
-cursor: pointer;
-color: #6b93aa;
-line-height: 1;
-padding: 0.2rem 0.5rem;
-border-radius: 8px;
-transition: 0.15s;
-}
-.pending-drawer-close:hover {
-background: #eef5fa;
-color: #0b2d44;
-}
-.pending-drawer-list {
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.pending-card {
-background: linear-gradient(135deg, #fffdf5, #fff8e8);
-border: 2px solid #f0dbaa;
-border-radius: 18px;
-padding: 1.1rem 1.1rem 1.2rem 1.1rem;
-display: flex;
-flex-direction: column;
-gap: 0.65rem;
-transition: 0.18s;
-position: relative;
-}
-.pending-card.submitted {
-background: linear-gradient(135deg, #f2faf5, #e9f6ee);
-border-color: #b8dfc6;
-}
-.pending-card:hover {
-border-color: #e0c98a;
-box-shadow: 0 8px 18px -10px #b8860b60;
-transform: translateY(-1px);
-}
-.pending-card-top {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-gap: 0.4rem;
-}
-.pending-card-ref {
-font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-font-size: 0.62rem;
-color: #7a9fb5;
-font-weight: 600;
-letter-spacing: 0.3px;
-}
-.pending-card-price {
-font-weight: 800;
-font-size: 0.9rem;
-color: #106a4b;
-background: #e2f0e9;
-padding: 0.15rem 0.6rem;
-border-radius: 30px;
-white-space: nowrap;
-}
-.pending-card-lang {
-font-size: 0.85rem;
-font-weight: 700;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.35rem;
-}
-.pending-card-client {
-font-size: 0.7rem;
-color: #6b93aa;
-display: flex;
-align-items: center;
-gap: 0.3rem;
-}
-.pending-card-timer {
-display: flex;
-align-items: center;
-gap: 0.4rem;
-font-size: 0.75rem;
-font-weight: 700;
-color: #8a6d1a;
-background: #fef8e8;
-padding: 0.4rem 0.8rem;
-border-radius: 30px;
-width: fit-content;
-border: 1px solid #f0dbaa;
-}
-.pending-card-timer.urgent {
-color: #b33a3a;
-background: #ffe8e8;
-border-color: #f5c6c6;
-animation: timerPulse 1.6s infinite;
-}
-.pending-card-timer.submitted {
-color: #1f7349;
-background: #e5f5e8;
-border-color: #b8dfc6;
-animation: none;
-}
-@keyframes timerPulse {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.72; }
-}
-.pending-card-desc {
-font-size: 0.78rem;
-color: #1b3e4f;
-line-height: 1.45;
-background: #ffffffb0;
-padding: 0.5rem 0.7rem;
-border-radius: 10px;
-border: 1px solid #f0e6d2;
-}
-.pending-card-textarea {
-width: 100%;
-border: 1px solid #bed7e7;
-border-radius: 10px;
-padding: 0.6rem 0.75rem;
-font-size: 0.78rem;
-font-family: inherit;
-resize: vertical;
-min-height: 70px;
-background: #ffffff;
-transition: 0.15s;
-color: #0d3142;
-}
-.pending-card-textarea:focus {
-outline: none;
-border-color: #1a6e8c;
-box-shadow: 0 0 0 3px #1a6e8c20;
-}
-.pending-card-textarea:disabled {
-background: #f2f7fa;
-color: #6b93aa;
-cursor: not-allowed;
-opacity: 0.85;
-}
-.pending-card-actions {
-display: flex;
-gap: 0.45rem;
-margin-top: 0.1rem;
-}
-.pending-card-btn {
-flex: 1;
-border: none;
-padding: 0.55rem 0.6rem;
-border-radius: 40px;
-font-size: 0.72rem;
-font-weight: 700;
-cursor: pointer;
-transition: 0.15s;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 0.25rem;
-white-space: nowrap;
-border: 1px solid transparent;
-}
-.pending-card-btn.send {
-background: #288f5b;
-color: white;
-box-shadow: 0 4px 10px -4px #288f5b;
-}
-.pending-card-btn.send:hover:not(:disabled) {
-background: #1f7349;
-}
-.pending-card-btn.send:disabled {
-background: #b8d0e0;
-color: white;
-cursor: not-allowed;
-box-shadow: none;
-opacity: 0.75;
-}
-.pending-card-btn.view {
-background: #eaf4fa;
-color: #1a5c7c;
-border: 1px solid #c5e0f0;
-flex: 0 0 auto;
-padding-left: 0.9rem;
-padding-right: 0.9rem;
-}
-.pending-card-btn.view:hover {
-background: #d9ecf7;
-}
-.pending-card-submitted-note {
-font-size: 0.7rem;
-font-weight: 700;
-color: #1f7349;
-background: #e5f5e8;
-padding: 0.45rem 0.75rem;
-border-radius: 30px;
-display: inline-flex;
-align-items: center;
-gap: 0.35rem;
-border: 1px solid #b8dfc6;
-width: fit-content;
-}
-.pending-empty {
-text-align: center;
-padding: 2rem 1rem;
-color: #7a9fb5;
-font-size: 0.8rem;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0.6rem;
-background: #f7fbfe;
-border-radius: 16px;
-border: 1px dashed #d4e8f2;
-}
-.pending-empty .empty-icon {
-font-size: 2rem;
-opacity: 0.5;
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-dark);
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  z-index: 3000;
+  border-left: 4px solid var(--accent-green);
 }
 
-/* ---------- SIDEBAR ---------- */
-.sidebar {
-position: fixed;
-top: 0;
-left: 0;
-width: 380px;
-height: 100vh;
-background: #ffffff;
-box-shadow: 4px 0 28px rgba(0, 20, 30, 0.15);
-z-index: 200;
-transform: translateX(-100%);
-transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-display: flex;
-flex-direction: column;
-padding: 1.8rem 1.5rem 1.5rem 1.5rem;
-overflow-y: auto;
-border-right: 1px solid #d9e8f2;
+.toast.show {
+  opacity: 1;
 }
-.sidebar.open {
-transform: translateX(0);
-}
-.sidebar-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1.5rem;
-}
-.sidebar-header h3 {
-font-size: 1.15rem;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-}
-.sidebar-close {
-background: none;
-border: none;
-font-size: 1.6rem;
-cursor: pointer;
-color: #6b93aa;
-line-height: 1;
-padding: 0.2rem 0.5rem;
-border-radius: 8px;
-transition: 0.15s;
-}
-.sidebar-close:hover {
-background: #eef5fa;
-color: #0b2d44;
-}
-.sidebar-nav {
-display: flex;
-flex-direction: column;
-gap: 0.4rem;
-margin-bottom: 1.5rem;
-}
-.sidebar-nav-item {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 0.6rem;
-font-size: 0.85rem;
-font-weight: 600;
-color: #1a5c7c;
-padding: 0.75rem 0.9rem;
-border-radius: 12px;
-cursor: pointer;
-background: #f4fafd;
-border: 1px solid #d4e8f2;
-transition: 0.15s;
-user-select: none;
-}
-.sidebar-nav-item:hover {
-background: #e8f4fd;
-border-color: #a8cde0;
-color: #0b2d44;
-}
-.sidebar-nav-item.active {
-background: #0b2d44;
-color: white;
-border-color: #0b2d44;
-box-shadow: 0 6px 14px -8px #0b2d44;
-}
-.sidebar-nav-left {
-display: flex;
-align-items: center;
-gap: 0.6rem;
-}
-.sidebar-nav-item .chev {
-font-size: 0.8rem;
-transition: transform 0.2s;
-}
-.sidebar-nav-item.active .chev {
-transform: rotate(90deg);
-}
-.sidebar-nav-count {
-background: #e74c3c;
-color: white;
-font-size: 0.62rem;
-font-weight: 700;
-padding: 0.12rem 0.5rem;
-border-radius: 30px;
-min-width: 20px;
-text-align: center;
-}
-.sidebar-nav-count.zero {
-background: #b8d0e0;
-color: #3f6c83;
-}
-.sidebar-active-tasks {
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.45s ease, margin 0.3s ease, opacity 0.3s ease;
-opacity: 0;
-margin-bottom: 0;
-}
-.sidebar-active-tasks.open {
-max-height: 4000px;
-opacity: 1;
-margin-bottom: 1.5rem;
-}
-.sidebar-active-list {
-display: flex;
-flex-direction: column;
-gap: 0.9rem;
-}
-.sidebar-active-card {
-background: linear-gradient(135deg, #f9fdff, #f0f8fd);
-border: 1px solid #d4e8f2;
-border-radius: 16px;
-padding: 0.95rem 1rem 1rem 1rem;
-display: flex;
-flex-direction: column;
-gap: 0.6rem;
-transition: 0.18s;
-position: relative;
-}
-.sidebar-active-card.submitted {
-background: linear-gradient(135deg, #f2faf5, #e9f6ee);
-border-color: #b8dfc6;
-}
-.sidebar-active-card:hover {
-border-color: #a8cde0;
-box-shadow: 0 8px 18px -10px #1a6e8c60;
-transform: translateY(-1px);
-}
-.sidebar-active-top {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-gap: 0.4rem;
-}
-.sidebar-active-ref {
-font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-font-size: 0.62rem;
-color: #7a9fb5;
-font-weight: 600;
-letter-spacing: 0.3px;
-}
-.sidebar-active-price {
-font-weight: 800;
-font-size: 0.85rem;
-color: #106a4b;
-background: #e2f0e9;
-padding: 0.15rem 0.6rem;
-border-radius: 30px;
-white-space: nowrap;
-}
-.sidebar-active-lang {
-font-size: 0.78rem;
-font-weight: 700;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.35rem;
-}
-.sidebar-active-client {
-font-size: 0.68rem;
-color: #6b93aa;
-display: flex;
-align-items: center;
-gap: 0.3rem;
-}
-.sidebar-active-timer {
-display: flex;
-align-items: center;
-gap: 0.4rem;
-font-size: 0.72rem;
-font-weight: 700;
-color: #8a6d1a;
-background: #fef8e8;
-padding: 0.35rem 0.75rem;
-border-radius: 30px;
-width: fit-content;
-border: 1px solid #f0dbaa;
-}
-.sidebar-active-timer.urgent {
-color: #b33a3a;
-background: #ffe8e8;
-border-color: #f5c6c6;
-animation: timerPulse 1.6s infinite;
-}
-.sidebar-active-timer.submitted {
-color: #1f7349;
-background: #e5f5e8;
-border-color: #b8dfc6;
-animation: none;
-}
-.sidebar-active-textarea {
-width: 100%;
-border: 1px solid #bed7e7;
-border-radius: 10px;
-padding: 0.6rem 0.75rem;
-font-size: 0.78rem;
-font-family: inherit;
-resize: vertical;
-min-height: 70px;
-background: #ffffff;
-transition: 0.15s;
-color: #0d3142;
-}
-.sidebar-active-textarea:focus {
-outline: none;
-border-color: #1a6e8c;
-box-shadow: 0 0 0 3px #1a6e8c20;
-}
-.sidebar-active-textarea:disabled {
-background: #f2f7fa;
-color: #6b93aa;
-cursor: not-allowed;
-opacity: 0.85;
-}
-.sidebar-active-actions {
-display: flex;
-gap: 0.35rem;
-margin-top: 0.1rem;
-}
-.sidebar-active-btn {
-flex: 1;
-border: none;
-padding: 0.5rem 0.55rem;
-border-radius: 40px;
-font-size: 0.7rem;
-font-weight: 700;
-cursor: pointer;
-transition: 0.15s;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 0.22rem;
-white-space: nowrap;
-border: 1px solid transparent;
-}
-.sidebar-active-btn.send {
-background: #288f5b;
-color: white;
-box-shadow: 0 4px 10px -4px #288f5b;
-}
-.sidebar-active-btn.send:hover:not(:disabled) {
-background: #1f7349;
-}
-.sidebar-active-btn.send:disabled {
-background: #b8d0e0;
-color: white;
-cursor: not-allowed;
-box-shadow: none;
-opacity: 0.75;
-}
-.sidebar-active-btn.view {
-background: #eaf4fa;
-color: #1a5c7c;
-border: 1px solid #c5e0f0;
-flex: 0 0 auto;
-padding-left: 0.8rem;
-padding-right: 0.8rem;
-}
-.sidebar-active-btn.view:hover {
-background: #d9ecf7;
-}
-.sidebar-active-submitted-note {
-font-size: 0.68rem;
-font-weight: 700;
-color: #1f7349;
-background: #e5f5e8;
-padding: 0.4rem 0.7rem;
-border-radius: 30px;
-display: inline-flex;
-align-items: center;
-gap: 0.35rem;
-border: 1px solid #b8dfc6;
-width: fit-content;
-}
-.sidebar-active-empty {
-text-align: center;
-padding: 1.1rem 0.7rem;
-color: #7a9fb5;
-font-size: 0.75rem;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0.4rem;
-background: #f7fbfe;
-border-radius: 14px;
-border: 1px dashed #d4e8f2;
-}
-.sidebar-active-empty .empty-icon {
-font-size: 1.6rem;
-opacity: 0.5;
-}
-.translator-card {
-background: linear-gradient(135deg, #fefefe, #f4fafd);
-border: 1px solid #d4e8f2;
-border-radius: 18px;
-padding: 1.2rem 1.1rem;
-margin-bottom: 1.6rem;
-box-shadow: 0 6px 18px -10px #0b2d4430;
-}
-.translator-card-header {
-display: flex;
-align-items: center;
-gap: 0.7rem;
-margin-bottom: 1rem;
-}
-.translator-big-avatar {
-width: 46px;
-height: 46px;
-border-radius: 50%;
-background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-weight: 700;
-font-size: 0.95rem;
-box-shadow: 0 4px 10px -4px #1a6e8c80;
-}
-.translator-name-block {
-display: flex;
-flex-direction: column;
-gap: 0.15rem;
-}
-.translator-name-block .t-name {
-font-size: 0.92rem;
-font-weight: 700;
-color: #0b2d44;
-}
-.translator-name-block .t-tier {
-font-size: 0.65rem;
-font-weight: 700;
-color: #b8860b;
-background: #fef3d0;
-padding: 0.12rem 0.55rem;
-border-radius: 30px;
-display: inline-flex;
-align-items: center;
-gap: 0.2rem;
-align-self: flex-start;
-}
-.rating-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 0.55rem;
-margin-bottom: 0.9rem;
-}
-.rating-stat {
-background: #f4fafd;
-border-radius: 12px;
-padding: 0.6rem 0.7rem;
-border: 1px solid #e2eef7;
-display: flex;
-flex-direction: column;
-gap: 0.15rem;
-}
-.rating-stat .rs-label {
-font-size: 0.6rem;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-color: #7a9fb5;
-font-weight: 700;
-}
-.rating-stat .rs-value {
-font-size: 1rem;
-font-weight: 800;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.25rem;
-}
-.rating-stat .rs-value.gold { color: #d68910; }
-.rating-stat .rs-value.green { color: #1f7349; }
-.rating-stat .rs-value.blue { color: #1a6e8c; }
-.rating-bars {
-display: flex;
-flex-direction: column;
-gap: 0.55rem;
-}
-.rating-bar-row {
-display: flex;
-flex-direction: column;
-gap: 0.25rem;
-}
-.rating-bar-top {
-display: flex;
-justify-content: space-between;
-font-size: 0.68rem;
-font-weight: 600;
-color: #3f6c83;
-}
-.rating-bar-track {
-height: 6px;
-background: #e8f0f6;
-border-radius: 6px;
-overflow: hidden;
-}
-.rating-bar-fill {
-height: 100%;
-border-radius: 6px;
-transition: width 0.6s ease;
-}
-.rating-bar-fill.quality { background: linear-gradient(90deg, #4a9ec9, #1a6e8c); }
-.rating-bar-fill.timely { background: linear-gradient(90deg, #5cc98a, #288f5b); }
-.rating-bar-fill.accept { background: linear-gradient(90deg, #f0b64a, #d68910); }
-.section-label {
-font-size: 0.7rem;
-text-transform: uppercase;
-letter-spacing: 1px;
-color: #6b93aa;
-font-weight: 700;
-margin-bottom: 1rem;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-}
-.withdrawal-list {
-display: flex;
-flex-direction: column;
-gap: 0.65rem;
-margin-bottom: 1.5rem;
-}
-.withdrawal-item {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 0.85rem 1rem;
-background: #f7fbfe;
-border-radius: 14px;
-border: 1px solid #e2eef7;
-transition: 0.15s;
-position: relative;
-}
-.withdrawal-item:hover {
-background: #eef7fd;
-border-color: #b8d0e0;
-transform: translateX(2px);
-}
-.withdrawal-left {
-display: flex;
-flex-direction: column;
-gap: 0.2rem;
-}
-.withdrawal-amount {
-font-weight: 700;
-font-size: 0.95rem;
-color: #0b2d44;
-}
-.withdrawal-meta {
-font-size: 0.68rem;
-color: #6b93aa;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-}
-.withdrawal-meta .mpesa-tag {
-background: #e5f5e8;
-color: #1f7349;
-padding: 0.12rem 0.55rem;
-border-radius: 30px;
-font-weight: 600;
-font-size: 0.6rem;
-display: inline-flex;
-align-items: center;
-gap: 0.2rem;
-}
-.withdrawal-status {
-font-size: 0.7rem;
-font-weight: 700;
-color: #1f7349;
-background: #e5f5e8;
-padding: 0.28rem 0.75rem;
-border-radius: 40px;
-display: flex;
-align-items: center;
-gap: 0.25rem;
-white-space: nowrap;
-}
-.withdrawal-ref {
-font-size: 0.6rem;
-color: #9ab8cc;
-font-weight: 500;
-font-family: 'SF Mono', 'Monaco', monospace;
-margin-top: 0.1rem;
-}
-.sidebar-footer {
-margin-top: auto;
-padding-top: 1.2rem;
-border-top: 1px solid #e8f0f6;
-display: flex;
-flex-direction: column;
-gap: 0.6rem;
-}
-.sidebar-footer-item {
-display: flex;
-align-items: center;
-gap: 0.6rem;
-font-size: 0.78rem;
-color: #3f6c83;
-padding: 0.55rem 0.7rem;
-border-radius: 10px;
-cursor: pointer;
-transition: 0.15s;
-}
-.sidebar-footer-item:hover {
-background: #eef7fd;
-color: #0b2d44;
-}
-.overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.35);
-z-index: 150;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.25s;
-}
-.overlay.active {
-opacity: 1;
-pointer-events: auto;
-}
-/* ---------- MAIN CONTAINER ---------- */
-.app-wrapper {
-max-width: 1300px;
-width: 100%;
-padding: 1.5rem 1.5rem 2rem 1.5rem;
-}
-.platform-stats {
-display: flex;
-flex-wrap: wrap;
-gap: 0.8rem;
-margin-bottom: 1.5rem;
-justify-content: space-between;
-align-items: center;
-}
-.stat-pill {
-background: white;
-padding: 0.6rem 1.2rem;
-border-radius: 50px;
-box-shadow: 0 4px 12px rgba(0,30,50,0.06);
-display: flex;
-align-items: center;
-gap: 0.5rem;
-font-size: 0.85rem;
-font-weight: 500;
-color: #154a63;
-border: 1px solid #e2edf5;
-}
-.stat-pill .dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: #27ae60;
-animation: pulse 2s infinite;
-}
+
 @keyframes pulse {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.4; }
-}
-.stat-pill .count {
-font-weight: 700;
-color: #0b2d44;
-font-size: 1rem;
-}
-.section-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1.2rem;
-flex-wrap: wrap;
-gap: 0.8rem;
-}
-.section-header h2 {
-font-size: 1.3rem;
-font-weight: 700;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.5rem;
-}
-.section-header h2 .live-tag {
-font-size: 0.65rem;
-background: #e74c3c;
-color: white;
-padding: 0.15rem 0.5rem;
-border-radius: 30px;
-font-weight: 700;
-letter-spacing: 0.5px;
-text-transform: uppercase;
-animation: blink 1.5s infinite;
-}
-@keyframes blink {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.5; }
-}
-.filter-tabs {
-display: flex;
-gap: 0.4rem;
-flex-wrap: wrap;
-}
-.filter-tab {
-background: white;
-border: 1px solid #d4e4ef;
-padding: 0.4rem 1rem;
-border-radius: 50px;
-font-size: 0.8rem;
-font-weight: 500;
-color: #2c5a73;
-cursor: pointer;
-transition: 0.15s;
-}
-.filter-tab:hover {
-background: #eaf3f9;
-}
-.filter-tab.active {
-background: #0b2d44;
-color: white;
-border-color: #0b2d44;
-box-shadow: 0 4px 10px -4px #0b2d44;
-}
-.task-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-gap: 1.4rem;
-margin-bottom: 1.5rem;
-}
-.task-card {
-background: white;
-border-radius: 22px;
-padding: 1.4rem 1.3rem 1.2rem 1.3rem;
-box-shadow: 0 8px 24px -6px rgba(0,40,60,0.1);
-transition: all 0.25s ease;
-display: flex;
-flex-direction: column;
-border: 2px solid #e6f0f7;
-position: relative;
-}
-.task-card:hover {
-transform: translateY(-4px);
-box-shadow: 0 20px 32px -10px rgba(18,80,110,0.18);
-border-color: #c5ddef;
-}
-.task-card.highlighted {
-border: 3px solid #f39c12;
-box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.18), 0 12px 28px -8px rgba(243, 156, 18, 0.35);
-transform: translateY(-2px);
-background: #fffdf5;
-animation: highlightPulse 1.5s ease;
-}
-@keyframes highlightPulse {
-0% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.5), 0 12px 28px -8px rgba(243, 156, 18, 0.35); }
-70% { box-shadow: 0 0 0 10px rgba(243, 156, 18, 0), 0 12px 28px -8px rgba(243, 156, 18, 0.35); }
-100% { box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.18), 0 12px 28px -8px rgba(243, 156, 18, 0.35); }
-}
-.task-card.taken {
-background: #fffdf8;
-border: 2px solid #f0dbaa;
-}
-.task-card.submitted {
-background: #f2faf5;
-border-left: 5px solid #2b8c5a;
-opacity: 0.92;
-}
-.client-info {
-display: flex;
-align-items: center;
-gap: 0.6rem;
-padding-bottom: 0.8rem;
-margin-bottom: 0.8rem;
-border-bottom: 1px solid #eef5fa;
-}
-.client-avatar {
-width: 38px;
-height: 38px;
-border-radius: 50%;
-background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: 700;
-color: white;
-font-size: 0.75rem;
-flex-shrink: 0;
-}
-.client-details {
-flex: 1;
-min-width: 0;
-}
-.client-name {
-font-size: 0.85rem;
-font-weight: 700;
-color: #0b2d44;
-display: flex;
-align-items: center;
-gap: 0.4rem;
-flex-wrap: wrap;
-}
-.client-name .flag {
-font-size: 1rem;
-line-height: 1;
-}
-.client-meta {
-font-size: 0.7rem;
-color: #6b93aa;
-display: flex;
-align-items: center;
-gap: 0.3rem;
-margin-top: 0.15rem;
-flex-wrap: wrap;
-}
-.client-meta .uni {
-font-weight: 500;
-}
-.client-meta .dot-sep {
-color: #b8d0e0;
-}
-.client-meta .response-time {
-color: #27ae60;
-font-weight: 600;
-}
-.client-rating {
-display: flex;
-align-items: center;
-gap: 0.2rem;
-font-size: 0.7rem;
-font-weight: 700;
-color: #d68910;
-background: #fef8e8;
-padding: 0.2rem 0.5rem;
-border-radius: 30px;
-white-space: nowrap;
-}
-.task-top-row {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-margin-bottom: 0.5rem;
-gap: 0.5rem;
-}
-.task-id {
-font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-font-size: 0.65rem;
-color: #7a9fb5;
-background: #f5f9fc;
-padding: 0.2rem 0.55rem;
-border-radius: 6px;
-letter-spacing: 0.3px;
-font-weight: 600;
-border: 1px solid #e3eef5;
-}
-.price-tag {
-font-weight: 800;
-font-size: 1.15rem;
-color: #106a4b;
-background: #e2f0e9;
-padding: 0.2rem 0.75rem;
-border-radius: 30px;
-line-height: 1.3;
-white-space: nowrap;
-}
-.price-tag.small {
-font-size: 0.95rem;
-background: #eef3f7;
-color: #1a5c7c;
-}
-.badge-row {
-display: flex;
-flex-wrap: wrap;
-gap: 0.4rem;
-margin-bottom: 0.6rem;
-}
-.badge {
-background: #e8f2fa;
-color: #0b4b6b;
-font-weight: 600;
-font-size: 0.68rem;
-padding: 0.22rem 0.65rem;
-border-radius: 30px;
-letter-spacing: 0.2px;
-display: inline-flex;
-align-items: center;
-gap: 0.2rem;
-}
-.badge.hot {
-background: #ffe8e8;
-color: #b33a3a;
-}
-.badge.beginner {
-background: #e5f5e8;
-color: #1f7349;
-}
-.badge.intermediate {
-background: #fef3d0;
-color: #8a6d1a;
-}
-.badge.advanced {
-background: #ffe0e0;
-color: #a83232;
-}
-.escrow-badge {
-background: #e8f4fd;
-color: #1a5c7c;
-font-weight: 600;
-font-size: 0.68rem;
-padding: 0.22rem 0.65rem;
-border-radius: 30px;
-display: inline-flex;
-align-items: center;
-gap: 0.25rem;
-border: 1px solid #c5e0f0;
-}
-.task-desc {
-font-size: 0.88rem;
-font-weight: 450;
-color: #1b3e4f;
-margin: 0.4rem 0 0.5rem 0;
-line-height: 1.5;
-padding-right: 0.2rem;
-flex: 1;
-}
-.task-meta {
-display: flex;
-flex-wrap: wrap;
-gap: 0.5rem;
-margin-bottom: 0.6rem;
-}
-.task-wordcount, .task-deadline {
-display: flex;
-align-items: center;
-gap: 0.3rem;
-font-size: 0.72rem;
-color: #1a5c7c;
-background: #eaf4fa;
-padding: 0.25rem 0.7rem;
-border-radius: 50px;
-font-weight: 500;
-}
-.task-deadline {
-color: #8a6d1a;
-background: #fef8e8;
-}
-.task-posted {
-font-size: 0.68rem;
-color: #9ab8cc;
-display: flex;
-align-items: center;
-gap: 0.25rem;
-margin-bottom: 0.7rem;
-font-weight: 500;
-}
-.task-actions {
-display: flex;
-gap: 0.5rem;
-margin-top: 0.2rem;
-flex-wrap: wrap;
-}
-.btn {
-border: none;
-background: #edf4fa;
-padding: 0.6rem 1rem;
-border-radius: 60px;
-font-weight: 600;
-font-size: 0.8rem;
-color: #0e4a68;
-cursor: pointer;
-transition: 0.15s;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 0.3rem;
-flex: 1;
-white-space: nowrap;
-border: 1px solid transparent;
-}
-.btn-primary {
-background: #1a6e8c;
-color: white;
-box-shadow: 0 6px 12px -6px #1a6e8c60;
-}
-.btn-primary:hover:not(:disabled) {
-background: #0f5875;
-transform: scale(1.01);
-}
-.status-indicator {
-font-size: 0.7rem;
-padding: 0.3rem 0.8rem;
-border-radius: 50px;
-background: #c9e1f0;
-color: #17516b;
-font-weight: 600;
-display: inline-block;
-align-self: flex-start;
-margin-top: 0.5rem;
-}
-.submission-panel {
-margin-top: 0.9rem;
-background: #fafdff;
-border-radius: 16px;
-padding: 1rem 0.9rem 0.9rem 0.9rem;
-border: 1px solid #cde0ec;
-display: none;
-animation: fadeSlide 0.2s ease;
-}
-.submission-panel.open {
-display: block;
-}
-.submission-panel textarea {
-width: 100%;
-border: 1px solid #bed7e7;
-border-radius: 12px;
-padding: 0.7rem 0.9rem;
-font-size: 0.85rem;
-font-family: inherit;
-resize: vertical;
-min-height: 80px;
-background: #ffffff;
-outline: none;
-}
-.submission-panel .panel-actions {
-display: flex;
-gap: 0.5rem;
-margin-top: 0.7rem;
-justify-content: flex-end;
-}
-.btn-small {
-padding: 0.45rem 1rem;
-font-size: 0.75rem;
-flex: 0 0 auto;
-border-radius: 40px;
-}
-.btn-ghost {
-background: transparent;
-border: 1px solid #b8cfdd;
-color: #1e5777;
-}
-.btn-send {
-background: #288f5b;
-color: white;
-box-shadow: 0 4px 10px -4px #288f5b;
-}
-.load-more-wrap {
-display: flex;
-justify-content: center;
-margin: 1.5rem 0 1rem 0;
-}
-.load-more-btn {
-background: white;
-border: 1px solid #b8d0e0;
-color: #1a5c7c;
-padding: 0.8rem 2.5rem;
-border-radius: 60px;
-font-weight: 600;
-font-size: 0.9rem;
-cursor: pointer;
-transition: 0.15s;
-box-shadow: 0 4px 12px -4px rgba(0,0,0,0.06);
-}
-.site-footer {
-width: 100%;
-background: #0b2d44;
-color: #a8c8da;
-padding: 2rem 2rem 1.5rem 2rem;
-margin-top: 2rem;
-}
-.footer-inner {
-max-width: 1300px;
-margin: 0 auto;
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-gap: 2rem;
-}
-.footer-col h4 {
-color: white;
-font-size: 0.85rem;
-margin-bottom: 0.8rem;
-font-weight: 700;
-}
-.footer-col a {
-display: block;
-color: #a8c8da;
-text-decoration: none;
-font-size: 0.78rem;
-margin-bottom: 0.5rem;
-}
-.footer-bottom {
-max-width: 1300px;
-margin: 1.5rem auto 0 auto;
-padding-top: 1.2rem;
-border-top: 1px solid rgba(255,255,255,0.1);
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-font-size: 0.72rem;
-color: #7a9fb5;
-gap: 0.5rem;
-}
-.toast-message {
-position: fixed;
-bottom: 2rem;
-left: 50%;
-transform: translateX(-50%) scale(0.95);
-background: #0b2d44;
-color: white;
-padding: 0.9rem 2rem;
-border-radius: 60px;
-font-weight: 500;
-opacity: 0;
-transition: opacity 0.2s, transform 0.2s;
-pointer-events: none;
-z-index: 1000;
-box-shadow: 0 12px 28px -6px #0a2530;
-font-size: 0.9rem;
-max-width: 90vw;
-text-align: center;
-border-left: 4px solid #27ae60;
-}
-.toast-message.show {
-opacity: 1;
-transform: translateX(-50%) scale(1);
-}
-.toast-message.warning {
-border-left-color: #e67e22;
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 </style>
 </head>
 <body>
 
-<!-- AUTH MODAL -->
-<div class="auth-modal-overlay" id="authModalOverlay">
-<div class="auth-modal">
-<button class="auth-modal-close" id="authModalCloseBtn">✕</button>
-<div class="auth-header">
-<h3 id="authModalTitle">Welcome Back</h3>
-<p id="authModalSub">Log in to your MegaQash account</p>
-</div>
-
-<div class="auth-tabs">
-<button class="auth-tab active" id="tabLoginBtn">Log In</button>
-<button class="auth-tab" id="tabRegisterBtn">Create Account</button>
-</div>
-
-<!-- LOGIN FORM -->
-<form class="auth-form" id="loginForm">
-<div class="auth-group">
-<label>Email Address</label>
-<input type="email" id="loginEmail" placeholder="e.g. client@nyu.edu" required>
-</div>
-<div class="auth-group">
-<label>Password</label>
-<input type="password" id="loginPassword" placeholder="••••••••" required>
-</div>
-<button type="submit" class="auth-submit-btn">⚡ Log In</button>
-
-<div class="demo-accounts-block">
-<span class="demo-title">Quick 1-Click Demo Logins</span>
-<div class="demo-btns">
-<button type="button" class="demo-btn" id="demoClientBtn">🎓 Demo Client (NYU)</button>
-<button type="button" class="demo-btn" id="demoWriterBtn">✍️ Demo Translator</button>
-</div>
-</div>
-</form>
-
-<!-- REGISTER FORM -->
-<form class="auth-form" id="registerForm" style="display: none;">
-<div class="auth-group">
-<label>Account Type</label>
-<div class="role-pill-group">
-<div class="role-pill active" id="roleClientPill" data-role="client">
-<span class="icon">🎓</span>
-<span class="title">Client / Employer</span>
-</div>
-<div class="role-pill" id="roleWriterPill" data-role="writer">
-<span class="icon">✍️</span>
-<span class="title">Freelance Writer</span>
-</div>
-</div>
-</div>
-<div class="auth-group">
-<label>Full Name</label>
-<input type="text" id="regName" placeholder="e.g. Emily Carter" required>
-</div>
-<div class="auth-group">
-<label>Email Address</label>
-<input type="email" id="regEmail" placeholder="e.g. emily@nyu.edu" required>
-</div>
-<div class="auth-group">
-<label>Password</label>
-<input type="password" id="regPassword" placeholder="Minimum 6 characters" required minlength="6">
-</div>
-<div class="auth-group" id="uniGroup">
-<label>University / Institution Name</label>
-<input type="text" id="regUni" placeholder="e.g. NYU / Oxford / Harvard">
-</div>
-<div class="auth-group">
-<label>Country</label>
-<input type="text" id="regCountry" placeholder="e.g. United States 🇺🇸">
-</div>
-<button type="submit" class="auth-submit-btn">🚀 Create Account</button>
-</form>
-</div>
-</div>
-
-<!-- CLIENT POST TASK MODAL -->
-<div class="auth-modal-overlay" id="postTaskModalOverlay">
-<div class="auth-modal" style="max-width: 500px;">
-<button class="auth-modal-close" id="postTaskModalCloseBtn">✕</button>
-<div class="auth-header">
-<h3>Post New Translation Task</h3>
-<p>Publish a paragraph for freelance translators</p>
-</div>
-<form class="auth-form" id="postTaskForm">
-<div class="auth-group">
-<label>Target Language</label>
-<select id="postLang" required>
-<option value="Spanish 🇪🇸">Spanish 🇪🇸</option>
-<option value="French 🇫🇷">French 🇫🇷</option>
-<option value="German 🇩🇪">German 🇩🇪</option>
-<option value="Japanese 🇯🇵">Japanese 🇯🇵</option>
-<option value="Mandarin 🇨🇳">Mandarin 🇨🇳</option>
-<option value="Swahili 🇰🇪">Swahili 🇰🇪</option>
-</select>
-</div>
-<div class="auth-group">
-<label>English Source Paragraph</label>
-<textarea id="postParagraph" rows="4" placeholder="Enter the English text to be translated..." required></textarea>
-</div>
-<div class="auth-group">
-<label>Reward Pay ($ USD)</label>
-<select id="postPrice" required>
-<option value="0.20">$0.20</option>
-<option value="0.30">$0.30</option>
-<option value="0.40">$0.40</option>
-<option value="0.50" selected>$0.50</option>
-<option value="0.75">$0.75</option>
-<option value="0.80">$0.80</option>
-<option value="1.00">$1.00</option>
-</select>
-</div>
-<div class="auth-group">
-<label>Turnaround Deadline</label>
-<select id="postDeadline" required>
-<option value="2">2 Hours (Urgent)</option>
-<option value="4">4 Hours</option>
-<option value="8">8 Hours</option>
-<option value="12">12 Hours</option>
-<option value="24">24 Hours</option>
-</select>
-</div>
-<button type="submit" class="auth-submit-btn" style="background: linear-gradient(135deg, #27ae60, #1e824c);">
-✨ Publish Task to Marketplace
-</button>
-</form>
-</div>
-</div>
-
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-<div class="sidebar-header">
-<h3>👤 Account</h3>
-<button class="sidebar-close" id="sidebarCloseBtn" aria-label="Close sidebar">✕</button>
-</div>
-<div class="sidebar-nav">
-<div class="sidebar-nav-item" id="activeTasksToggle" role="button" aria-expanded="false">
-<div class="sidebar-nav-left">
-<span>🎯</span>
-<span>Active Tasks</span>
-</div>
-<div class="sidebar-nav-left" style="gap:0.4rem;">
-<span class="sidebar-nav-count zero" id="activeTasksCount">0</span>
-<span class="chev">▶</span>
-</div>
-</div>
-</div>
-<div class="sidebar-active-tasks" id="sidebarActiveTasks">
-<div class="sidebar-active-list" id="sidebarActiveList"></div>
-</div>
-<div class="translator-card">
-<div class="translator-card-header">
-<div class="translator-big-avatar" id="sidebarAvatar">TL</div>
-<div class="translator-name-block">
-<span class="t-name" id="sidebarUserName">Translator</span>
-<span class="t-tier" id="sidebarUserRole">🏅 Gold Tier</span>
-</div>
-</div>
-<div class="rating-grid">
-<div class="rating-stat">
-<span class="rs-label">Overall Rating</span>
-<span class="rs-value gold">⭐ 4.9</span>
-</div>
-<div class="rating-stat">
-<span class="rs-label">Tasks Completed</span>
-<span class="rs-value blue">147</span>
-</div>
-<div class="rating-stat">
-<span class="rs-label">On-Time Rate</span>
-<span class="rs-value green">98%</span>
-</div>
-<div class="rating-stat">
-<span class="rs-label">Acceptance</span>
-<span class="rs-value green">96%</span>
-</div>
-</div>
-</div>
-<div class="section-label">
-<span>📤 Withdrawal history · M-Pesa</span>
-</div>
-<div class="withdrawal-list">
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 5.00</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8823-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-<div class="withdrawal-item">
-<div class="withdrawal-left">
-<span class="withdrawal-amount">$ 8.50</span>
-<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
-<span class="withdrawal-ref">Ref: MPX-8712-KE</span>
-</div>
-<span class="withdrawal-status">✅ Success</span>
-</div>
-</div>
-<div class="sidebar-footer">
-<div class="sidebar-footer-item">⚙️ Account Settings</div>
-<div class="sidebar-footer-item">🛡️ Security & Privacy</div>
-</div>
-</aside>
-
-<!-- PENDING DRAWER -->
-<aside class="pending-drawer" id="pendingDrawer">
-<div class="pending-drawer-header">
-<h3>📋 Pending Tasks · Awaiting Approval</h3>
-<button class="pending-drawer-close" id="pendingDrawerCloseBtn">✕</button>
-</div>
-<div class="pending-drawer-list" id="pendingDrawerList"></div>
-</aside>
-<div class="overlay" id="overlay"></div>
-
-<!-- NAVIGATION BAR -->
+<!-- NAVBAR -->
 <nav class="navbar">
-<div class="navbar-left">
-<button class="menu-toggle" id="menuToggleBtn">
-<span></span><span></span><span></span>
-</button>
-<div class="navbar-brand">
-<span class="logo-icon">✍️</span>
-<h1>MegaQash Writters</h1>
-<span>Translation Division</span>
-</div>
-</div>
+  <a href="#" class="navbar-brand">
+    <span class="logo-icon">✍️</span>
+    <div class="brand-text">
+      <h1>MegaQash</h1>
+      <span>Writers Platform</span>
+    </div>
+  </a>
 
-<div class="navbar-right">
-<!-- Post Task button for Clients -->
-<button class="post-task-nav-btn" id="navPostTaskBtn" style="display: none;">
-<span>➕</span> Post Task
-</button>
-
-<div class="notification-bell" title="Notifications">
-🔔 <span class="bell-dot"></span>
-</div>
-
-<div class="tasks-icon" id="tasksIconBtn" title="My pending tasks">
-<span class="icon">📋</span>
-<span class="label">Tasks</span>
-<span class="tasks-badge hidden" id="tasksBadge">0</span>
-</div>
-
-<!-- LOGGED OUT NAV BUTTONS -->
-<div id="loggedOutNav" style="display: flex; gap: 0.5rem;">
-<button class="auth-btn-nav outline" id="navLoginBtn">🔑 Log In</button>
-<button class="auth-btn-nav" id="navRegisterBtn">📝 Sign Up</button>
-</div>
-
-<!-- LOGGED IN USER PROFILE & LOGOUT BUTTON -->
-<div class="user-profile-wrapper" id="loggedInNav" style="display: none; align-items: center; gap: 0.6rem;">
-<div class="user-profile" id="userProfileBtn">
-<div class="user-avatar" id="navAvatar">TL</div>
-<div class="user-info">
-<span class="name" id="navUserName">Translator</span>
-<span class="role" id="navUserRole">Freelance</span>
-</div>
-<span class="nav-badge" id="navRoleBadge">Writter</span>
-</div>
-<!-- STANDALONE LOGOUT BUTTON IN NAVBAR -->
-<button class="auth-btn-nav outline" id="navLogoutBtn" style="background: rgba(231, 76, 60, 0.2); border-color: rgba(231, 76, 60, 0.5); color: #ffb3b3;" title="Log out of account">
-🚪 Log Out
-</button>
-<!-- DROPDOWN -->
-<div class="user-dropdown" id="userDropdown">
-<div class="user-dropdown-header">
-<strong id="dropName">User Name</strong>
-<span class="email" id="dropEmail">user@example.com</span>
-<span class="role-badge" id="dropRole">Client Account</span>
-</div>
-<div class="user-dropdown-item" id="dropPostTask" style="display:none;">➕ Post New Task</div>
-<div class="user-dropdown-item" id="dropAccount">👤 My Account Profile</div>
-<div class="user-dropdown-item logout" id="dropLogout">🚪 Log Out</div>
-</div>
-</div>
-</div>
+  <div class="nav-links">
+    <button class="nav-link-btn" id="navTasksBtn">Browse Tasks</button>
+    <button class="nav-link-btn" id="navHowBtn">How It Works</button>
+    <button class="auth-btn outline" id="btnLogin">Log In</button>
+    <button class="auth-btn" id="btnRegister">Sign Up</button>
+    <button class="post-task-btn" id="btnPostTask" style="display:none;">➕ Post Task</button>
+    
+    <div id="userBadge" style="display:none; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.1); padding:0.3rem 0.8rem; border-radius:30px; color:white; font-size:0.8rem; font-weight:700;">
+      <span id="uAvatar" style="background:#1a6e8c; width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.7rem;">EC</span>
+      <span id="uName">Emily</span>
+      <button id="btnLogout" style="background:transparent; border:none; color:#ff9999; cursor:pointer; font-weight:700; margin-left:0.4rem;">Logout</button>
+    </div>
+  </div>
 </nav>
 
-<!-- MAIN APP -->
-<div class="app-wrapper">
-<div class="platform-stats">
-<div class="stat-pill">
-<span class="dot"></span>
-<span class="count" id="availableCount">200</span> translation questions available
-</div>
-<div class="stat-pill">
-<span>🌍</span> 20 target languages
-</div>
-<div class="stat-pill">
-<span>⏱️</span> Avg. completion: 12 min
-</div>
-<div class="stat-pill">
-<span>✅</span> 1,247 tasks completed
-</div>
-</div>
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    <span>Live Translation Tasks · Instant M-Pesa Payouts</span>
+  </div>
+  <h1>Translate Short Paragraphs.<br><span>Earn Instant Cash Daily.</span></h1>
+  <p>Connecting university researchers and global clients with verified freelance writers for fast paragraph translations across 20 languages.</p>
+  
+  <div class="hero-cta">
+    <button class="cta-btn-primary" id="heroBtnTranslator">Start Earning as Writer</button>
+    <button class="cta-btn-secondary" id="heroBtnClient">Post a Translation Task</button>
+  </div>
 
-<div class="section-header">
-<h2>Available Translation Tasks <span class="live-tag">Live</span></h2>
-<div class="filter-tabs" id="filterTabs">
-<button class="filter-tab active" data-filter="all">All</button>
-<button class="filter-tab" data-filter="0.20">$0.20</button>
-<button class="filter-tab" data-filter="0.30">$0.30</button>
-<button class="filter-tab" data-filter="0.40">$0.40</button>
-<button class="filter-tab" data-filter="0.50">$0.50</button>
-<button class="filter-tab" data-filter="0.75">$0.75</button>
-<button class="filter-tab" data-filter="0.80">$0.80</button>
-<button class="filter-tab" data-filter="1.00">$1.00</button>
-</div>
-</div>
+  <div class="stats-strip">
+    <div class="stat-item"><div class="val">200+</div><div class="lbl">Live Tasks Available</div></div>
+    <div class="stat-item"><div class="val">20</div><div class="lbl">Target Languages</div></div>
+    <div class="stat-item"><div class="val">$0.20 – $1.00</div><div class="lbl">Pay per Paragraph</div></div>
+    <div class="stat-item"><div class="val">1,247</div><div class="lbl">Tasks Completed</div></div>
+  </div>
+</section>
 
-<div class="task-grid" id="taskGrid"></div>
+<!-- CONTAINER -->
+<div class="container">
+  
+  <!-- FEATURES -->
+  <div class="section-title">
+    <h2>Why Translators & Clients Choose MegaQash</h2>
+    <p>Fast micro-task workflows backed by guaranteed escrow payouts.</p>
+  </div>
 
-<div class="load-more-wrap" id="loadMoreWrap">
-<button class="load-more-btn" id="loadMoreBtn">Load more questions</button>
-</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Micro-Task Speed</h3>
+      <p>Short paragraph questions designed to take only 5–12 minutes per translation task.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Instant Mobile Payouts</h3>
+      <p>Withdraw your earnings directly to M-Pesa or mobile money as soon as your task is approved.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎓</div>
+      <h3>Academic Clients</h3>
+      <p>Direct tasks from students and researchers at top institutions like NYU, Oxford, and Sorbonne.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>Escrow Protection</h3>
+      <p>All task funds are pre-funded into escrow before writers begin translation work.</p>
+    </div>
+  </div>
+
+  <!-- LIVE TASK MARKETPLACE -->
+  <div class="marketplace-header" id="tasksSection">
+    <div class="section-title" style="text-align:left; margin-bottom:0;">
+      <h2>Live Translation Marketplace</h2>
+      <p>Select a question below to begin translating</p>
+    </div>
+
+    <div class="filter-pills">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="0.20">$0.20</button>
+      <button class="filter-pill" data-filter="0.40">$0.40</button>
+      <button class="filter-pill" data-filter="0.50">$0.50</button>
+      <button class="filter-pill" data-filter="0.75">$0.75</button>
+      <button class="filter-pill" data-filter="1.00">$1.00</button>
+    </div>
+  </div>
+
+  <div class="task-grid" id="taskGrid"></div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section-title" id="howSection" style="margin-top: 5rem;">
+    <h2>How It Works</h2>
+    <p>Simple 3-step translation lifecycle</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Create Free Account</h3>
+      <p>Sign up as a Freelance Writer to translate, or as a Client to publish tasks.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Take & Translate</h3>
+      <p>Pick live tasks, draft your translation, and submit for client review.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Get Paid Instantly</h3>
+      <p>Receive payouts directly into your mobile wallet upon task approval.</p>
+    </div>
+  </div>
+
 </div>
 
 <!-- FOOTER -->
-<footer class="site-footer">
-<div class="footer-inner">
-<div class="footer-col">
-<h4>MegaQash Writters</h4>
-<a href="#">About Us</a>
-<a href="#">How It Works</a>
-<a href="#">Careers</a>
-</div>
-<div class="footer-col">
-<h4>For Translators</h4>
-<a href="#">Task Guidelines</a>
-<a href="#">Payment Methods</a>
-</div>
-<div class="footer-col">
-<h4>Legal & Trust</h4>
-<a href="#">Terms of Service</a>
-<a href="#">Privacy Policy</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>© 2024 MegaQash Writters. All rights reserved.</span>
-<span>Made with 🌍 for translators worldwide</span>
-</div>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>MegaQash Writers</h4>
+      <a href="#">About Us</a>
+      <a href="#">How It Works</a>
+      <a href="#">Quality Standards</a>
+    </div>
+    <div class="footer-col">
+      <h4>Translators</h4>
+      <a href="#">Task Guidelines</a>
+      <a href="#">M-Pesa Payouts</a>
+      <a href="#">Gold Tier Program</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">GDPR Security</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 MegaQash Writers. All rights reserved.</span>
+    <span>Made with 🌍 for writers worldwide</span>
+  </div>
 </footer>
 
-<div class="toast-message" id="toast"></div>
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="modal-close" id="btnCloseAuth">✕</button>
+    
+    <div style="text-align:center;">
+      <h3 id="modalTitle" style="font-size:1.4rem; color:#0b2d44; font-weight:800;">Welcome Back</h3>
+      <p id="modalSub" style="font-size:0.82rem; color:#6b93aa; margin-top:0.2rem;">Sign in to continue</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin">Log In</button>
+      <button class="auth-tab" id="tabRegister">Sign Up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="formLogin">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="inLoginEmail" value="translator@megaqash.com" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="inLoginPass" value="password123" required>
+      </div>
+      <button type="submit" class="submit-btn">⚡ Log In</button>
+
+      <div class="demo-box">
+        <div style="font-size:0.7rem; font-weight:700; color:#6b93aa; margin-bottom:0.4rem;">1-CLICK DEMO LOGINS</div>
+        <button type="button" class="demo-btn" id="btnDemoClient">🎓 Demo Client (NYU)</button>
+        <button type="button" class="demo-btn" id="btnDemoWriter">✍️ Demo Writer</button>
+      </div>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="formRegister" style="display:none;">
+      <div class="form-group">
+        <label>I want to join as:</label>
+        <select id="inRegRole">
+          <option value="writer">✍️ Freelance Writer (Translate Tasks)</option>
+          <option value="client">🎓 Client / Employer (Post Tasks)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="inRegName" placeholder="e.g. Emily Carter" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="inRegEmail" placeholder="e.g. emily@nyu.edu" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="inRegPass" placeholder="Minimum 6 characters" minlength="6" required>
+      </div>
+      <button type="submit" class="submit-btn">🚀 Create Account</button>
+    </form>
+  </div>
+</div>
+
+<!-- POST TASK MODAL -->
+<div class="modal-overlay" id="postOverlay">
+  <div class="auth-modal" style="max-width:500px;">
+    <button class="modal-close" id="btnClosePost">✕</button>
+    
+    <div style="text-align:center; margin-bottom:1rem;">
+      <h3 style="font-size:1.4rem; color:#0b2d44; font-weight:800;">Post Translation Task</h3>
+      <p style="font-size:0.82rem; color:#6b93aa;">Publish a paragraph for freelance writers</p>
+    </div>
+
+    <form id="formPost">
+      <div class="form-group">
+        <label>Target Language</label>
+        <select id="pLang">
+          <option value="Spanish 🇪🇸">Spanish 🇪🇸</option>
+          <option value="French 🇫🇷">French 🇫🇷</option>
+          <option value="German 🇩🇪">German 🇩🇪</option>
+          <option value="Japanese 🇯🇵">Japanese 🇯🇵</option>
+          <option value="Swahili 🇰🇪">Swahili 🇰🇪</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>English Source Paragraph</label>
+        <textarea id="pText" rows="4" placeholder="Enter paragraph text..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Reward Pay ($ USD)</label>
+        <select id="pPrice">
+          <option value="0.20">$0.20</option>
+          <option value="0.50" selected>$0.50</option>
+          <option value="1.00">$1.00</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn" style="background:linear-gradient(135deg, #27ae60, #1e824c);">✨ Publish Task</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 (function() {
-// ---------- AUTHENTICATION & USER MANAGEMENT ----------
-const DEFAULT_USERS = [
-    {
-        name: "Emily Carter",
-        email: "client@nyu.edu",
-        password: "password123",
-        role: "client",
-        uni: "NYU",
-        country: "United States 🇺🇸",
-        flag: "🇺🇸"
-    },
-    {
-        name: "Freelance Translator",
-        email: "translator@megaqash.com",
-        password: "password123",
-        role: "writer",
-        uni: "Gold Writer",
-        country: "Kenya 🇰🇪",
-        flag: "🇰🇪"
-    }
+// DATASET
+const TASKS_DATA = [
+  { id: 1, ref: "#MQ-2024-0001", client: "Emily Carter", uni: "NYU", flag: "🇺🇸", lang: "English → Spanish", price: 0.40, desc: "Translate: 'Good morning, I hope you are having a wonderful day. The weather today is perfect for a walk in the park.'" },
+  { id: 2, ref: "#MQ-2024-0002", client: "Liam O'Sullivan", uni: "Trinity College", flag: "🇮🇪", lang: "English → French", price: 0.50, desc: "Translate: 'Thank you very much for your help yesterday. I really appreciated your advice about the project.'" },
+  { id: 3, ref: "#MQ-2024-0003", client: "Sophie Müller", uni: "Heidelberg", flag: "🇩🇪", lang: "English → German", price: 0.75, desc: "Translate: 'Excuse me, could you please tell me where the nearest train station is? I need to catch a train.'" },
+  { id: 4, ref: "#MQ-2024-0004", client: "James Whitfield", uni: "Oxford", flag: "🇬🇧", lang: "English → Japanese", price: 1.00, desc: "Translate: 'This product is designed for people who love outdoor adventures. It is lightweight and waterproof.'" },
+  { id: 5, ref: "#MQ-2024-0005", client: "Chloé Dubois", uni: "Sorbonne", flag: "🇫🇷", lang: "English → Swahili", price: 0.20, desc: "Translate: 'Hi, how are you doing today? Have a great weekend!'" }
 ];
 
-function getUsers() {
-    const saved = localStorage.getItem('megaqash_users');
-    if (saved) return JSON.parse(saved);
-    localStorage.setItem('megaqash_users', JSON.stringify(DEFAULT_USERS));
-    return DEFAULT_USERS;
-}
-
-function saveUser(user) {
-    const users = getUsers();
-    users.push(user);
-    localStorage.setItem('megaqash_users', JSON.stringify(users));
-}
-
-function getCurrentUser() {
-    const saved = localStorage.getItem('megaqash_current_user');
-    return saved ? JSON.parse(saved) : null; // default to logged out if no session
-}
-
-function setCurrentUser(user) {
-    if (user) {
-        localStorage.setItem('megaqash_current_user', JSON.stringify(user));
-    } else {
-        localStorage.removeItem('megaqash_current_user');
-    }
-    updateAuthNavbarUI();
-}
-
-// Navbar UI updates
-const loggedOutNav = document.getElementById('loggedOutNav');
-const loggedInNav = document.getElementById('loggedInNav');
-const navPostTaskBtn = document.getElementById('navPostTaskBtn');
-const navAvatar = document.getElementById('navAvatar');
-const navUserName = document.getElementById('navUserName');
-const navUserRole = document.getElementById('navUserRole');
-const navRoleBadge = document.getElementById('navRoleBadge');
-const userDropdown = document.getElementById('userDropdown');
-const dropName = document.getElementById('dropName');
-const dropEmail = document.getElementById('dropEmail');
-const dropRole = document.getElementById('dropRole');
-const dropPostTask = document.getElementById('dropPostTask');
-
-function updateAuthNavbarUI() {
-    const user = getCurrentUser();
-    if (user) {
-        loggedOutNav.style.display = 'none';
-        loggedInNav.style.display = 'flex';
-        
-        const initials = user.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-        navAvatar.textContent = initials;
-        navUserName.textContent = user.name;
-        navUserRole.textContent = user.role === 'client' ? 'Client / Employer' : 'Freelance Writer';
-        navRoleBadge.textContent = user.role === 'client' ? 'Client' : 'Writer';
-        
-        dropName.textContent = user.name;
-        dropEmail.textContent = user.email;
-        dropRole.textContent = user.role === 'client' ? '🎓 Client (Employer)' : '✍️ Freelance Writer';
-        
-        if (user.role === 'client') {
-            navPostTaskBtn.style.display = 'flex';
-            dropPostTask.style.display = 'flex';
-        } else {
-            navPostTaskBtn.style.display = 'none';
-            dropPostTask.style.display = 'none';
-        }
-        
-        document.getElementById('sidebarUserName').textContent = user.name;
-        document.getElementById('sidebarAvatar').textContent = initials;
-        document.getElementById('sidebarUserRole').textContent = user.role === 'client' ? '🎓 Client Account' : '🏅 Gold Tier';
-    } else {
-        loggedOutNav.style.display = 'flex';
-        loggedInNav.style.display = 'none';
-        navPostTaskBtn.style.display = 'none';
-    }
-}
-
-// AUTH MODAL LOGIC
-const authModalOverlay = document.getElementById('authModalOverlay');
-const authModalCloseBtn = document.getElementById('authModalCloseBtn');
-const tabLoginBtn = document.getElementById('tabLoginBtn');
-const tabRegisterBtn = document.getElementById('tabRegisterBtn');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const navLoginBtn = document.getElementById('navLoginBtn');
-const navRegisterBtn = document.getElementById('navRegisterBtn');
-const userProfileBtn = document.getElementById('userProfileBtn');
-const dropLogout = document.getElementById('dropLogout');
-const roleClientPill = document.getElementById('roleClientPill');
-const roleWriterPill = document.getElementById('roleWriterPill');
-let selectedRegRole = 'client';
-
-function openAuthModal(mode) {
-    authModalOverlay.classList.add('active');
-    if (mode === 'register') {
-        tabRegisterBtn.click();
-    } else {
-        tabLoginBtn.click();
-    }
-}
-function closeAuthModal() {
-    authModalOverlay.classList.remove('active');
-}
-
-navLoginBtn.addEventListener('click', () => openAuthModal('login'));
-navRegisterBtn.addEventListener('click', () => openAuthModal('register'));
-authModalCloseBtn.addEventListener('click', closeAuthModal);
-
-tabLoginBtn.addEventListener('click', () => {
-    tabLoginBtn.classList.add('active');
-    tabRegisterBtn.classList.remove('active');
-    loginForm.style.display = 'flex';
-    registerForm.style.display = 'none';
-    document.getElementById('authModalTitle').textContent = 'Welcome Back';
-    document.getElementById('authModalSub').textContent = 'Log in to your MegaQash account';
-});
-
-tabRegisterBtn.addEventListener('click', () => {
-    tabRegisterBtn.classList.add('active');
-    tabLoginBtn.classList.remove('active');
-    loginForm.style.display = 'none';
-    registerForm.style.display = 'flex';
-    document.getElementById('authModalTitle').textContent = 'Create Account';
-    document.getElementById('authModalSub').textContent = 'Join as a Client or Freelance Writer';
-});
-
-roleClientPill.addEventListener('click', () => {
-    selectedRegRole = 'client';
-    roleClientPill.classList.add('active');
-    roleWriterPill.classList.remove('active');
-    document.getElementById('uniGroup').style.display = 'flex';
-});
-
-roleWriterPill.addEventListener('click', () => {
-    selectedRegRole = 'writer';
-    roleWriterPill.classList.add('active');
-    roleClientPill.classList.remove('active');
-    document.getElementById('uniGroup').style.display = 'none';
-});
-
-// LOGIN ACTION
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value.trim();
-    const password = document.getElementById('loginPassword').value.trim();
-    
-    const users = getUsers();
-    const found = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
-    
-    if (found) {
-        setCurrentUser(found);
-        closeAuthModal();
-        showToast(`Logged in successfully as ${found.name}!`);
-    } else {
-        showToast('Invalid email or password. Please try again.', true);
-    }
-});
-
-// REGISTER ACTION
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const password = document.getElementById('regPassword').value.trim();
-    const uni = document.getElementById('regUni').value.trim() || 'Independent';
-    const country = document.getElementById('regCountry').value.trim() || 'Global 🌍';
-    
-    const users = getUsers();
-    if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
-        showToast('An account with this email already exists!', true);
-        return;
-    }
-    
-    const newUser = {
-        name,
-        email,
-        password,
-        role: selectedRegRole,
-        uni,
-        country,
-        flag: country.includes('🇺🇸') ? '🇺🇸' : (country.includes('🇬🇧') ? '🇬🇧' : '🌍')
-    };
-    
-    saveUser(newUser);
-    setCurrentUser(newUser);
-    closeAuthModal();
-    showToast(`Account created! Welcome, ${newUser.name}.`);
-});
-
-// 1-CLICK DEMO LOGINS
-document.getElementById('demoClientBtn').addEventListener('click', () => {
-    const users = getUsers();
-    const client = users.find(u => u.role === 'client') || DEFAULT_USERS[0];
-    setCurrentUser(client);
-    closeAuthModal();
-    showToast(`Logged in as Demo Client (${client.name})`);
-});
-
-document.getElementById('demoWriterBtn').addEventListener('click', () => {
-    const users = getUsers();
-    const writer = users.find(u => u.role === 'writer') || DEFAULT_USERS[1];
-    setCurrentUser(writer);
-    closeAuthModal();
-    showToast(`Logged in as Demo Writer (${writer.name})`);
-});
-
-// DROPDOWN & LOGOUT
-userProfileBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    userDropdown.classList.toggle('show');
-});
-
-document.addEventListener('click', (e) => {
-    if (!userDropdown.contains(e.target) && e.target !== userProfileBtn) {
-        userDropdown.classList.remove('show');
-    }
-});
-
-const navLogoutBtn = document.getElementById('navLogoutBtn');
-
-function performLogout() {
-    setCurrentUser(null);
-    userDropdown.classList.remove('show');
-    showToast('Logged out successfully.');
-}
-
-if (navLogoutBtn) navLogoutBtn.addEventListener('click', performLogout);
-dropLogout.addEventListener('click', performLogout);
-
-// POST TASK MODAL (FOR CLIENTS)
-const postTaskModalOverlay = document.getElementById('postTaskModalOverlay');
-const postTaskModalCloseBtn = document.getElementById('postTaskModalCloseBtn');
-const postTaskForm = document.getElementById('postTaskForm');
-
-function openPostTaskModal() {
-    const user = getCurrentUser();
-    if (!user || user.role !== 'client') {
-        showToast('Please log in with a Client account to post tasks.', true);
-        openAuthModal('login');
-        return;
-    }
-    postTaskModalOverlay.classList.add('active');
-}
-function closePostTaskModal() {
-    postTaskModalOverlay.classList.remove('active');
-}
-
-navPostTaskBtn.addEventListener('click', openPostTaskModal);
-dropPostTask.addEventListener('click', () => {
-    userDropdown.classList.remove('show');
-    openPostTaskModal();
-});
-postTaskModalCloseBtn.addEventListener('click', closePostTaskModal);
-
-postTaskForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const user = getCurrentUser();
-    const lang = document.getElementById('postLang').value;
-    const paragraph = document.getElementById('postParagraph').value.trim();
-    const price = parseFloat(document.getElementById('postPrice').value);
-    const deadlineHours = parseInt(document.getElementById('postDeadline').value, 10);
-    
-    if (!paragraph) return;
-    
-    const newTaskId = translationTasks.length + 1;
-    const refId = `#MQ-2024-${String(newTaskId).padStart(4, '0')}`;
-    
-    const newTask = {
-        id: newTaskId,
-        refId: refId,
-        description: `Translate the following paragraph into ${lang.split(' ')[0]}: '${paragraph}'`,
-        lang: `English → ${lang.split(' ')[0]}`,
-        langFlag: lang.split(' ')[1] || '🌍',
-        price: price,
-        deadlineHours: deadlineHours,
-        isHot: true,
-        difficulty: { label: "Intermediate", class: "intermediate" },
-        wordCount: Math.max(1, Math.round(paragraph.length / 5)),
-        postedMinutesAgo: 0,
-        client: {
-            name: user ? user.name : 'Client',
-            flag: user ? user.flag : '🎓',
-            country: user ? user.country : 'United States',
-            uni: user ? user.uni : 'University',
-            rating: '5.0',
-            responseTime: 1
-        }
-    };
-    
-    translationTasks.unshift(newTask);
-    tasksState.unshift({
-        ...newTask,
-        taken: false,
-        submitted: false,
-        submissionOpen: false,
-        takenAt: null,
-        sidebarDraft: ''
-    });
-    
-    renderTasks();
-    closePostTaskModal();
-    postTaskForm.reset();
-    showToast(`Task ${refId} published successfully!`);
-});
-
-
-// ---------- SIDEBAR & DRAWER TOGGLE LOGIC ----------
-const sidebar = document.getElementById('sidebar');
-const pendingDrawer = document.getElementById('pendingDrawer');
-const overlay = document.getElementById('overlay');
-const menuToggleBtn = document.getElementById('menuToggleBtn');
-const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
-const pendingDrawerCloseBtn = document.getElementById('pendingDrawerCloseBtn');
-const tasksIconBtn = document.getElementById('tasksIconBtn');
-const activeTasksToggle = document.getElementById('activeTasksToggle');
-const sidebarActiveTasks = document.getElementById('sidebarActiveTasks');
-
-function openSidebar() {
-closePendingDrawer();
-sidebar.classList.add('open');
-overlay.classList.add('active');
-document.body.style.overflow = 'hidden';
-}
-function closeSidebar() {
-sidebar.classList.remove('open');
-overlay.classList.remove('active');
-document.body.style.overflow = '';
-}
-function openPendingDrawer() {
-closeSidebar();
-pendingDrawer.classList.add('open');
-overlay.classList.add('active');
-document.body.style.overflow = 'hidden';
-}
-function closePendingDrawer() {
-pendingDrawer.classList.remove('open');
-if (!sidebar.classList.contains('open')) {
-overlay.classList.remove('active');
-document.body.style.overflow = '';
-}
-}
-menuToggleBtn.addEventListener('click', openSidebar);
-sidebarCloseBtn.addEventListener('click', closeSidebar);
-pendingDrawerCloseBtn.addEventListener('click', closePendingDrawer);
-tasksIconBtn.addEventListener('click', openPendingDrawer);
-overlay.addEventListener('click', () => {
-closeSidebar();
-closePendingDrawer();
-});
-
-// ---------- CLIENT DATA & DATASET ----------
-const clients = [
-{ name: "Emily Carter", flag: "🇺🇸", country: "United States", uni: "NYU" },
-{ name: "Liam O'Sullivan", flag: "🇮🇪", country: "Ireland", uni: "Trinity College" },
-{ name: "Sophie Müller", flag: "🇩🇪", country: "Germany", uni: "Heidelberg" },
-{ name: "James Whitfield", flag: "🇬🇧", country: "United Kingdom", uni: "Oxford" },
-{ name: "Chloé Dubois", flag: "🇫🇷", country: "France", uni: "Sorbonne" },
-{ name: "Isabella Rossi", flag: "🇮🇹", country: "Italy", uni: "Bocconi" },
-{ name: "Lucas van der Berg", flag: "🇳🇱", country: "Netherlands", uni: "Utrecht" }
-];
-const responseTimes = [1, 2, 3, 4, 6, 8, 12, 24];
-const languagePairs = [
-{ code: "es", name: "Spanish", flag: "🇪🇸" },
-{ code: "fr", name: "French", flag: "🇫🇷" },
-{ code: "de", name: "German", flag: "🇩🇪" },
-{ code: "it", name: "Italian", flag: "🇮🇹" },
-{ code: "pt", name: "Portuguese",flag: "🇵🇹" },
-{ code: "ja", name: "Japanese", flag: "🇯🇵" },
-{ code: "zh", name: "Mandarin", flag: "🇨🇳" },
-{ code: "sw", name: "Swahili", flag: "🇰🇪" }
-];
-const paragraphTemplates = [
-"Good morning, I hope you are having a wonderful day. The weather today is perfect for a walk in the park.",
-"Thank you very much for your help yesterday. I really appreciated your advice about the project.",
-"Excuse me, could you please tell me where the nearest train station is? I need to catch a train.",
-"I would like to order a large coffee with milk and a croissant, please. Also, a glass of water.",
-"Can you help me with this translation project? I have a document that needs to be ready by Friday.",
-"This product is designed for people who love outdoor adventures. It is lightweight, durable, and completely waterproof."
-];
-
-function getPriceForParagraph(text, index) {
-const len = text.length;
-if (len < 40) return 0.20;
-if (len < 70) return 0.30;
-if (len < 120) return 0.40;
-if (len < 170) return 0.50;
-if (len < 220) return 0.75;
-if (len < 280) return 0.80;
-return 1.00;
-}
-function getDifficulty(text) {
-const len = text.length;
-if (len < 70) return { label: "Beginner", class: "beginner" };
-if (len < 180) return { label: "Intermediate", class: "intermediate" };
-return { label: "Advanced", class: "advanced" };
-}
-
-const translationTasks = [];
-let idCounter = 1;
-const TOTAL_TASKS = 50;
-for (let i = 0; i < TOTAL_TASKS; i++) {
-const lang = languagePairs[i % languagePairs.length];
-const paragraph = paragraphTemplates[i % paragraphTemplates.length];
-const client = clients[i % clients.length];
-let price = getPriceForParagraph(paragraph, i);
-const deadlineHours = [2, 4, 6, 8, 12, 24][i % 6];
-const rating = (4.5 + (i % 6) * 0.1).toFixed(1);
-const refId = `#MQ-2024-${String(idCounter).padStart(4, '0')}`;
-translationTasks.push({
-id: idCounter++,
-refId: refId,
-description: `Translate the following paragraph into ${lang.name}: '${paragraph}'`,
-lang: `English → ${lang.name}`,
-langFlag: lang.flag,
-price: price,
-deadlineHours: deadlineHours,
-isHot: i % 5 === 0,
-difficulty: getDifficulty(paragraph),
-wordCount: Math.max(1, Math.round(paragraph.length / 5)),
-postedMinutesAgo: (i * 12) % 240,
-client: {
-name: client.name,
-flag: client.flag,
-country: client.country,
-uni: client.uni,
-rating: rating,
-responseTime: responseTimes[i % responseTimes.length]
-}
-});
-}
-
-let tasksState = translationTasks.map(task => ({
-...task,
-taken: false,
-submitted: false,
-submissionOpen: false,
-takenAt: null,
-sidebarDraft: ''
-}));
-
-const LIFETIME_TAKE_LIMIT = 5;
-let lifetimeTasksTaken = 0;
-let visibleCount = 20;
-let currentFilter = 'all';
-let countdownInterval = null;
-
+let currentUser = null;
 const taskGrid = document.getElementById('taskGrid');
 const toastEl = document.getElementById('toast');
-const loadMoreWrap = document.getElementById('loadMoreWrap');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-const sidebarActiveList = document.getElementById('sidebarActiveList');
-const activeTasksCount = document.getElementById('activeTasksCount');
-const pendingDrawerList = document.getElementById('pendingDrawerList');
-const tasksBadge = document.getElementById('tasksBadge');
-let toastTimer = null;
 
-function showToast(message, isWarning) {
-toastEl.textContent = message;
-toastEl.classList.toggle('warning', !!isWarning);
-toastEl.classList.add('show');
-if (toastTimer) clearTimeout(toastTimer);
-toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 3000);
 }
 
-function formatPostedTime(mins) {
-if (mins < 1) return "just now";
-if (mins < 60) return `${mins} minute${mins === 1 ? '' : 's'} ago`;
-const hours = Math.floor(mins / 60);
-return `${hours} hour${hours === 1 ? '' : 's'} ago`;
-}
-function formatResponseTime(hours) {
-if (hours === 1) return "Usually responds in 1 hour";
-return `Usually responds in ${hours} hours`;
-}
-function formatCountdown(msRemaining) {
-if (msRemaining <= 0) return "Expired";
-const totalSeconds = Math.floor(msRemaining / 1000);
-const minutes = Math.floor((totalSeconds % 3600) / 60);
-const seconds = totalSeconds % 60;
-const pad = (n) => String(n).padStart(2, '0');
-return `${minutes}m ${pad(seconds)}s`;
-}
-function getRemainingMs(task) {
-if (!task.takenAt) return 0;
-const deadlineMs = task.deadlineHours * 60 * 60 * 1000;
-const elapsed = Date.now() - task.takenAt;
-return Math.max(0, deadlineMs - elapsed);
+function renderTasks(filter = 'all') {
+  let list = TASKS_DATA;
+  if (filter !== 'all') {
+    const fPrice = parseFloat(filter);
+    list = TASKS_DATA.filter(t => Math.abs(t.price - fPrice) < 0.001);
+  }
+
+  let html = '';
+  list.forEach(t => {
+    html += `
+      <div class="task-card">
+        <div class="task-header">
+          <div class="client-meta">
+            <div class="client-avatar">${t.client.split(' ').map(w=>w[0]).join('')}</div>
+            <div class="client-info">
+              <div class="name">${t.flag} ${t.client}</div>
+              <div class="sub">🎓 ${t.uni}</div>
+            </div>
+          </div>
+          <div class="price-tag">$${t.price.toFixed(2)}</div>
+        </div>
+        <div class="badge-row">
+          <span class="badge">${t.lang}</span>
+          <span class="badge urgent">🔥 Urgent</span>
+        </div>
+        <div class="task-desc">${t.desc}</div>
+        <div class="task-footer">
+          <span class="task-words">📝 ${Math.round(t.desc.length / 5)} words</span>
+          <button class="take-btn" data-id="${t.id}">Take Task</button>
+        </div>
+      </div>
+    `;
+  });
+  taskGrid.innerHTML = html;
 }
 
-function updateBadges() {
-const pendingCount = tasksState.filter(t => t.taken && !t.submitted).length;
-if (pendingCount > 0) {
-tasksBadge.textContent = pendingCount;
-tasksBadge.classList.remove('hidden');
-} else {
-tasksBadge.classList.add('hidden');
-}
-activeTasksCount.textContent = pendingCount;
-activeTasksCount.classList.toggle('zero', pendingCount === 0);
+// AUTH HANDLERS
+const authOverlay = document.getElementById('authOverlay');
+const btnLogin = document.getElementById('btnLogin');
+const btnRegister = document.getElementById('btnRegister');
+const btnCloseAuth = document.getElementById('btnCloseAuth');
+const tabLogin = document.getElementById('tabLogin');
+const tabRegister = document.getElementById('tabRegister');
+const formLogin = document.getElementById('formLogin');
+const formRegister = document.getElementById('formRegister');
+const userBadge = document.getElementById('userBadge');
+const uAvatar = document.getElementById('uAvatar');
+const uName = document.getElementById('uName');
+const btnLogout = document.getElementById('btnLogout');
+const btnPostTask = document.getElementById('btnPostTask');
+
+function openAuth(tab = 'login') {
+  authOverlay.classList.add('active');
+  if (tab === 'register') {
+    tabRegister.click();
+  } else {
+    tabLogin.click();
+  }
 }
 
-function renderPendingDrawer() {
-const pendingTasks = tasksState.filter(t => t.taken);
-if (pendingTasks.length === 0) {
-pendingDrawerList.innerHTML = `
-<div class="pending-empty">
-<span class="empty-icon">📭</span>
-<span>No pending tasks.</span>
-<span>Tasks you take will appear here awaiting approval.</span>
-</div>
-`;
-return;
+btnLogin.onclick = () => openAuth('login');
+btnRegister.onclick = () => openAuth('register');
+btnCloseAuth.onclick = () => authOverlay.classList.remove('active');
+
+tabLogin.onclick = () => {
+  tabLogin.classList.add('active');
+  tabRegister.classList.remove('active');
+  formLogin.style.display = 'block';
+  formRegister.style.display = 'none';
+};
+
+tabRegister.onclick = () => {
+  tabRegister.classList.add('active');
+  tabLogin.classList.remove('active');
+  formLogin.style.display = 'none';
+  formRegister.style.display = 'block';
+};
+
+function setUser(user) {
+  currentUser = user;
+  if (user) {
+    btnLogin.style.display = 'none';
+    btnRegister.style.display = 'none';
+    userBadge.style.display = 'inline-flex';
+    uAvatar.textContent = user.name.split(' ').map(w=>w[0]).join('').slice(0,2);
+    uName.textContent = user.name;
+    if (user.role === 'client') {
+      btnPostTask.style.display = 'inline-block';
+    } else {
+      btnPostTask.style.display = 'none';
+    }
+  } else {
+    btnLogin.style.display = 'inline-block';
+    btnRegister.style.display = 'inline-block';
+    userBadge.style.display = 'none';
+    btnPostTask.style.display = 'none';
+  }
 }
-let html = '';
-pendingTasks.forEach(task => {
-const isSubmitted = task.submitted;
-const remainingMs = getRemainingMs(task);
-const countdownText = formatCountdown(remainingMs);
-let bodyHtml = isSubmitted ? `
-<textarea class="pending-card-textarea" disabled rows="3">${task.sidebarDraft || ''}</textarea>
-<div class="pending-card-submitted-note">✅ Submitted · awaiting approval</div>
-` : `
-<textarea class="pending-card-textarea" rows="3" placeholder="Type your translation here…" data-pending-draft-id="${task.id}">${task.sidebarDraft || ''}</textarea>
-<div class="pending-card-actions">
-<button class="pending-card-btn send" data-action="pending-submit" data-id="${task.id}">📤 Submit for approval</button>
-</div>
-`;
-html += `
-<div class="pending-card ${isSubmitted ? 'submitted' : ''}">
-<div class="pending-card-top">
-<span class="pending-card-ref">${task.refId}</span>
-<span class="pending-card-price">$${task.price.toFixed(2)}</span>
-</div>
-<div class="pending-card-lang">${task.langFlag} ${task.lang}</div>
-<div class="pending-card-client"><span>${task.client.flag}</span> ${task.client.name}</div>
-<div class="pending-card-desc">${task.description}</div>
-${bodyHtml}
-</div>
-`;
+
+formLogin.onsubmit = (e) => {
+  e.preventDefault();
+  const email = document.getElementById('inLoginEmail').value;
+  setUser({ name: "Emily Carter", email, role: "client" });
+  authOverlay.classList.remove('active');
+  showToast("Logged in successfully!");
+};
+
+formRegister.onsubmit = (e) => {
+  e.preventDefault();
+  const name = document.getElementById('inRegName').value;
+  const email = document.getElementById('inRegEmail').value;
+  const role = document.getElementById('inRegRole').value;
+  setUser({ name, email, role });
+  authOverlay.classList.remove('active');
+  showToast(`Account created! Welcome, ${name}.`);
+};
+
+document.getElementById('btnDemoClient').onclick = () => {
+  setUser({ name: "Emily Carter (NYU)", email: "client@nyu.edu", role: "client" });
+  authOverlay.classList.remove('active');
+  showToast("Logged in as Demo Client!");
+};
+
+document.getElementById('btnDemoWriter').onclick = () => {
+  setUser({ name: "Freelance Writer", email: "translator@megaqash.com", role: "writer" });
+  authOverlay.classList.remove('active');
+  showToast("Logged in as Demo Writer!");
+};
+
+btnLogout.onclick = () => {
+  setUser(null);
+  showToast("Logged out.");
+};
+
+// HERO BUTTONS
+document.getElementById('heroBtnTranslator').onclick = () => {
+  document.getElementById('tasksSection').scrollIntoView({ behavior: 'smooth' });
+};
+
+document.getElementById('heroBtnClient').onclick = () => {
+  if (!currentUser || currentUser.role !== 'client') {
+    openAuth('register');
+    showToast("Sign up as a Client to post tasks!");
+  } else {
+    postOverlay.classList.add('active');
+  }
+};
+
+btnPostTask.onclick = () => postOverlay.classList.add('active');
+document.getElementById('btnClosePost').onclick = () => postOverlay.classList.remove('active');
+
+document.getElementById('formPost').onsubmit = (e) => {
+  e.preventDefault();
+  const lang = document.getElementById('pLang').value;
+  const desc = document.getElementById('pText').value;
+  const price = parseFloat(document.getElementById('pPrice').value);
+  
+  TASKS_DATA.unshift({
+    id: TASKS_DATA.length + 1,
+    ref: `#MQ-2024-000${TASKS_DATA.length + 1}`,
+    client: currentUser ? currentUser.name : "Client",
+    uni: "NYU",
+    flag: "🎓",
+    lang: `English → ${lang.split(' ')[0]}`,
+    price: price,
+    desc: desc
+  });
+  renderTasks();
+  postOverlay.classList.remove('active');
+  showToast("Task published to live marketplace!");
+};
+
+// FILTER PILLS
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.onclick = () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    renderTasks(pill.dataset.filter);
+  };
 });
-pendingDrawerList.innerHTML = html;
-}
 
-function renderSidebarActiveTasks() {
-const relevantTasks = tasksState.filter(t => t.taken);
-if (relevantTasks.length === 0) {
-sidebarActiveList.innerHTML = `<div class="sidebar-active-empty"><span class="empty-icon">📭</span><span>No active tasks right now.</span></div>`;
-return;
-}
-let html = '';
-relevantTasks.forEach(task => {
-const isSubmitted = task.submitted;
-let bodyHtml = isSubmitted ? `
-<textarea class="sidebar-active-textarea" disabled rows="3">${task.sidebarDraft || ''}</textarea>
-<div class="sidebar-active-submitted-note">✅ Submitted · awaiting review</div>
-` : `
-<textarea class="sidebar-active-textarea" rows="3" placeholder="Type your translation here…" data-draft-id="${task.id}">${task.sidebarDraft || ''}</textarea>
-<div class="sidebar-active-actions">
-<button class="sidebar-active-btn send" data-action="sidebar-submit" data-id="${task.id}">📤 Submit</button>
-</div>
-`;
-html += `
-<div class="sidebar-active-card ${isSubmitted ? 'submitted' : ''}">
-<div class="sidebar-active-top">
-<span class="sidebar-active-ref">${task.refId}</span>
-<span class="sidebar-active-price">$${task.price.toFixed(2)}</span>
-</div>
-<div class="sidebar-active-lang">${task.langFlag} ${task.lang}</div>
-${bodyHtml}
-</div>
-`;
-});
-sidebarActiveList.innerHTML = html;
-}
+taskGrid.onclick = (e) => {
+  if (e.target.classList.contains('take-btn')) {
+    if (!currentUser) {
+      openAuth('login');
+      showToast("Please log in to take tasks.");
+    } else {
+      showToast("Task taken! Proceeding to translation workspace...");
+    }
+  }
+};
 
-function renderTasks() {
-let allMatching = tasksState;
-if (currentFilter !== 'all') {
-const filterPrice = parseFloat(currentFilter);
-allMatching = tasksState.filter(t => Math.abs(t.price - filterPrice) < 0.001);
-}
-let visibleTasks = allMatching.slice(0, visibleCount);
-document.getElementById('availableCount').textContent = tasksState.length;
-let html = '';
-visibleTasks.forEach(task => {
-const isTaken = task.taken;
-const isSubmitted = task.submitted;
-const panelOpen = task.submissionOpen;
-const priceFormatted = `$${task.price.toFixed(2)}`;
-const clientInitials = task.client.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+document.getElementById('navTasksBtn').onclick = () => {
+  document.getElementById('tasksSection').scrollIntoView({ behavior: 'smooth' });
+};
+document.getElementById('navHowBtn').onclick = () => {
+  document.getElementById('howSection').scrollIntoView({ behavior: 'smooth' });
+};
 
-let actionButtons = '';
-if (isSubmitted) {
-actionButtons = `<span class="status-indicator" style="background:#c4e6d1; color:#135c32;">✅ Pending approval</span>`;
-} else if (isTaken) {
-actionButtons = `<button class="btn btn-primary" data-action="toggle-submit" data-id="${task.id}">${panelOpen ? '📝 Close submission' : '📤 Open submission'}</button>`;
-} else {
-actionButtons = `<button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take task</button>`;
-}
-
-let submissionPanelHtml = '';
-if (isTaken && !isSubmitted && panelOpen) {
-submissionPanelHtml = `
-<div class="submission-panel open">
-<textarea id="textarea-${task.id}" placeholder="Paste or type your translation here…" rows="4">${task.sidebarDraft || ''}</textarea>
-<div class="panel-actions">
-<button class="btn btn-ghost btn-small" data-action="cancel-submit" data-id="${task.id}">Cancel</button>
-<button class="btn btn-send btn-small" data-action="confirm-submit" data-id="${task.id}">Submit for approval</button>
-</div>
-</div>
-`;
-}
-
-html += `
-<div class="task-card ${isSubmitted ? 'submitted' : (isTaken ? 'taken' : '')}">
-<div class="client-info">
-<div class="client-avatar">${clientInitials}</div>
-<div class="client-details">
-<div class="client-name"><span class="flag">${task.client.flag}</span> ${task.client.name}</div>
-<div class="client-meta"><span class="uni">🎓 ${task.client.uni}</span> · <span>${task.client.country}</span></div>
-</div>
-<div class="client-rating">⭐ ${task.client.rating}</div>
-</div>
-<div class="task-top-row">
-<span class="task-id">${task.refId}</span>
-<span class="price-tag">${priceFormatted}</span>
-</div>
-<div class="badge-row">
-<span class="badge">${task.langFlag} ${task.lang}</span>
-<span class="badge ${task.difficulty.class}">${task.difficulty.label}</span>
-${task.isHot ? '<span class="badge hot">🔥 Urgent</span>' : ''}
-</div>
-<div class="task-desc">${task.description}</div>
-<div class="task-meta">
-<span class="task-wordcount">📝 ${task.wordCount} words</span>
-<span class="task-deadline">⏰ ${task.deadlineHours}h deadline</span>
-</div>
-<div class="task-actions">${actionButtons}</div>
-${submissionPanelHtml}
-</div>
-`;
-});
-taskGrid.innerHTML = html;
-}
-
-function takeTask(taskId) {
-const user = getCurrentUser();
-if (user && user.role === 'client') {
-showToast('Clients post tasks. Switch to a Translator account to take tasks.', true);
-return;
-}
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-if (task.taken) { showToast('You already took this task.'); return; }
-task.taken = true;
-task.takenAt = Date.now();
-showToast(`Task ${task.refId} taken: ${task.lang} · $${task.price.toFixed(2)}`);
+// INITIAL RENDER
 renderTasks();
-renderSidebarActiveTasks();
-renderPendingDrawer();
-updateBadges();
-}
-
-function confirmSubmit(taskId) {
-const task = tasksState.find(t => t.id === taskId);
-if (!task) return;
-const textarea = document.getElementById(`textarea-${taskId}`);
-const text = textarea ? textarea.value.trim() : '';
-if (!text) { showToast('Please enter your translation before submitting.', true); return; }
-task.submitted = true;
-task.submissionOpen = false;
-task.sidebarDraft = text;
-showToast(`✅ ${task.refId} submitted to ${task.client.name}!`);
-renderTasks();
-renderSidebarActiveTasks();
-renderPendingDrawer();
-updateBadges();
-}
-
-taskGrid.addEventListener('click', (e) => {
-const button = e.target.closest('button');
-if (!button) return;
-const action = button.dataset.action;
-const taskId = parseInt(button.dataset.id, 10);
-if (isNaN(taskId)) return;
-if (action === 'take') takeTask(taskId);
-else if (action === 'toggle-submit') {
-const t = tasksState.find(x => x.id === taskId);
-if (t) { t.submissionOpen = !t.submissionOpen; renderTasks(); }
-} else if (action === 'confirm-submit') confirmSubmit(taskId);
-else if (action === 'cancel-submit') {
-const t = tasksState.find(x => x.id === taskId);
-if (t) { t.submissionOpen = false; renderTasks(); }
-}
-});
-
-filterTabs.addEventListener('click', (e) => {
-const tab = e.target.closest('.filter-tab');
-if (!tab) return;
-document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-tab.classList.add('active');
-currentFilter = tab.dataset.filter;
-renderTasks();
-});
-
-loadMoreBtn.addEventListener('click', () => {
-visibleCount += 20;
-renderTasks();
-});
-
-// INITIALIZE
-updateAuthNavbarUI();
-renderTasks();
-renderSidebarActiveTasks();
-renderPendingDrawer();
-updateBadges();
 })();
 </script>
 </body>
