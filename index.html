@@ -3,1232 +3,2677 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MegaQash Writers · Global Translation Micro-Task Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>MegaQash Writters · Translation Task Platform</title>
 <style>
-:root {
-  --primary-dark: #0b2d44;
-  --primary-blue: #1a6e8c;
-  --primary-light: #4a9ec9;
-  --accent-gold: #f39c12;
-  --accent-green: #27ae60;
-  --bg-gradient: linear-gradient(135deg, #0b2d44 0%, #154a6b 50%, #0d3854 100%);
-  --card-shadow: 0 12px 32px -8px rgba(11, 45, 68, 0.12);
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.15);
-}
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
 }
-
 body {
-  background: #f4f8fb;
-  color: #1b3e4f;
-  min-height: 100vh;
-  line-height: 1.6;
+background: #f0f4f8;
+min-height: 100vh;
+padding: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+position: relative;
 }
-
-/* ---------- NAVBAR ---------- */
+/* ---------- TOP NAVIGATION BAR ---------- */
 .navbar {
-  width: 100%;
-  background: var(--primary-dark);
-  padding: 1rem 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+width: 100%;
+background: #0b2d44;
+padding: 0.8rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+position: sticky;
+top: 0;
+z-index: 100;
 }
-
+.navbar-left {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+.menu-toggle {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+width: 26px;
+height: 20px;
+cursor: pointer;
+background: transparent;
+border: none;
+padding: 0;
+z-index: 110;
+}
+.menu-toggle span {
+display: block;
+height: 3px;
+width: 100%;
+background: white;
+border-radius: 4px;
+transition: 0.2s;
+}
+.menu-toggle:hover span {
+background: #a8d8ea;
+}
 .navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  text-decoration: none;
+display: flex;
+align-items: center;
+gap: 0.6rem;
+color: white;
 }
-
-.logo-icon {
-  font-size: 1.8rem;
+.navbar-brand .logo-icon {
+font-size: 1.6rem;
 }
-
-.brand-text h1 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff, #a8d8ea);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.navbar-brand h1 {
+font-size: 1.4rem;
+font-weight: 700;
+letter-spacing: -0.3px;
+background: linear-gradient(135deg, #ffffff, #a8d8ea);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
 }
-
-.brand-text span {
-  font-size: 0.68rem;
-  color: #8bb8d0;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  display: block;
-  margin-top: -3px;
+.navbar-brand span {
+font-size: 0.7rem;
+color: #8bb8d0;
+font-weight: 400;
+letter-spacing: 0.5px;
+text-transform: uppercase;
+margin-left: 0.3rem;
 }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.navbar-right {
+display: flex;
+align-items: center;
+gap: 1rem;
 }
-
-.nav-link-btn {
-  background: transparent;
-  color: #a8d8ea;
-  border: none;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0.5rem 0.9rem;
-  border-radius: 30px;
-  transition: 0.2s;
+.notification-bell {
+position: relative;
+cursor: pointer;
+font-size: 1.2rem;
+padding: 0.4rem;
+border-radius: 50%;
+transition: 0.15s;
+color: white;
 }
-
-.nav-link-btn:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.08);
+.notification-bell:hover {
+background: rgba(255,255,255,0.1);
 }
-
-.auth-btn {
-  background: linear-gradient(135deg, var(--primary-light), var(--primary-blue));
-  color: white;
-  border: none;
-  padding: 0.6rem 1.4rem;
-  border-radius: 40px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 4px 14px rgba(26, 110, 140, 0.3);
+.bell-dot {
+position: absolute;
+top: 4px;
+right: 4px;
+width: 8px;
+height: 8px;
+background: #e74c3c;
+border-radius: 50%;
+border: 1.5px solid #0b2d44;
 }
-
-.auth-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(26, 110, 140, 0.45);
+/* ---------- TASKS ICON (the new toggle) ---------- */
+.tasks-icon {
+position: relative;
+cursor: pointer;
+font-size: 1.2rem;
+padding: 0.4rem 0.6rem;
+border-radius: 40px;
+transition: 0.15s;
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.3rem;
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.12);
 }
-
-.auth-btn.outline {
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: none;
+.tasks-icon:hover {
+background: rgba(255,255,255,0.18);
 }
-
-.auth-btn.outline:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: white;
+.tasks-icon .icon {
+font-size: 1.15rem;
+line-height: 1;
 }
-
-.post-task-btn {
-  background: linear-gradient(135deg, #27ae60, #1e824c);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.3rem;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(39, 174, 96, 0.35);
-  transition: 0.2s;
+.tasks-icon .label {
+font-size: 0.7rem;
+font-weight: 600;
+letter-spacing: 0.3px;
 }
-
-.post-task-btn:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
+.tasks-badge {
+position: absolute;
+top: -4px;
+right: -6px;
+background: #f39c12;
+color: #0b2d44;
+font-size: 0.6rem;
+font-weight: 800;
+padding: 0.1rem 0.4rem;
+border-radius: 30px;
+min-width: 18px;
+text-align: center;
+border: 1.5px solid #0b2d44;
+line-height: 1.2;
 }
-
-/* ---------- HERO SECTION ---------- */
-.hero {
-  background: var(--bg-gradient);
-  color: white;
-  padding: 4.5rem 2rem 5.5rem 2rem;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.tasks-badge.hidden {
+display: none;
 }
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(74, 158, 201, 0.25) 0%, transparent 70%);
-  border-radius: 50%;
+.user-profile {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+background: rgba(255,255,255,0.1);
+padding: 0.35rem 0.9rem 0.35rem 0.5rem;
+border-radius: 50px;
+cursor: pointer;
+transition: 0.15s;
+border: 1px solid rgba(255,255,255,0.15);
 }
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.4rem 1.1rem;
-  border-radius: 50px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #a8d8ea;
-  margin-bottom: 1.5rem;
-  backdrop-filter: blur(8px);
+.user-profile:hover {
+background: rgba(255,255,255,0.18);
 }
-
-.hero-badge .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #27ae60;
-  animation: pulse 2s infinite;
+.user-avatar {
+width: 32px;
+height: 32px;
+border-radius: 50%;
+background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 700;
+color: white;
+font-size: 0.8rem;
 }
-
-.hero h1 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1.15;
-  max-width: 900px;
-  margin: 0 auto 1.2rem auto;
-  letter-spacing: -1px;
+.user-info {
+display: flex;
+flex-direction: column;
+line-height: 1.2;
 }
-
-.hero h1 span {
-  background: linear-gradient(135deg, #ffffff 30%, #a8d8ea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.user-info .name {
+font-size: 0.8rem;
+font-weight: 600;
+color: white;
 }
-
-.hero p {
-  font-size: 1.15rem;
-  color: #b8d8ea;
-  max-width: 680px;
-  margin: 0 auto 2.2rem auto;
-  font-weight: 400;
+.user-info .role {
+font-size: 0.65rem;
+color: #a8d8ea;
 }
-
-.hero-cta {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  flex-wrap: wrap;
+.nav-badge {
+background: #e74c3c;
+color: white;
+font-size: 0.6rem;
+padding: 0.15rem 0.5rem;
+border-radius: 30px;
+font-weight: 700;
+margin-left: 0.3rem;
 }
-
-.cta-btn-primary {
-  background: linear-gradient(135deg, #27ae60, #1e824c);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0.9rem 2.2rem;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
-  transition: 0.25s;
+/* ---------- PENDING DRAWER (right side) ---------- */
+.pending-drawer {
+position: fixed;
+top: 0;
+right: 0;
+width: 420px;
+height: 100vh;
+background: #ffffff;
+box-shadow: -4px 0 28px rgba(0, 20, 30, 0.15);
+z-index: 210;
+transform: translateX(100%);
+transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+display: flex;
+flex-direction: column;
+padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+overflow-y: auto;
+border-left: 1px solid #d9e8f2;
 }
-
-.cta-btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(39, 174, 96, 0.55);
+.pending-drawer.open {
+transform: translateX(0);
 }
-
-.cta-btn-secondary {
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0.9rem 2.2rem;
-  border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-  transition: 0.25s;
-  backdrop-filter: blur(6px);
+.pending-drawer-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1.5rem;
 }
-
-.cta-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
+.pending-drawer-header h3 {
+font-size: 1.15rem;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.5rem;
 }
-
-/* STATS STRIP */
-.stats-strip {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 3.5rem;
-  flex-wrap: wrap;
+.pending-drawer-close {
+background: none;
+border: none;
+font-size: 1.6rem;
+cursor: pointer;
+color: #6b93aa;
+line-height: 1;
+padding: 0.2rem 0.5rem;
+border-radius: 8px;
+transition: 0.15s;
 }
-
-.stat-item {
-  text-align: center;
+.pending-drawer-close:hover {
+background: #eef5fa;
+color: #0b2d44;
 }
-
-.stat-item .val {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: white;
+.pending-drawer-list {
+display: flex;
+flex-direction: column;
+gap: 1rem;
 }
-
-.stat-item .lbl {
-  font-size: 0.8rem;
-  color: #8bb8d0;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.pending-card {
+background: linear-gradient(135deg, #fffdf5, #fff8e8);
+border: 2px solid #f0dbaa;
+border-radius: 18px;
+padding: 1.1rem 1.1rem 1.2rem 1.1rem;
+display: flex;
+flex-direction: column;
+gap: 0.65rem;
+transition: 0.18s;
+position: relative;
 }
-
+.pending-card.submitted {
+background: linear-gradient(135deg, #f2faf5, #e9f6ee);
+border-color: #b8dfc6;
+}
+.pending-card:hover {
+border-color: #e0c98a;
+box-shadow: 0 8px 18px -10px #b8860b60;
+transform: translateY(-1px);
+}
+.pending-card-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 0.4rem;
+}
+.pending-card-ref {
+font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+font-size: 0.62rem;
+color: #7a9fb5;
+font-weight: 600;
+letter-spacing: 0.3px;
+}
+.pending-card-price {
+font-weight: 800;
+font-size: 0.9rem;
+color: #106a4b;
+background: #e2f0e9;
+padding: 0.15rem 0.6rem;
+border-radius: 30px;
+white-space: nowrap;
+}
+.pending-card-lang {
+font-size: 0.85rem;
+font-weight: 700;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.35rem;
+}
+.pending-card-client {
+font-size: 0.7rem;
+color: #6b93aa;
+display: flex;
+align-items: center;
+gap: 0.3rem;
+}
+.pending-card-timer {
+display: flex;
+align-items: center;
+gap: 0.4rem;
+font-size: 0.75rem;
+font-weight: 700;
+color: #8a6d1a;
+background: #fef8e8;
+padding: 0.4rem 0.8rem;
+border-radius: 30px;
+width: fit-content;
+border: 1px solid #f0dbaa;
+}
+.pending-card-timer.urgent {
+color: #b33a3a;
+background: #ffe8e8;
+border-color: #f5c6c6;
+animation: timerPulse 1.6s infinite;
+}
+.pending-card-timer.submitted {
+color: #1f7349;
+background: #e5f5e8;
+border-color: #b8dfc6;
+animation: none;
+}
+@keyframes timerPulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.72; }
+}
+.pending-card-desc {
+font-size: 0.78rem;
+color: #1b3e4f;
+line-height: 1.45;
+background: #ffffffb0;
+padding: 0.5rem 0.7rem;
+border-radius: 10px;
+border: 1px solid #f0e6d2;
+}
+.pending-card-textarea {
+width: 100%;
+border: 1px solid #bed7e7;
+border-radius: 10px;
+padding: 0.6rem 0.75rem;
+font-size: 0.78rem;
+font-family: inherit;
+resize: vertical;
+min-height: 70px;
+background: #ffffff;
+transition: 0.15s;
+color: #0d3142;
+}
+.pending-card-textarea:focus {
+outline: none;
+border-color: #1a6e8c;
+box-shadow: 0 0 0 3px #1a6e8c20;
+}
+.pending-card-textarea:disabled {
+background: #f2f7fa;
+color: #6b93aa;
+cursor: not-allowed;
+opacity: 0.85;
+}
+.pending-card-actions {
+display: flex;
+gap: 0.45rem;
+margin-top: 0.1rem;
+}
+.pending-card-btn {
+flex: 1;
+border: none;
+padding: 0.55rem 0.6rem;
+border-radius: 40px;
+font-size: 0.72rem;
+font-weight: 700;
+cursor: pointer;
+transition: 0.15s;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 0.25rem;
+white-space: nowrap;
+border: 1px solid transparent;
+}
+.pending-card-btn.send {
+background: #288f5b;
+color: white;
+box-shadow: 0 4px 10px -4px #288f5b;
+}
+.pending-card-btn.send:hover:not(:disabled) {
+background: #1f7349;
+}
+.pending-card-btn.send:disabled {
+background: #b8d0e0;
+color: white;
+cursor: not-allowed;
+box-shadow: none;
+opacity: 0.75;
+}
+.pending-card-btn.view {
+background: #eaf4fa;
+color: #1a5c7c;
+border: 1px solid #c5e0f0;
+flex: 0 0 auto;
+padding-left: 0.9rem;
+padding-right: 0.9rem;
+}
+.pending-card-btn.view:hover {
+background: #d9ecf7;
+}
+.pending-card-submitted-note {
+font-size: 0.7rem;
+font-weight: 700;
+color: #1f7349;
+background: #e5f5e8;
+padding: 0.45rem 0.75rem;
+border-radius: 30px;
+display: inline-flex;
+align-items: center;
+gap: 0.35rem;
+border: 1px solid #b8dfc6;
+width: fit-content;
+}
+.pending-empty {
+text-align: center;
+padding: 2rem 1rem;
+color: #7a9fb5;
+font-size: 0.8rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.6rem;
+background: #f7fbfe;
+border-radius: 16px;
+border: 1px dashed #d4e8f2;
+}
+.pending-empty .empty-icon {
+font-size: 2rem;
+opacity: 0.5;
+}
+/* ---------- SIDEBAR (LEFT DRAWER) ---------- */
+.sidebar {
+position: fixed;
+top: 0;
+left: 0;
+width: 380px;
+height: 100vh;
+background: #ffffff;
+box-shadow: 4px 0 28px rgba(0, 20, 30, 0.15);
+z-index: 200;
+transform: translateX(-100%);
+transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+display: flex;
+flex-direction: column;
+padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+overflow-y: auto;
+border-right: 1px solid #d9e8f2;
+}
+.sidebar.open {
+transform: translateX(0);
+}
+.sidebar-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1.5rem;
+}
+.sidebar-header h3 {
+font-size: 1.15rem;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.sidebar-close {
+background: none;
+border: none;
+font-size: 1.6rem;
+cursor: pointer;
+color: #6b93aa;
+line-height: 1;
+padding: 0.2rem 0.5rem;
+border-radius: 8px;
+transition: 0.15s;
+}
+.sidebar-close:hover {
+background: #eef5fa;
+color: #0b2d44;
+}
+/* Sidebar nav items (Active Tasks toggle) */
+.sidebar-nav {
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+margin-bottom: 1.5rem;
+}
+.sidebar-nav-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 0.6rem;
+font-size: 0.85rem;
+font-weight: 600;
+color: #1a5c7c;
+padding: 0.75rem 0.9rem;
+border-radius: 12px;
+cursor: pointer;
+background: #f4fafd;
+border: 1px solid #d4e8f2;
+transition: 0.15s;
+user-select: none;
+}
+.sidebar-nav-item:hover {
+background: #e8f4fd;
+border-color: #a8cde0;
+color: #0b2d44;
+}
+.sidebar-nav-item.active {
+background: #0b2d44;
+color: white;
+border-color: #0b2d44;
+box-shadow: 0 6px 14px -8px #0b2d44;
+}
+.sidebar-nav-left {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+}
+.sidebar-nav-item .chev {
+font-size: 0.8rem;
+transition: transform 0.2s;
+}
+.sidebar-nav-item.active .chev {
+transform: rotate(90deg);
+}
+.sidebar-nav-count {
+background: #e74c3c;
+color: white;
+font-size: 0.62rem;
+font-weight: 700;
+padding: 0.12rem 0.5rem;
+border-radius: 30px;
+min-width: 20px;
+text-align: center;
+}
+.sidebar-nav-count.zero {
+background: #b8d0e0;
+color: #3f6c83;
+}
+/* Collapsible active tasks container inside sidebar */
+.sidebar-active-tasks {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.45s ease, margin 0.3s ease, opacity 0.3s ease;
+opacity: 0;
+margin-bottom: 0;
+}
+.sidebar-active-tasks.open {
+max-height: 4000px;
+opacity: 1;
+margin-bottom: 1.5rem;
+}
+.sidebar-active-list {
+display: flex;
+flex-direction: column;
+gap: 0.9rem;
+}
+.sidebar-active-card {
+background: linear-gradient(135deg, #f9fdff, #f0f8fd);
+border: 1px solid #d4e8f2;
+border-radius: 16px;
+padding: 0.95rem 1rem 1rem 1rem;
+display: flex;
+flex-direction: column;
+gap: 0.6rem;
+transition: 0.18s;
+position: relative;
+}
+.sidebar-active-card.submitted {
+background: linear-gradient(135deg, #f2faf5, #e9f6ee);
+border-color: #b8dfc6;
+}
+.sidebar-active-card:hover {
+border-color: #a8cde0;
+box-shadow: 0 8px 18px -10px #1a6e8c60;
+transform: translateY(-1px);
+}
+.sidebar-active-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 0.4rem;
+}
+.sidebar-active-ref {
+font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+font-size: 0.62rem;
+color: #7a9fb5;
+font-weight: 600;
+letter-spacing: 0.3px;
+}
+.sidebar-active-price {
+font-weight: 800;
+font-size: 0.85rem;
+color: #106a4b;
+background: #e2f0e9;
+padding: 0.15rem 0.6rem;
+border-radius: 30px;
+white-space: nowrap;
+}
+.sidebar-active-lang {
+font-size: 0.78rem;
+font-weight: 700;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.35rem;
+}
+.sidebar-active-client {
+font-size: 0.68rem;
+color: #6b93aa;
+display: flex;
+align-items: center;
+gap: 0.3rem;
+}
+.sidebar-active-timer {
+display: flex;
+align-items: center;
+gap: 0.4rem;
+font-size: 0.72rem;
+font-weight: 700;
+color: #8a6d1a;
+background: #fef8e8;
+padding: 0.35rem 0.75rem;
+border-radius: 30px;
+width: fit-content;
+border: 1px solid #f0dbaa;
+}
+.sidebar-active-timer.urgent {
+color: #b33a3a;
+background: #ffe8e8;
+border-color: #f5c6c6;
+animation: timerPulse 1.6s infinite;
+}
+.sidebar-active-timer.submitted {
+color: #1f7349;
+background: #e5f5e8;
+border-color: #b8dfc6;
+animation: none;
+}
+/* Inline submission textarea inside sidebar card */
+.sidebar-active-textarea {
+width: 100%;
+border: 1px solid #bed7e7;
+border-radius: 10px;
+padding: 0.6rem 0.75rem;
+font-size: 0.78rem;
+font-family: inherit;
+resize: vertical;
+min-height: 70px;
+background: #ffffff;
+transition: 0.15s;
+color: #0d3142;
+}
+.sidebar-active-textarea:focus {
+outline: none;
+border-color: #1a6e8c;
+box-shadow: 0 0 0 3px #1a6e8c20;
+}
+.sidebar-active-textarea:disabled {
+background: #f2f7fa;
+color: #6b93aa;
+cursor: not-allowed;
+opacity: 0.85;
+}
+.sidebar-active-actions {
+display: flex;
+gap: 0.35rem;
+margin-top: 0.1rem;
+}
+.sidebar-active-btn {
+flex: 1;
+border: none;
+padding: 0.5rem 0.55rem;
+border-radius: 40px;
+font-size: 0.7rem;
+font-weight: 700;
+cursor: pointer;
+transition: 0.15s;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 0.22rem;
+white-space: nowrap;
+border: 1px solid transparent;
+}
+.sidebar-active-btn.send {
+background: #288f5b;
+color: white;
+box-shadow: 0 4px 10px -4px #288f5b;
+}
+.sidebar-active-btn.send:hover:not(:disabled) {
+background: #1f7349;
+}
+.sidebar-active-btn.send:disabled {
+background: #b8d0e0;
+color: white;
+cursor: not-allowed;
+box-shadow: none;
+opacity: 0.75;
+}
+.sidebar-active-btn.view {
+background: #eaf4fa;
+color: #1a5c7c;
+border: 1px solid #c5e0f0;
+flex: 0 0 auto;
+padding-left: 0.8rem;
+padding-right: 0.8rem;
+}
+.sidebar-active-btn.view:hover {
+background: #d9ecf7;
+}
+.sidebar-active-submitted-note {
+font-size: 0.68rem;
+font-weight: 700;
+color: #1f7349;
+background: #e5f5e8;
+padding: 0.4rem 0.7rem;
+border-radius: 30px;
+display: inline-flex;
+align-items: center;
+gap: 0.35rem;
+border: 1px solid #b8dfc6;
+width: fit-content;
+}
+.sidebar-active-empty {
+text-align: center;
+padding: 1.1rem 0.7rem;
+color: #7a9fb5;
+font-size: 0.75rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.4rem;
+background: #f7fbfe;
+border-radius: 14px;
+border: 1px dashed #d4e8f2;
+}
+.sidebar-active-empty .empty-icon {
+font-size: 1.6rem;
+opacity: 0.5;
+}
+/* Translator Rating Card (sidebar) */
+.translator-card {
+background: linear-gradient(135deg, #fefefe, #f4fafd);
+border: 1px solid #d4e8f2;
+border-radius: 18px;
+padding: 1.2rem 1.1rem;
+margin-bottom: 1.6rem;
+box-shadow: 0 6px 18px -10px #0b2d4430;
+}
+.translator-card-header {
+display: flex;
+align-items: center;
+gap: 0.7rem;
+margin-bottom: 1rem;
+}
+.translator-big-avatar {
+width: 46px;
+height: 46px;
+border-radius: 50%;
+background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: 700;
+font-size: 0.95rem;
+box-shadow: 0 4px 10px -4px #1a6e8c80;
+}
+.translator-name-block {
+display: flex;
+flex-direction: column;
+gap: 0.15rem;
+}
+.translator-name-block .t-name {
+font-size: 0.92rem;
+font-weight: 700;
+color: #0b2d44;
+}
+.translator-name-block .t-tier {
+font-size: 0.65rem;
+font-weight: 700;
+color: #b8860b;
+background: #fef3d0;
+padding: 0.12rem 0.55rem;
+border-radius: 30px;
+display: inline-flex;
+align-items: center;
+gap: 0.2rem;
+align-self: flex-start;
+}
+.rating-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0.55rem;
+margin-bottom: 0.9rem;
+}
+.rating-stat {
+background: #f4fafd;
+border-radius: 12px;
+padding: 0.6rem 0.7rem;
+border: 1px solid #e2eef7;
+display: flex;
+flex-direction: column;
+gap: 0.15rem;
+}
+.rating-stat .rs-label {
+font-size: 0.6rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+color: #7a9fb5;
+font-weight: 700;
+}
+.rating-stat .rs-value {
+font-size: 1rem;
+font-weight: 800;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.25rem;
+}
+.rating-stat .rs-value.gold { color: #d68910; }
+.rating-stat .rs-value.green { color: #1f7349; }
+.rating-stat .rs-value.blue { color: #1a6e8c; }
+.rating-bars {
+display: flex;
+flex-direction: column;
+gap: 0.55rem;
+}
+.rating-bar-row {
+display: flex;
+flex-direction: column;
+gap: 0.25rem;
+}
+.rating-bar-top {
+display: flex;
+justify-content: space-between;
+font-size: 0.68rem;
+font-weight: 600;
+color: #3f6c83;
+}
+.rating-bar-track {
+height: 6px;
+background: #e8f0f6;
+border-radius: 6px;
+overflow: hidden;
+}
+.rating-bar-fill {
+height: 100%;
+border-radius: 6px;
+transition: width 0.6s ease;
+}
+.rating-bar-fill.quality { background: linear-gradient(90deg, #4a9ec9, #1a6e8c); }
+.rating-bar-fill.timely { background: linear-gradient(90deg, #5cc98a, #288f5b); }
+.rating-bar-fill.accept { background: linear-gradient(90deg, #f0b64a, #d68910); }
+.section-label {
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: #6b93aa;
+font-weight: 700;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.withdrawal-list {
+display: flex;
+flex-direction: column;
+gap: 0.65rem;
+margin-bottom: 1.5rem;
+}
+.withdrawal-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0.85rem 1rem;
+background: #f7fbfe;
+border-radius: 14px;
+border: 1px solid #e2eef7;
+transition: 0.15s;
+position: relative;
+}
+.withdrawal-item:hover {
+background: #eef7fd;
+border-color: #b8d0e0;
+transform: translateX(2px);
+}
+.withdrawal-left {
+display: flex;
+flex-direction: column;
+gap: 0.2rem;
+}
+.withdrawal-amount {
+font-weight: 700;
+font-size: 0.95rem;
+color: #0b2d44;
+}
+.withdrawal-meta {
+font-size: 0.68rem;
+color: #6b93aa;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.withdrawal-meta .mpesa-tag {
+background: #e5f5e8;
+color: #1f7349;
+padding: 0.12rem 0.55rem;
+border-radius: 30px;
+font-weight: 600;
+font-size: 0.6rem;
+display: inline-flex;
+align-items: center;
+gap: 0.2rem;
+}
+.withdrawal-status {
+font-size: 0.7rem;
+font-weight: 700;
+color: #1f7349;
+background: #e5f5e8;
+padding: 0.28rem 0.75rem;
+border-radius: 40px;
+display: flex;
+align-items: center;
+gap: 0.25rem;
+white-space: nowrap;
+}
+.withdrawal-ref {
+font-size: 0.6rem;
+color: #9ab8cc;
+font-weight: 500;
+font-family: 'SF Mono', 'Monaco', monospace;
+margin-top: 0.1rem;
+}
+.sidebar-footer {
+margin-top: auto;
+padding-top: 1.2rem;
+border-top: 1px solid #e8f0f6;
+display: flex;
+flex-direction: column;
+gap: 0.6rem;
+}
+.sidebar-footer-item {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+font-size: 0.78rem;
+color: #3f6c83;
+padding: 0.55rem 0.7rem;
+border-radius: 10px;
+cursor: pointer;
+transition: 0.15s;
+}
+.sidebar-footer-item:hover {
+background: #eef7fd;
+color: #0b2d44;
+}
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.35);
+z-index: 150;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.25s;
+}
+.overlay.active {
+opacity: 1;
+pointer-events: auto;
+}
 /* ---------- MAIN CONTAINER ---------- */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 3.5rem 1.5rem;
+.app-wrapper {
+max-width: 1300px;
+width: 100%;
+padding: 1.5rem 1.5rem 2rem 1.5rem;
 }
-
-.section-title {
-  text-align: center;
-  margin-bottom: 2.8rem;
+/* ---------- PLATFORM STATS BAR ---------- */
+.platform-stats {
+display: flex;
+flex-wrap: wrap;
+gap: 0.8rem;
+margin-bottom: 1.5rem;
+justify-content: space-between;
+align-items: center;
 }
-
-.section-title h2 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: var(--primary-dark);
+.stat-pill {
+background: white;
+padding: 0.6rem 1.2rem;
+border-radius: 50px;
+box-shadow: 0 4px 12px rgba(0,30,50,0.06);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+font-size: 0.85rem;
+font-weight: 500;
+color: #154a63;
+border: 1px solid #e2edf5;
 }
-
-.section-title p {
-  color: #6b93aa;
-  font-size: 1rem;
-  margin-top: 0.4rem;
+.stat-pill .dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #27ae60;
+animation: pulse 2s infinite;
 }
-
-/* ---------- FEATURES GRID ---------- */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.8rem;
-  margin-bottom: 4rem;
-}
-
-.feature-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  border: 1px solid #e2edf5;
-  box-shadow: var(--card-shadow);
-  transition: 0.25s;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-light);
-  box-shadow: 0 16px 36px -10px rgba(11, 45, 68, 0.18);
-}
-
-.feature-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
-  background: #eaf4fa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  margin-bottom: 1.2rem;
-}
-
-.feature-card h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--primary-dark);
-  margin-bottom: 0.5rem;
-}
-
-.feature-card p {
-  font-size: 0.9rem;
-  color: #557a90;
-  line-height: 1.5;
-}
-
-/* ---------- LIVE TASK MARKETPLACE SECTION ---------- */
-.marketplace-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.filter-pills {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.filter-pill {
-  background: white;
-  border: 1px solid #d4e4ef;
-  padding: 0.45rem 1.1rem;
-  border-radius: 40px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #2c5a73;
-  cursor: pointer;
-  transition: 0.15s;
-}
-
-.filter-pill.active, .filter-pill:hover {
-  background: var(--primary-dark);
-  color: white;
-  border-color: var(--primary-dark);
-}
-
-.task-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 1.5rem;
-}
-
-.task-card {
-  background: white;
-  border-radius: 20px;
-  padding: 1.5rem;
-  border: 1.5px solid #e2edf5;
-  box-shadow: 0 6px 20px rgba(0, 30, 50, 0.05);
-  display: flex;
-  flex-direction: column;
-  transition: 0.25s;
-}
-
-.task-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(11, 45, 68, 0.12);
-  border-color: var(--primary-light);
-}
-
-.task-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.8rem;
-}
-
-.client-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.client-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
-  color: white;
-  font-weight: 700;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.client-info .name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--primary-dark);
-}
-
-.client-info .sub {
-  font-size: 0.7rem;
-  color: #6b93aa;
-}
-
-.price-tag {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #106a4b;
-  background: #e2f0e9;
-  padding: 0.2rem 0.8rem;
-  border-radius: 30px;
-}
-
-.badge-row {
-  display: flex;
-  gap: 0.4rem;
-  margin-bottom: 0.8rem;
-  flex-wrap: wrap;
-}
-
-.badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.2rem 0.65rem;
-  border-radius: 30px;
-  background: #eaf4fa;
-  color: #1a5c7c;
-}
-
-.badge.urgent {
-  background: #ffe8e8;
-  color: #b33a3a;
-}
-
-.task-desc {
-  font-size: 0.88rem;
-  color: #244b60;
-  margin-bottom: 1rem;
-  flex: 1;
-}
-
-.task-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-  padding-top: 0.8rem;
-  border-top: 1px solid #f0f6fa;
-}
-
-.task-words {
-  font-size: 0.72rem;
-  color: #6b93aa;
-  font-weight: 600;
-}
-
-.take-btn {
-  background: var(--primary-blue);
-  color: white;
-  border: none;
-  padding: 0.55rem 1.1rem;
-  border-radius: 30px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.take-btn:hover {
-  background: #0f5875;
-}
-
-/* ---------- HOW IT WORKS ---------- */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.step-card {
-  text-align: center;
-  background: white;
-  padding: 2.2rem 1.5rem;
-  border-radius: 20px;
-  border: 1px solid #e2edf5;
-}
-
-.step-num {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--primary-dark);
-  color: white;
-  font-weight: 800;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.2rem auto;
-}
-
-/* ---------- FOOTER ---------- */
-.footer {
-  background: var(--primary-dark);
-  color: #a8c8da;
-  padding: 3rem 2rem 2rem 2rem;
-  margin-top: 5rem;
-}
-
-.footer-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.footer-col h4 {
-  color: white;
-  font-size: 0.95rem;
-  margin-bottom: 0.8rem;
-}
-
-.footer-col a {
-  display: block;
-  color: #a8c8da;
-  text-decoration: none;
-  font-size: 0.82rem;
-  margin-bottom: 0.4rem;
-}
-
-.footer-bottom {
-  max-width: 1280px;
-  margin: 2rem auto 0 auto;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
-}
-
-/* ---------- AUTH MODAL ---------- */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(11, 45, 68, 0.7);
-  backdrop-filter: blur(5px);
-  z-index: 2000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.modal-overlay.active {
-  display: flex;
-}
-
-.auth-modal {
-  background: white;
-  width: 100%;
-  max-width: 440px;
-  border-radius: 24px;
-  padding: 2.2rem;
-  position: relative;
-  box-shadow: 0 24px 50px rgba(0,20,40,0.3);
-}
-
-.modal-close {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  background: #f0f4f8;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.auth-tabs {
-  display: flex;
-  background: #f0f4f8;
-  border-radius: 40px;
-  padding: 0.3rem;
-  margin: 1.2rem 0;
-}
-
-.auth-tab {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 0.6rem;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: #6b93aa;
-  cursor: pointer;
-}
-
-.auth-tab.active {
-  background: white;
-  color: var(--primary-dark);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-}
-
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  border: 1.5px solid #d4e8f2;
-  font-size: 0.88rem;
-  outline: none;
-}
-
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(26, 110, 140, 0.15);
-}
-
-.submit-btn {
-  width: 100%;
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
-  color: white;
-  border: none;
-  padding: 0.85rem;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
-.demo-box {
-  margin-top: 1rem;
-  background: #f8fbfe;
-  border: 1px dashed #c5ddef;
-  border-radius: 12px;
-  padding: 0.8rem;
-  text-align: center;
-}
-
-.demo-btn {
-  background: white;
-  border: 1px solid #c5ddef;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--primary-blue);
-  cursor: pointer;
-  margin: 0.2rem;
-}
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary-dark);
-  color: white;
-  padding: 0.8rem 1.8rem;
-  border-radius: 40px;
-  font-weight: 600;
-  font-size: 0.88rem;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-  z-index: 3000;
-  border-left: 4px solid var(--accent-green);
-}
-
-.toast.show {
-  opacity: 1;
-}
-
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+0%, 100% { opacity: 1; }
+50% { opacity: 0.4; }
+}
+.stat-pill .count {
+font-weight: 700;
+color: #0b2d44;
+font-size: 1rem;
+}
+/* ---------- SECTION HEADER ---------- */
+.section-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1.2rem;
+flex-wrap: wrap;
+gap: 0.8rem;
+}
+.section-header h2 {
+font-size: 1.3rem;
+font-weight: 700;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.section-header h2 .live-tag {
+font-size: 0.65rem;
+background: #e74c3c;
+color: white;
+padding: 0.15rem 0.5rem;
+border-radius: 30px;
+font-weight: 700;
+letter-spacing: 0.5px;
+text-transform: uppercase;
+animation: blink 1.5s infinite;
+}
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.5; }
+}
+/* ---------- FILTER TABS ---------- */
+.filter-tabs {
+display: flex;
+gap: 0.4rem;
+flex-wrap: wrap;
+}
+.filter-tab {
+background: white;
+border: 1px solid #d4e4ef;
+padding: 0.4rem 1rem;
+border-radius: 50px;
+font-size: 0.8rem;
+font-weight: 500;
+color: #2c5a73;
+cursor: pointer;
+transition: 0.15s;
+}
+.filter-tab:hover {
+background: #eaf3f9;
+}
+.filter-tab.active {
+background: #0b2d44;
+color: white;
+border-color: #0b2d44;
+box-shadow: 0 4px 10px -4px #0b2d44;
+}
+/* ---------- TASK GRID ---------- */
+.task-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+gap: 1.4rem;
+margin-bottom: 1.5rem;
+}
+.task-card {
+background: white;
+border-radius: 22px;
+padding: 1.4rem 1.3rem 1.2rem 1.3rem;
+box-shadow: 0 8px 24px -6px rgba(0,40,60,0.1);
+transition: all 0.25s ease;
+display: flex;
+flex-direction: column;
+border: 2px solid #e6f0f7;
+position: relative;
+}
+.task-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 20px 32px -10px rgba(18,80,110,0.18);
+border-color: #c5ddef;
+}
+.task-card.highlighted {
+border: 3px solid #f39c12;
+box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.18), 0 12px 28px -8px rgba(243, 156, 18, 0.35);
+transform: translateY(-2px);
+background: #fffdf5;
+animation: highlightPulse 1.5s ease;
+}
+@keyframes highlightPulse {
+0% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.5), 0 12px 28px -8px rgba(243, 156, 18, 0.35); }
+70% { box-shadow: 0 0 0 10px rgba(243, 156, 18, 0), 0 12px 28px -8px rgba(243, 156, 18, 0.35); }
+100% { box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.18), 0 12px 28px -8px rgba(243, 156, 18, 0.35); }
+}
+.task-card.taken {
+background: #fffdf8;
+border: 2px solid #f0dbaa;
+}
+.task-card.submitted {
+background: #f2faf5;
+border-left: 5px solid #2b8c5a;
+opacity: 0.92;
+}
+.task-card.highlighted.taken {
+border: 3px solid #f39c12;
+background: #fffdf5;
+}
+/* ---------- CLIENT INFO ---------- */
+.client-info {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+padding-bottom: 0.8rem;
+margin-bottom: 0.8rem;
+border-bottom: 1px solid #eef5fa;
+}
+.client-avatar {
+width: 38px;
+height: 38px;
+border-radius: 50%;
+background: linear-gradient(135deg, #4a9ec9, #1a6e8c);
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 700;
+color: white;
+font-size: 0.75rem;
+flex-shrink: 0;
+}
+.client-details {
+flex: 1;
+min-width: 0;
+}
+.client-name {
+font-size: 0.85rem;
+font-weight: 700;
+color: #0b2d44;
+display: flex;
+align-items: center;
+gap: 0.4rem;
+flex-wrap: wrap;
+}
+.client-name .flag {
+font-size: 1rem;
+line-height: 1;
+}
+.client-meta {
+font-size: 0.7rem;
+color: #6b93aa;
+display: flex;
+align-items: center;
+gap: 0.3rem;
+margin-top: 0.15rem;
+flex-wrap: wrap;
+}
+.client-meta .uni {
+font-weight: 500;
+}
+.client-meta .dot-sep {
+color: #b8d0e0;
+}
+.client-meta .response-time {
+color: #27ae60;
+font-weight: 600;
+}
+.client-rating {
+display: flex;
+align-items: center;
+gap: 0.2rem;
+font-size: 0.7rem;
+font-weight: 700;
+color: #d68910;
+background: #fef8e8;
+padding: 0.2rem 0.5rem;
+border-radius: 30px;
+white-space: nowrap;
+}
+/* ---------- TASK CONTENT ---------- */
+.task-top-row {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 0.5rem;
+gap: 0.5rem;
+}
+.task-id {
+font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+font-size: 0.65rem;
+color: #7a9fb5;
+background: #f5f9fc;
+padding: 0.2rem 0.55rem;
+border-radius: 6px;
+letter-spacing: 0.3px;
+font-weight: 600;
+border: 1px solid #e3eef5;
+}
+.price-tag {
+font-weight: 800;
+font-size: 1.15rem;
+color: #106a4b;
+background: #e2f0e9;
+padding: 0.2rem 0.75rem;
+border-radius: 30px;
+line-height: 1.3;
+white-space: nowrap;
+}
+.price-tag.small {
+font-size: 0.95rem;
+background: #eef3f7;
+color: #1a5c7c;
+}
+.badge-row {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+margin-bottom: 0.6rem;
+}
+.badge {
+background: #e8f2fa;
+color: #0b4b6b;
+font-weight: 600;
+font-size: 0.68rem;
+padding: 0.22rem 0.65rem;
+border-radius: 30px;
+letter-spacing: 0.2px;
+display: inline-flex;
+align-items: center;
+gap: 0.2rem;
+}
+.badge.hot {
+background: #ffe8e8;
+color: #b33a3a;
+}
+.badge.beginner {
+background: #e5f5e8;
+color: #1f7349;
+}
+.badge.intermediate {
+background: #fef3d0;
+color: #8a6d1a;
+}
+.badge.advanced {
+background: #ffe0e0;
+color: #a83232;
+}
+.escrow-badge {
+background: #e8f4fd;
+color: #1a5c7c;
+font-weight: 600;
+font-size: 0.68rem;
+padding: 0.22rem 0.65rem;
+border-radius: 30px;
+display: inline-flex;
+align-items: center;
+gap: 0.25rem;
+border: 1px solid #c5e0f0;
+}
+.task-desc {
+font-size: 0.88rem;
+font-weight: 450;
+color: #1b3e4f;
+margin: 0.4rem 0 0.5rem 0;
+line-height: 1.5;
+padding-right: 0.2rem;
+flex: 1;
+}
+.task-meta {
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+margin-bottom: 0.6rem;
+}
+.task-lang {
+display: flex;
+align-items: center;
+gap: 0.3rem;
+font-size: 0.72rem;
+color: #3f6c83;
+background: #f0f6fb;
+padding: 0.25rem 0.7rem;
+border-radius: 50px;
+font-weight: 500;
+}
+.task-deadline {
+display: flex;
+align-items: center;
+gap: 0.3rem;
+font-size: 0.72rem;
+color: #8a6d1a;
+background: #fef8e8;
+padding: 0.25rem 0.7rem;
+border-radius: 50px;
+font-weight: 500;
+}
+.task-wordcount {
+display: flex;
+align-items: center;
+gap: 0.3rem;
+font-size: 0.72rem;
+color: #1a5c7c;
+background: #eaf4fa;
+padding: 0.25rem 0.7rem;
+border-radius: 50px;
+font-weight: 500;
+}
+.task-posted {
+font-size: 0.68rem;
+color: #9ab8cc;
+display: flex;
+align-items: center;
+gap: 0.25rem;
+margin-bottom: 0.7rem;
+font-weight: 500;
+}
+.task-posted .clock {
+font-size: 0.75rem;
+}
+.task-actions {
+display: flex;
+gap: 0.5rem;
+margin-top: 0.2rem;
+flex-wrap: wrap;
+}
+.btn {
+border: none;
+background: #edf4fa;
+padding: 0.6rem 1rem;
+border-radius: 60px;
+font-weight: 600;
+font-size: 0.8rem;
+color: #0e4a68;
+cursor: pointer;
+transition: 0.15s;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 0.3rem;
+flex: 1;
+white-space: nowrap;
+border: 1px solid transparent;
+}
+.btn-primary {
+background: #1a6e8c;
+color: white;
+box-shadow: 0 6px 12px -6px #1a6e8c60;
+}
+.btn-primary:hover:not(:disabled) {
+background: #0f5875;
+transform: scale(1.01);
+}
+.btn:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+filter: grayscale(0.4);
+}
+.status-indicator {
+font-size: 0.7rem;
+padding: 0.3rem 0.8rem;
+border-radius: 50px;
+background: #c9e1f0;
+color: #17516b;
+font-weight: 600;
+display: inline-block;
+align-self: flex-start;
+margin-top: 0.5rem;
+}
+.submitted .status-indicator {
+background: #c4e6d1;
+color: #135c32;
+}
+.taken .status-indicator {
+background: #f3e1b3;
+color: #885e1a;
+}
+/* ---------- SUBMISSION PANEL ---------- */
+.submission-panel {
+margin-top: 0.9rem;
+background: #fafdff;
+border-radius: 16px;
+padding: 1rem 0.9rem 0.9rem 0.9rem;
+border: 1px solid #cde0ec;
+display: none;
+animation: fadeSlide 0.2s ease;
+}
+.submission-panel.open {
+display: block;
+}
+@keyframes fadeSlide {
+0% { opacity: 0; transform: translateY(-6px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+.submission-panel textarea {
+width: 100%;
+border: 1px solid #bed7e7;
+border-radius: 12px;
+padding: 0.7rem 0.9rem;
+font-size: 0.85rem;
+font-family: inherit;
+resize: vertical;
+min-height: 80px;
+background: #ffffff;
+transition: 0.15s;
+color: #0d3142;
+}
+.submission-panel textarea:focus {
+outline: none;
+border-color: #1a6e8c;
+box-shadow: 0 0 0 3px #1a6e8c20;
+}
+.submission-panel .panel-actions {
+display: flex;
+gap: 0.5rem;
+margin-top: 0.7rem;
+justify-content: flex-end;
+}
+.btn-small {
+padding: 0.45rem 1rem;
+font-size: 0.75rem;
+flex: 0 0 auto;
+border-radius: 40px;
+}
+.btn-ghost {
+background: transparent;
+border: 1px solid #b8cfdd;
+color: #1e5777;
+}
+.btn-ghost:hover:not(:disabled) {
+background: #e6f0f7;
+}
+.btn-send {
+background: #288f5b;
+color: white;
+box-shadow: 0 4px 10px -4px #288f5b;
+}
+.btn-send:hover:not(:disabled) {
+background: #1f7349;
+}
+/* ---------- LOAD MORE ---------- */
+.load-more-wrap {
+display: flex;
+justify-content: center;
+margin: 1.5rem 0 1rem 0;
+}
+.load-more-btn {
+background: white;
+border: 1px solid #b8d0e0;
+color: #1a5c7c;
+padding: 0.8rem 2.5rem;
+border-radius: 60px;
+font-weight: 600;
+font-size: 0.9rem;
+cursor: pointer;
+transition: 0.15s;
+box-shadow: 0 4px 12px -4px rgba(0,0,0,0.06);
+}
+.load-more-btn:hover {
+background: #f0f8ff;
+border-color: #1a6e8c;
+transform: translateY(-1px);
+}
+/* ---------- FOOTER ---------- */
+.site-footer {
+width: 100%;
+background: #0b2d44;
+color: #a8c8da;
+padding: 2rem 2rem 1.5rem 2rem;
+margin-top: 2rem;
+}
+.footer-inner {
+max-width: 1300px;
+margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+gap: 2rem;
+}
+.footer-col h4 {
+color: white;
+font-size: 0.85rem;
+margin-bottom: 0.8rem;
+font-weight: 700;
+letter-spacing: 0.3px;
+}
+.footer-col a {
+display: block;
+color: #a8c8da;
+text-decoration: none;
+font-size: 0.78rem;
+margin-bottom: 0.5rem;
+transition: 0.15s;
+}
+.footer-col a:hover {
+color: white;
+}
+.footer-bottom {
+max-width: 1300px;
+margin: 1.5rem auto 0 auto;
+padding-top: 1.2rem;
+border-top: 1px solid rgba(255,255,255,0.1);
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+font-size: 0.72rem;
+color: #7a9fb5;
+gap: 0.5rem;
+}
+.trust-badges {
+display: flex;
+gap: 1rem;
+align-items: center;
+flex-wrap: wrap;
+}
+.trust-badges span {
+display: flex;
+align-items: center;
+gap: 0.3rem;
+font-size: 0.7rem;
+color: #8bb8d0;
+}
+/* ---------- TOAST ---------- */
+.toast-message {
+position: fixed;
+bottom: 2rem;
+left: 50%;
+transform: translateX(-50%) scale(0.95);
+background: #0b2d44;
+color: white;
+padding: 0.9rem 2rem;
+border-radius: 60px;
+font-weight: 500;
+opacity: 0;
+transition: opacity 0.2s, transform 0.2s;
+pointer-events: none;
+z-index: 1000;
+box-shadow: 0 12px 28px -6px #0a2530;
+font-size: 0.9rem;
+max-width: 90vw;
+text-align: center;
+border-left: 4px solid #27ae60;
+}
+.toast-message.show {
+opacity: 1;
+transform: translateX(-50%) scale(1);
+}
+.toast-message.warning {
+border-left-color: #e67e22;
+}
+@media (max-width: 700px) {
+.navbar { padding: 0.7rem 1rem; }
+.navbar-brand h1 { font-size: 1.1rem; }
+.navbar-brand span { display: none; }
+.navbar-right .user-info { display: none; }
+.app-wrapper { padding: 1rem; }
+.platform-stats { gap: 0.5rem; }
+.stat-pill { padding: 0.5rem 0.9rem; font-size: 0.75rem; }
+.task-grid { grid-template-columns: 1fr; }
+.section-header h2 { font-size: 1.1rem; }
+.footer-inner { flex-direction: column; gap: 1.2rem; }
+.sidebar { width: 320px; padding: 1.2rem; }
+.pending-drawer { width: 340px; padding: 1.2rem; }
+.tasks-icon .label { display: none; }
 }
 </style>
 </head>
 <body>
-
-<!-- NAVBAR -->
+<!-- ========== SIDEBAR (LEFT DRAWER) ========== -->
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h3>👤 Account</h3>
+<button class="sidebar-close" id="sidebarCloseBtn" aria-label="Close sidebar">✕</button>
+</div>
+<!-- Sidebar Navigation: Active Tasks toggle -->
+<div class="sidebar-nav">
+<div class="sidebar-nav-item" id="activeTasksToggle" role="button" aria-expanded="false">
+<div class="sidebar-nav-left">
+<span>🎯</span>
+<span>Active Tasks</span>
+</div>
+<div class="sidebar-nav-left" style="gap:0.4rem;">
+<span class="sidebar-nav-count zero" id="activeTasksCount">0</span>
+<span class="chev">▶</span>
+</div>
+</div>
+</div>
+<!-- Collapsible Active Tasks panel -->
+<div class="sidebar-active-tasks" id="sidebarActiveTasks">
+<div class="sidebar-active-list" id="sidebarActiveList"></div>
+</div>
+<!-- Translator Rating Card (name removed) -->
+<div class="translator-card">
+<div class="translator-card-header">
+<div class="translator-big-avatar">TL</div>
+<div class="translator-name-block">
+<span class="t-name">Translator</span>
+<span class="t-tier">🏅 Gold Tier</span>
+</div>
+</div>
+<div class="rating-grid">
+<div class="rating-stat">
+<span class="rs-label">Overall Rating</span>
+<span class="rs-value gold">⭐ 4.9</span>
+</div>
+<div class="rating-stat">
+<span class="rs-label">Tasks Completed</span>
+<span class="rs-value blue">147</span>
+</div>
+<div class="rating-stat">
+<span class="rs-label">On-Time Rate</span>
+<span class="rs-value green">98%</span>
+</div>
+<div class="rating-stat">
+<span class="rs-label">Acceptance</span>
+<span class="rs-value green">96%</span>
+</div>
+</div>
+<div class="rating-bars">
+<div class="rating-bar-row">
+<div class="rating-bar-top">
+<span>Translation Quality</span>
+<span>96%</span>
+</div>
+<div class="rating-bar-track">
+<div class="rating-bar-fill quality" style="width: 96%;"></div>
+</div>
+</div>
+<div class="rating-bar-row">
+<div class="rating-bar-top">
+<span>Timely Delivery</span>
+<span>98%</span>
+</div>
+<div class="rating-bar-track">
+<div class="rating-bar-fill timely" style="width: 98%;"></div>
+</div>
+</div>
+<div class="rating-bar-row">
+<div class="rating-bar-top">
+<span>Client Acceptance</span>
+<span>96%</span>
+</div>
+<div class="rating-bar-track">
+<div class="rating-bar-fill accept" style="width: 96%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Withdrawal History -->
+<div class="section-label">
+<span>📤 Withdrawal history · M-Pesa</span>
+</div>
+<div class="withdrawal-list">
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 5.00</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8823-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 8.50</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8712-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 3.20</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8634-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 7.00</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8521-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 12.40</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8409-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 4.80</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8317-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 6.30</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8205-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+<div class="withdrawal-item">
+<div class="withdrawal-left">
+<span class="withdrawal-amount">$ 9.10</span>
+<span class="withdrawal-meta"><span class="mpesa-tag">📱 M-Pesa</span> · Instant</span>
+<span class="withdrawal-ref">Ref: MPX-8112-KE</span>
+</div>
+<span class="withdrawal-status">✅ Success</span>
+</div>
+</div>
+<!-- Sidebar Footer Links -->
+<div class="sidebar-footer">
+<div class="sidebar-footer-item">⚙️ Account Settings</div>
+<div class="sidebar-footer-item">🔔 Notification Preferences</div>
+<div class="sidebar-footer-item">🛡️ Security & Privacy</div>
+<div class="sidebar-footer-item">❓ Help & Support</div>
+</div>
+</aside>
+<!-- ========== PENDING DRAWER (RIGHT SIDE) ========== -->
+<aside class="pending-drawer" id="pendingDrawer">
+<div class="pending-drawer-header">
+<h3>📋 Pending Tasks · Awaiting Approval</h3>
+<button class="pending-drawer-close" id="pendingDrawerCloseBtn" aria-label="Close pending drawer">✕</button>
+</div>
+<div class="pending-drawer-list" id="pendingDrawerList"></div>
+</aside>
+<!-- Overlay for sidebar & pending drawer -->
+<div class="overlay" id="overlay"></div>
+<!-- ========== NAVIGATION BAR ========== -->
 <nav class="navbar">
-  <a href="#" class="navbar-brand">
-    <span class="logo-icon">✍️</span>
-    <div class="brand-text">
-      <h1>MegaQash</h1>
-      <span>Writers Platform</span>
-    </div>
-  </a>
-
-  <div class="nav-links">
-    <button class="nav-link-btn" id="navTasksBtn">Browse Tasks</button>
-    <button class="nav-link-btn" id="navHowBtn">How It Works</button>
-    <button class="auth-btn outline" id="btnLogin">Log In</button>
-    <button class="auth-btn" id="btnRegister">Sign Up</button>
-    <button class="post-task-btn" id="btnPostTask" style="display:none;">➕ Post Task</button>
-    
-    <div id="userBadge" style="display:none; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.1); padding:0.3rem 0.8rem; border-radius:30px; color:white; font-size:0.8rem; font-weight:700;">
-      <span id="uAvatar" style="background:#1a6e8c; width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.7rem;">EC</span>
-      <span id="uName">Emily</span>
-      <button id="btnLogout" style="background:transparent; border:none; color:#ff9999; cursor:pointer; font-weight:700; margin-left:0.4rem;">Logout</button>
-    </div>
-  </div>
+<div class="navbar-left">
+<button class="menu-toggle" id="menuToggleBtn" aria-label="Toggle sidebar">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="navbar-brand">
+<span class="logo-icon">✍️</span>
+<h1>MegaQash Writters</h1>
+<span>Translation Division</span>
+</div>
+</div>
+<div class="navbar-right">
+<div class="notification-bell" title="Notifications">
+🔔
+<span class="bell-dot"></span>
+</div>
+<!-- TASKS ICON — opens pending tasks awaiting approval -->
+<div class="tasks-icon" id="tasksIconBtn" title="My pending tasks · awaiting approval">
+<span class="icon">📋</span>
+<span class="label">Tasks</span>
+<span class="tasks-badge hidden" id="tasksBadge">0</span>
+</div>
+<div class="user-profile">
+<div class="user-avatar">TL</div>
+<div class="user-info">
+<span class="name">Translator</span>
+<span class="role">Freelance</span>
+</div>
+<span class="nav-badge">3</span>
+</div>
+</div>
 </nav>
-
-<!-- HERO SECTION -->
-<section class="hero">
-  <div class="hero-badge">
-    <span class="dot"></span>
-    <span>Live Translation Tasks · Instant M-Pesa Payouts</span>
-  </div>
-  <h1>Translate Short Paragraphs.<br><span>Earn Instant Cash Daily.</span></h1>
-  <p>Connecting university researchers and global clients with verified freelance writers for fast paragraph translations across 20 languages.</p>
-  
-  <div class="hero-cta">
-    <button class="cta-btn-primary" id="heroBtnTranslator">Start Earning as Writer</button>
-    <button class="cta-btn-secondary" id="heroBtnClient">Post a Translation Task</button>
-  </div>
-
-  <div class="stats-strip">
-    <div class="stat-item"><div class="val">200+</div><div class="lbl">Live Tasks Available</div></div>
-    <div class="stat-item"><div class="val">20</div><div class="lbl">Target Languages</div></div>
-    <div class="stat-item"><div class="val">$0.20 – $1.00</div><div class="lbl">Pay per Paragraph</div></div>
-    <div class="stat-item"><div class="val">1,247</div><div class="lbl">Tasks Completed</div></div>
-  </div>
-</section>
-
-<!-- CONTAINER -->
-<div class="container">
-  
-  <!-- FEATURES -->
-  <div class="section-title">
-    <h2>Why Translators & Clients Choose MegaQash</h2>
-    <p>Fast micro-task workflows backed by guaranteed escrow payouts.</p>
-  </div>
-
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Micro-Task Speed</h3>
-      <p>Short paragraph questions designed to take only 5–12 minutes per translation task.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💰</div>
-      <h3>Instant Mobile Payouts</h3>
-      <p>Withdraw your earnings directly to M-Pesa or mobile money as soon as your task is approved.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🎓</div>
-      <h3>Academic Clients</h3>
-      <p>Direct tasks from students and researchers at top institutions like NYU, Oxford, and Sorbonne.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🛡️</div>
-      <h3>Escrow Protection</h3>
-      <p>All task funds are pre-funded into escrow before writers begin translation work.</p>
-    </div>
-  </div>
-
-  <!-- LIVE TASK MARKETPLACE -->
-  <div class="marketplace-header" id="tasksSection">
-    <div class="section-title" style="text-align:left; margin-bottom:0;">
-      <h2>Live Translation Marketplace</h2>
-      <p>Select a question below to begin translating</p>
-    </div>
-
-    <div class="filter-pills">
-      <button class="filter-pill active" data-filter="all">All</button>
-      <button class="filter-pill" data-filter="0.20">$0.20</button>
-      <button class="filter-pill" data-filter="0.40">$0.40</button>
-      <button class="filter-pill" data-filter="0.50">$0.50</button>
-      <button class="filter-pill" data-filter="0.75">$0.75</button>
-      <button class="filter-pill" data-filter="1.00">$1.00</button>
-    </div>
-  </div>
-
-  <div class="task-grid" id="taskGrid"></div>
-
-  <!-- HOW IT WORKS -->
-  <div class="section-title" id="howSection" style="margin-top: 5rem;">
-    <h2>How It Works</h2>
-    <p>Simple 3-step translation lifecycle</p>
-  </div>
-
-  <div class="steps-grid">
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <h3>Create Free Account</h3>
-      <p>Sign up as a Freelance Writer to translate, or as a Client to publish tasks.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <h3>Take & Translate</h3>
-      <p>Pick live tasks, draft your translation, and submit for client review.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <h3>Get Paid Instantly</h3>
-      <p>Receive payouts directly into your mobile wallet upon task approval.</p>
-    </div>
-  </div>
-
+<!-- ========== MAIN APP ========== -->
+<div class="app-wrapper">
+<!-- Platform Stats -->
+<div class="platform-stats">
+<div class="stat-pill">
+<span class="dot"></span>
+<span class="count" id="availableCount">200</span> translation questions available
 </div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h4>MegaQash Writers</h4>
-      <a href="#">About Us</a>
-      <a href="#">How It Works</a>
-      <a href="#">Quality Standards</a>
-    </div>
-    <div class="footer-col">
-      <h4>Translators</h4>
-      <a href="#">Task Guidelines</a>
-      <a href="#">M-Pesa Payouts</a>
-      <a href="#">Gold Tier Program</a>
-    </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <a href="#">Terms of Service</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">GDPR Security</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2024 MegaQash Writers. All rights reserved.</span>
-    <span>Made with 🌍 for writers worldwide</span>
-  </div>
+<div class="stat-pill">
+<span>🌍</span> 20 target languages
+</div>
+<div class="stat-pill">
+<span>⏱️</span> Avg. completion: 12 min
+</div>
+<div class="stat-pill">
+<span>✅</span> 1,247 tasks completed
+</div>
+</div>
+<!-- ========== SECTION HEADER ========== -->
+<div class="section-header">
+<h2>
+Available Translation Tasks
+<span class="live-tag">Live</span>
+</h2>
+<div class="filter-tabs" id="filterTabs">
+<button class="filter-tab active" data-filter="all">All</button>
+<button class="filter-tab" data-filter="0.20">$0.20</button>
+<button class="filter-tab" data-filter="0.30">$0.30</button>
+<button class="filter-tab" data-filter="0.40">$0.40</button>
+<button class="filter-tab" data-filter="0.50">$0.50</button>
+<button class="filter-tab" data-filter="0.75">$0.75</button>
+<button class="filter-tab" data-filter="0.80">$0.80</button>
+<button class="filter-tab" data-filter="1.00">$1.00</button>
+</div>
+</div>
+<!-- ========== TASK GRID ========== -->
+<div class="task-grid" id="taskGrid"></div>
+<!-- ========== LOAD MORE ========== -->
+<div class="load-more-wrap" id="loadMoreWrap">
+<button class="load-more-btn" id="loadMoreBtn">Load more questions</button>
+</div>
+</div>
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+<div class="footer-inner">
+<div class="footer-col">
+<h4>MegaQash Writters</h4>
+<a href="#">About Us</a>
+<a href="#">How It Works</a>
+<a href="#">Careers</a>
+<a href="#">Contact</a>
+</div>
+<div class="footer-col">
+<h4>For Translators</h4>
+<a href="#">Task Guidelines</a>
+<a href="#">Payment Methods</a>
+<a href="#">Quality Standards</a>
+<a href="#">FAQ</a>
+</div>
+<div class="footer-col">
+<h4>Legal</h4>
+<a href="#">Terms of Service</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Cookie Policy</a>
+<a href="#">GDPR Compliance</a>
+</div>
+<div class="footer-col">
+<h4>Trust & Security</h4>
+<div class="trust-badges">
+<span>🔒 SSL Secured</span>
+<span>🛡️ GDPR</span>
+<span>💳 PCI DSS</span>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2024 MegaQash Writters. All rights reserved.</span>
+<span>Made with 🌍 for translators worldwide</span>
+</div>
 </footer>
-
-<!-- AUTH MODAL -->
-<div class="modal-overlay" id="authOverlay">
-  <div class="auth-modal">
-    <button class="modal-close" id="btnCloseAuth">✕</button>
-    
-    <div style="text-align:center;">
-      <h3 id="modalTitle" style="font-size:1.4rem; color:#0b2d44; font-weight:800;">Welcome Back</h3>
-      <p id="modalSub" style="font-size:0.82rem; color:#6b93aa; margin-top:0.2rem;">Sign in to continue</p>
-    </div>
-
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="tabLogin">Log In</button>
-      <button class="auth-tab" id="tabRegister">Sign Up</button>
-    </div>
-
-    <!-- LOGIN FORM -->
-    <form id="formLogin">
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="inLoginEmail" value="translator@megaqash.com" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="inLoginPass" value="password123" required>
-      </div>
-      <button type="submit" class="submit-btn">⚡ Log In</button>
-
-      <div class="demo-box">
-        <div style="font-size:0.7rem; font-weight:700; color:#6b93aa; margin-bottom:0.4rem;">1-CLICK DEMO LOGINS</div>
-        <button type="button" class="demo-btn" id="btnDemoClient">🎓 Demo Client (NYU)</button>
-        <button type="button" class="demo-btn" id="btnDemoWriter">✍️ Demo Writer</button>
-      </div>
-    </form>
-
-    <!-- REGISTER FORM -->
-    <form id="formRegister" style="display:none;">
-      <div class="form-group">
-        <label>I want to join as:</label>
-        <select id="inRegRole">
-          <option value="writer">✍️ Freelance Writer (Translate Tasks)</option>
-          <option value="client">🎓 Client / Employer (Post Tasks)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="inRegName" placeholder="e.g. Emily Carter" required>
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="inRegEmail" placeholder="e.g. emily@nyu.edu" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="inRegPass" placeholder="Minimum 6 characters" minlength="6" required>
-      </div>
-      <button type="submit" class="submit-btn">🚀 Create Account</button>
-    </form>
-  </div>
-</div>
-
-<!-- POST TASK MODAL -->
-<div class="modal-overlay" id="postOverlay">
-  <div class="auth-modal" style="max-width:500px;">
-    <button class="modal-close" id="btnClosePost">✕</button>
-    
-    <div style="text-align:center; margin-bottom:1rem;">
-      <h3 style="font-size:1.4rem; color:#0b2d44; font-weight:800;">Post Translation Task</h3>
-      <p style="font-size:0.82rem; color:#6b93aa;">Publish a paragraph for freelance writers</p>
-    </div>
-
-    <form id="formPost">
-      <div class="form-group">
-        <label>Target Language</label>
-        <select id="pLang">
-          <option value="Spanish 🇪🇸">Spanish 🇪🇸</option>
-          <option value="French 🇫🇷">French 🇫🇷</option>
-          <option value="German 🇩🇪">German 🇩🇪</option>
-          <option value="Japanese 🇯🇵">Japanese 🇯🇵</option>
-          <option value="Swahili 🇰🇪">Swahili 🇰🇪</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>English Source Paragraph</label>
-        <textarea id="pText" rows="4" placeholder="Enter paragraph text..." required></textarea>
-      </div>
-      <div class="form-group">
-        <label>Reward Pay ($ USD)</label>
-        <select id="pPrice">
-          <option value="0.20">$0.20</option>
-          <option value="0.50" selected>$0.50</option>
-          <option value="1.00">$1.00</option>
-        </select>
-      </div>
-      <button type="submit" class="submit-btn" style="background:linear-gradient(135deg, #27ae60, #1e824c);">✨ Publish Task</button>
-    </form>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
+<!-- ========== TOAST ========== -->
+<div class="toast-message" id="toast"></div>
 <script>
 (function() {
-// DATASET
-const TASKS_DATA = [
-  { id: 1, ref: "#MQ-2024-0001", client: "Emily Carter", uni: "NYU", flag: "🇺🇸", lang: "English → Spanish", price: 0.40, desc: "Translate: 'Good morning, I hope you are having a wonderful day. The weather today is perfect for a walk in the park.'" },
-  { id: 2, ref: "#MQ-2024-0002", client: "Liam O'Sullivan", uni: "Trinity College", flag: "🇮🇪", lang: "English → French", price: 0.50, desc: "Translate: 'Thank you very much for your help yesterday. I really appreciated your advice about the project.'" },
-  { id: 3, ref: "#MQ-2024-0003", client: "Sophie Müller", uni: "Heidelberg", flag: "🇩🇪", lang: "English → German", price: 0.75, desc: "Translate: 'Excuse me, could you please tell me where the nearest train station is? I need to catch a train.'" },
-  { id: 4, ref: "#MQ-2024-0004", client: "James Whitfield", uni: "Oxford", flag: "🇬🇧", lang: "English → Japanese", price: 1.00, desc: "Translate: 'This product is designed for people who love outdoor adventures. It is lightweight and waterproof.'" },
-  { id: 5, ref: "#MQ-2024-0005", client: "Chloé Dubois", uni: "Sorbonne", flag: "🇫🇷", lang: "English → Swahili", price: 0.20, desc: "Translate: 'Hi, how are you doing today? Have a great weekend!'" }
+// ---------- SIDEBAR & DRAWER TOGGLE LOGIC ----------
+const sidebar = document.getElementById('sidebar');
+const pendingDrawer = document.getElementById('pendingDrawer');
+const overlay = document.getElementById('overlay');
+const menuToggleBtn = document.getElementById('menuToggleBtn');
+const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+const pendingDrawerCloseBtn = document.getElementById('pendingDrawerCloseBtn');
+const tasksIconBtn = document.getElementById('tasksIconBtn');
+const activeTasksToggle = document.getElementById('activeTasksToggle');
+const sidebarActiveTasks = document.getElementById('sidebarActiveTasks');
+function openSidebar() {
+closePendingDrawer();
+sidebar.classList.add('open');
+overlay.classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+sidebar.classList.remove('open');
+overlay.classList.remove('active');
+document.body.style.overflow = '';
+}
+function openPendingDrawer() {
+closeSidebar();
+pendingDrawer.classList.add('open');
+overlay.classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+function closePendingDrawer() {
+pendingDrawer.classList.remove('open');
+if (!sidebar.classList.contains('open')) {
+overlay.classList.remove('active');
+document.body.style.overflow = '';
+}
+}
+menuToggleBtn.addEventListener('click', openSidebar);
+sidebarCloseBtn.addEventListener('click', closeSidebar);
+pendingDrawerCloseBtn.addEventListener('click', closePendingDrawer);
+tasksIconBtn.addEventListener('click', openPendingDrawer);
+overlay.addEventListener('click', () => {
+closeSidebar();
+closePendingDrawer();
+});
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') {
+if (sidebar.classList.contains('open')) closeSidebar();
+if (pendingDrawer.classList.contains('open')) closePendingDrawer();
+}
+});
+// Active Tasks collapsible toggle
+activeTasksToggle.addEventListener('click', () => {
+const isOpen = sidebarActiveTasks.classList.toggle('open');
+activeTasksToggle.classList.toggle('active', isOpen);
+activeTasksToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+// ---------- CLIENT DATA ----------
+const clients = [
+{ name: "Emily Carter", flag: "🇺🇸", country: "United States", uni: "NYU" },
+{ name: "Liam O'Sullivan", flag: "🇮🇪", country: "Ireland", uni: "Trinity College" },
+{ name: "Sophie Müller", flag: "🇩🇪", country: "Germany", uni: "Heidelberg" },
+{ name: "James Whitfield", flag: "🇬🇧", country: "United Kingdom", uni: "Oxford" },
+{ name: "Chloé Dubois", flag: "🇫🇷", country: "France", uni: "Sorbonne" },
+{ name: "Isabella Rossi", flag: "🇮🇹", country: "Italy", uni: "Bocconi" },
+{ name: "Lucas van der Berg", flag: "🇳🇱", country: "Netherlands", uni: "Utrecht" },
+{ name: "Ava Thompson", flag: "🇨🇦", country: "Canada", uni: "UofT" },
+{ name: "Oliver Hansen", flag: "🇩🇰", country: "Denmark", uni: "Copenhagen" },
+{ name: "Mia Andersson", flag: "🇸🇪", country: "Sweden", uni: "Lund" },
+{ name: "Noah Williams", flag: "🇦🇺", country: "Australia", uni: "Melbourne" },
+{ name: "Charlotte Evans", flag: "🇳🇿", country: "New Zealand", uni: "Auckland" },
+{ name: "Ethan Brooks", flag: "🇺🇸", country: "United States", uni: "Stanford" },
+{ name: "Freya Lindqvist", flag: "🇳🇴", country: "Norway", uni: "Oslo" },
+{ name: "Henry Clarke", flag: "🇬🇧", country: "United Kingdom", uni: "Cambridge" },
+{ name: "Zoe Martin", flag: "🇫🇷", country: "France", uni: "Sciences Po" },
+{ name: "Alexander Weber", flag: "🇦🇹", country: "Austria", uni: "Vienna" },
+{ name: "Grace O'Connor", flag: "🇮🇪", country: "Ireland", uni: "UCD" },
+{ name: "Benjamin Scott", flag: "🇨🇦", country: "Canada", uni: "McGill" },
+{ name: "Lily van Dijk", flag: "🇧🇪", country: "Belgium", uni: "Leuven" },
+{ name: "Jack Mitchell", flag: "🇦🇺", country: "Australia", uni: "Sydney" },
+{ name: "Emma Johansson", flag: "🇸🇪", country: "Sweden", uni: "Uppsala" },
+{ name: "Daniel Murphy", flag: "🇺🇸", country: "United States", uni: "Harvard" },
+{ name: "Sofia García", flag: "🇪🇸", country: "Spain", uni: "Complutense" },
+{ name: "Thomas Anderson", flag: "🇬🇧", country: "United Kingdom", uni: "LSE" },
+{ name: "Hannah Schmidt", flag: "🇩🇪", country: "Germany", uni: "Munich" },
+{ name: "Ryan O'Brien", flag: "🇮🇪", country: "Ireland", uni: "UCC" },
+{ name: "Nathan Tremblay", flag: "🇨🇦", country: "Canada", uni: "UBC" },
+{ name: "Ella Nilsson", flag: "🇸🇪", country: "Sweden", uni: "KTH" },
+{ name: "William Foster", flag: "🇺🇸", country: "United States", uni: "MIT" }
 ];
-
-let currentUser = null;
+const responseTimes = [1, 2, 3, 4, 6, 8, 12, 24];
+const languagePairs = [
+{ code: "es", name: "Spanish", flag: "🇪🇸" },
+{ code: "fr", name: "French", flag: "🇫🇷" },
+{ code: "de", name: "German", flag: "🇩🇪" },
+{ code: "it", name: "Italian", flag: "🇮🇹" },
+{ code: "pt", name: "Portuguese",flag: "🇵🇹" },
+{ code: "ja", name: "Japanese", flag: "🇯🇵" },
+{ code: "zh", name: "Mandarin", flag: "🇨🇳" },
+{ code: "ko", name: "Korean", flag: "🇰🇷" },
+{ code: "ru", name: "Russian", flag: "🇷🇺" },
+{ code: "ar", name: "Arabic", flag: "🇸🇦" },
+{ code: "hi", name: "Hindi", flag: "🇮🇳" },
+{ code: "nl", name: "Dutch", flag: "🇳🇱" },
+{ code: "sv", name: "Swedish", flag: "🇸🇪" },
+{ code: "tr", name: "Turkish", flag: "🇹🇷" },
+{ code: "pl", name: "Polish", flag: "🇵🇱" },
+{ code: "vi", name: "Vietnamese",flag: "🇻🇳" },
+{ code: "th", name: "Thai", flag: "🇹🇭" },
+{ code: "id", name: "Indonesian",flag: "🇮🇩" },
+{ code: "el", name: "Greek", flag: "🇬🇷" },
+{ code: "he", name: "Hebrew", flag: "🇮🇱" }
+];
+const paragraphTemplates = [
+"Hi, how are you today?",
+"Thank you so much!",
+"See you tomorrow morning.",
+"The meeting starts at nine.",
+"Please send me the file.",
+"I love this weather.",
+"Where is the bathroom?",
+"Have a great weekend!",
+"Good morning, I hope you are having a wonderful day. The weather today is perfect for a walk in the park.",
+"Thank you very much for your help yesterday. I really appreciated your advice about the project.",
+"Excuse me, could you please tell me where the nearest train station is? I need to catch a train.",
+"I would like to order a large coffee with milk and a croissant, please. Also, a glass of water.",
+"The weather is absolutely beautiful today. The sun is shining, and there is a gentle breeze. I think it would be a great idea to go for a picnic by the river.",
+"Can you help me with this translation project? I have a document that needs to be ready by Friday, but I am struggling with some of the technical terms.",
+"This product is designed for people who love outdoor adventures. It is lightweight, durable, and completely waterproof. It also comes with a two-year warranty.",
+"Dear Mr. Johnson, I am writing to introduce myself as the new project manager for the marketing campaign. I have reviewed your previous work and I am very impressed. I would like to schedule a meeting next week to discuss our goals and timeline. Please let me know what time works best for you.",
+"The information provided in this document is for general informational purposes only. All information is provided in good faith, however we make no representation or warranty of any kind regarding the accuracy or completeness of any information. Under no circumstance shall we have any liability for any loss or damage incurred.",
+"The system architecture consists of three main layers: the presentation layer, the business logic layer, and the data access layer. The presentation layer handles user interactions through a web interface. The business logic layer processes requests and applies validation rules. The data access layer communicates with the database for efficient query performance.",
+"Our company is committed to reducing its environmental impact. We have implemented recycling programs in all offices and switched to renewable energy sources. Employees are encouraged to carpool or use public transportation. Together, we can make a meaningful difference."
+];
+function getPriceForParagraph(text, index) {
+const len = text.length;
+let price;
+if (len < 40) price = 0.20;
+else if (len < 70) price = 0.30;
+else if (len < 120) price = 0.40;
+else if (len < 170) price = 0.50;
+else if (len < 220) price = 0.75;
+else if (len < 280) price = 0.80;
+else price = 1.00;
+if (index % 5 === 0 && price < 1.00) price = Math.min(1.00, +(price + 0.05).toFixed(2));
+return +price.toFixed(2);
+}
+function getDifficulty(text) {
+const len = text.length;
+if (len < 70) return { label: "Beginner", class: "beginner" };
+if (len < 180) return { label: "Intermediate", class: "intermediate" };
+return { label: "Advanced", class: "advanced" };
+}
+function getWordCount(text) {
+return Math.max(1, Math.round(text.length / 5));
+}
+const translationTasks = [];
+let idCounter = 1;
+const TOTAL_TASKS = 200;
+const priceTiers = [0.20, 0.30, 0.40, 0.50, 0.75, 0.80, 1.00];
+for (let i = 0; i < TOTAL_TASKS; i++) {
+const lang = languagePairs[i % languagePairs.length];
+const paragraph = paragraphTemplates[i % paragraphTemplates.length];
+const client = clients[i % clients.length];
+let price = priceTiers[i % priceTiers.length];
+const lenPrice = getPriceForParagraph(paragraph, i);
+if (i % 3 === 0) price = lenPrice;
+const deadlineHours = [2, 4, 6, 8, 12, 24][i % 6];
+const rating = (4.5 + (i % 6) * 0.1).toFixed(1);
+const responseTime = responseTimes[i % responseTimes.length];
+const difficulty = getDifficulty(paragraph);
+const wordCount = getWordCount(paragraph);
+const postedMinutesAgo = (i * 7) % 240;
+const refId = `#MQ-2024-${String(idCounter).padStart(4, '0')}`;
+translationTasks.push({
+id: idCounter++,
+refId: refId,
+description: `Translate the following paragraph into ${lang.name}: '${paragraph}'`,
+lang: `English → ${lang.name}`,
+langFlag: lang.flag,
+price: price,
+deadlineHours: deadlineHours,
+isHot: i % 9 === 0,
+difficulty: difficulty,
+wordCount: wordCount,
+postedMinutesAgo: postedMinutesAgo,
+client: {
+name: client.name,
+flag: client.flag,
+country: client.country,
+uni: client.uni,
+rating: rating,
+responseTime: responseTime
+}
+});
+}
+let tasksState = translationTasks.map(task => ({
+...task,
+taken: false,
+submitted: false,
+submissionOpen: false,
+takenAt: null,
+sidebarDraft: ''
+}));
+// ---------- LIFETIME TASK LIMIT (3 total, hidden from user) ----------
+const LIFETIME_TAKE_LIMIT = 3;
+let lifetimeTasksTaken = 0;
+const PAGE_SIZE = 20;
+let visibleCount = PAGE_SIZE;
+let currentFilter = 'all';
+let countdownInterval = null;
 const taskGrid = document.getElementById('taskGrid');
 const toastEl = document.getElementById('toast');
-
-function showToast(msg) {
-  toastEl.textContent = msg;
-  toastEl.classList.add('show');
-  setTimeout(() => toastEl.classList.remove('show'), 3000);
+const loadMoreWrap = document.getElementById('loadMoreWrap');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+const sidebarActiveList = document.getElementById('sidebarActiveList');
+const activeTasksCount = document.getElementById('activeTasksCount');
+const pendingDrawerList = document.getElementById('pendingDrawerList');
+const tasksBadge = document.getElementById('tasksBadge');
+let toastTimer = null;
+function showToast(message, isWarning) {
+toastEl.textContent = message;
+toastEl.classList.toggle('warning', !!isWarning);
+toastEl.classList.add('show');
+if (toastTimer) clearTimeout(toastTimer);
+toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
 }
-
-function renderTasks(filter = 'all') {
-  let list = TASKS_DATA;
-  if (filter !== 'all') {
-    const fPrice = parseFloat(filter);
-    list = TASKS_DATA.filter(t => Math.abs(t.price - fPrice) < 0.001);
-  }
-
-  let html = '';
-  list.forEach(t => {
-    html += `
-      <div class="task-card">
-        <div class="task-header">
-          <div class="client-meta">
-            <div class="client-avatar">${t.client.split(' ').map(w=>w[0]).join('')}</div>
-            <div class="client-info">
-              <div class="name">${t.flag} ${t.client}</div>
-              <div class="sub">🎓 ${t.uni}</div>
-            </div>
-          </div>
-          <div class="price-tag">$${t.price.toFixed(2)}</div>
-        </div>
-        <div class="badge-row">
-          <span class="badge">${t.lang}</span>
-          <span class="badge urgent">🔥 Urgent</span>
-        </div>
-        <div class="task-desc">${t.desc}</div>
-        <div class="task-footer">
-          <span class="task-words">📝 ${Math.round(t.desc.length / 5)} words</span>
-          <button class="take-btn" data-id="${t.id}">Take Task</button>
-        </div>
-      </div>
-    `;
-  });
-  taskGrid.innerHTML = html;
+function formatPostedTime(mins) {
+if (mins < 1) return "just now";
+if (mins < 60) return `${mins} minute${mins === 1 ? '' : 's'} ago`;
+const hours = Math.floor(mins / 60);
+return `${hours} hour${hours === 1 ? '' : 's'} ago`;
 }
-
-// AUTH HANDLERS
-const authOverlay = document.getElementById('authOverlay');
-const btnLogin = document.getElementById('btnLogin');
-const btnRegister = document.getElementById('btnRegister');
-const btnCloseAuth = document.getElementById('btnCloseAuth');
-const tabLogin = document.getElementById('tabLogin');
-const tabRegister = document.getElementById('tabRegister');
-const formLogin = document.getElementById('formLogin');
-const formRegister = document.getElementById('formRegister');
-const userBadge = document.getElementById('userBadge');
-const uAvatar = document.getElementById('uAvatar');
-const uName = document.getElementById('uName');
-const btnLogout = document.getElementById('btnLogout');
-const btnPostTask = document.getElementById('btnPostTask');
-
-function openAuth(tab = 'login') {
-  authOverlay.classList.add('active');
-  if (tab === 'register') {
-    tabRegister.click();
-  } else {
-    tabLogin.click();
-  }
+function formatResponseTime(hours) {
+if (hours === 1) return "Usually responds in 1 hour";
+if (hours < 24) return `Usually responds in ${hours} hours`;
+return "Usually responds in 1 day";
 }
-
-btnLogin.onclick = () => openAuth('login');
-btnRegister.onclick = () => openAuth('register');
-btnCloseAuth.onclick = () => authOverlay.classList.remove('active');
-
-tabLogin.onclick = () => {
-  tabLogin.classList.add('active');
-  tabRegister.classList.remove('active');
-  formLogin.style.display = 'block';
-  formRegister.style.display = 'none';
-};
-
-tabRegister.onclick = () => {
-  tabRegister.classList.add('active');
-  tabLogin.classList.remove('active');
-  formLogin.style.display = 'none';
-  formRegister.style.display = 'block';
-};
-
-function setUser(user) {
-  currentUser = user;
-  if (user) {
-    btnLogin.style.display = 'none';
-    btnRegister.style.display = 'none';
-    userBadge.style.display = 'inline-flex';
-    uAvatar.textContent = user.name.split(' ').map(w=>w[0]).join('').slice(0,2);
-    uName.textContent = user.name;
-    if (user.role === 'client') {
-      btnPostTask.style.display = 'inline-block';
-    } else {
-      btnPostTask.style.display = 'none';
-    }
-  } else {
-    btnLogin.style.display = 'inline-block';
-    btnRegister.style.display = 'inline-block';
-    userBadge.style.display = 'none';
-    btnPostTask.style.display = 'none';
-  }
+function formatCountdown(msRemaining) {
+if (msRemaining <= 0) return "Expired";
+const totalSeconds = Math.floor(msRemaining / 1000);
+const hours = Math.floor(totalSeconds / 3600);
+const minutes = Math.floor((totalSeconds % 3600) / 60);
+const seconds = totalSeconds % 60;
+const pad = (n) => String(n).padStart(2, '0');
+if (hours > 0) return `${hours}h ${pad(minutes)}m ${pad(seconds)}s`;
+return `${minutes}m ${pad(seconds)}s`;
 }
-
-formLogin.onsubmit = (e) => {
-  e.preventDefault();
-  const email = document.getElementById('inLoginEmail').value;
-  setUser({ name: "Emily Carter", email, role: "client" });
-  authOverlay.classList.remove('active');
-  showToast("Logged in successfully!");
-};
-
-formRegister.onsubmit = (e) => {
-  e.preventDefault();
-  const name = document.getElementById('inRegName').value;
-  const email = document.getElementById('inRegEmail').value;
-  const role = document.getElementById('inRegRole').value;
-  setUser({ name, email, role });
-  authOverlay.classList.remove('active');
-  showToast(`Account created! Welcome, ${name}.`);
-};
-
-document.getElementById('btnDemoClient').onclick = () => {
-  setUser({ name: "Emily Carter (NYU)", email: "client@nyu.edu", role: "client" });
-  authOverlay.classList.remove('active');
-  showToast("Logged in as Demo Client!");
-};
-
-document.getElementById('btnDemoWriter').onclick = () => {
-  setUser({ name: "Freelance Writer", email: "translator@megaqash.com", role: "writer" });
-  authOverlay.classList.remove('active');
-  showToast("Logged in as Demo Writer!");
-};
-
-btnLogout.onclick = () => {
-  setUser(null);
-  showToast("Logged out.");
-};
-
-// HERO BUTTONS
-document.getElementById('heroBtnTranslator').onclick = () => {
-  document.getElementById('tasksSection').scrollIntoView({ behavior: 'smooth' });
-};
-
-document.getElementById('heroBtnClient').onclick = () => {
-  if (!currentUser || currentUser.role !== 'client') {
-    openAuth('register');
-    showToast("Sign up as a Client to post tasks!");
-  } else {
-    postOverlay.classList.add('active');
-  }
-};
-
-btnPostTask.onclick = () => postOverlay.classList.add('active');
-document.getElementById('btnClosePost').onclick = () => postOverlay.classList.remove('active');
-
-document.getElementById('formPost').onsubmit = (e) => {
-  e.preventDefault();
-  const lang = document.getElementById('pLang').value;
-  const desc = document.getElementById('pText').value;
-  const price = parseFloat(document.getElementById('pPrice').value);
-  
-  TASKS_DATA.unshift({
-    id: TASKS_DATA.length + 1,
-    ref: `#MQ-2024-000${TASKS_DATA.length + 1}`,
-    client: currentUser ? currentUser.name : "Client",
-    uni: "NYU",
-    flag: "🎓",
-    lang: `English → ${lang.split(' ')[0]}`,
-    price: price,
-    desc: desc
-  });
-  renderTasks();
-  postOverlay.classList.remove('active');
-  showToast("Task published to live marketplace!");
-};
-
-// FILTER PILLS
-document.querySelectorAll('.filter-pill').forEach(pill => {
-  pill.onclick = () => {
-    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
-    renderTasks(pill.dataset.filter);
-  };
+function getRemainingMs(task) {
+if (!task.takenAt) return 0;
+const deadlineMs = task.deadlineHours * 60 * 60 * 1000;
+const elapsed = Date.now() - task.takenAt;
+return Math.max(0, deadlineMs - elapsed);
+}
+// ---------- UPDATE BADGES (tasks icon & sidebar count) ----------
+function updateBadges() {
+const pendingCount = tasksState.filter(t => t.taken && !t.submitted).length;
+if (pendingCount > 0) {
+tasksBadge.textContent = pendingCount;
+tasksBadge.classList.remove('hidden');
+} else {
+tasksBadge.classList.add('hidden');
+}
+activeTasksCount.textContent = pendingCount;
+activeTasksCount.classList.toggle('zero', pendingCount === 0);
+}
+// ---------- RENDER: PENDING DRAWER (awaiting approval) ----------
+function renderPendingDrawer() {
+// Show ALL taken tasks — both pending & submitted (awaiting approval)
+const pendingTasks = tasksState.filter(t => t.taken);
+if (pendingTasks.length === 0) {
+pendingDrawerList.innerHTML = `
+<div class="pending-empty">
+<span class="empty-icon">📭</span>
+<span>No pending tasks.</span>
+<span>Tasks you take will appear here awaiting approval.</span>
+</div>
+`;
+return;
+}
+let html = '';
+pendingTasks.forEach(task => {
+const isSubmitted = task.submitted;
+const remainingMs = getRemainingMs(task);
+const isUrgent = !isSubmitted && remainingMs > 0 && remainingMs < 30 * 60 * 1000;
+const isExpired = !isSubmitted && remainingMs <= 0;
+const countdownText = isExpired ? "Expired" : formatCountdown(remainingMs);
+const timerClass = isSubmitted ? 'submitted' : (isUrgent || isExpired ? 'urgent' : '');
+let bodyHtml = '';
+if (isSubmitted) {
+bodyHtml = `
+<textarea class="pending-card-textarea" disabled rows="3" placeholder="Translation submitted.">${task.sidebarDraft || ''}</textarea>
+<div class="pending-card-submitted-note">✅ Submitted · awaiting approval</div>
+<div class="pending-card-actions">
+<button class="pending-card-btn view" data-action="scroll-to-task" data-id="${task.id}" style="flex:1;">
+🔍 View card
+</button>
+</div>
+`;
+} else {
+bodyHtml = `
+<textarea class="pending-card-textarea" rows="3" placeholder="Type your translation here…" data-pending-draft-id="${task.id}">${task.sidebarDraft || ''}</textarea>
+<div class="pending-card-actions">
+<button class="pending-card-btn send" data-action="pending-submit" data-id="${task.id}">
+📤 Submit for approval
+</button>
+<button class="pending-card-btn view" data-action="scroll-to-task" data-id="${task.id}">
+🔍 View
+</button>
+</div>
+`;
+}
+html += `
+<div class="pending-card ${isSubmitted ? 'submitted' : ''}" data-pending-id="${task.id}">
+<div class="pending-card-top">
+<span class="pending-card-ref">${task.refId}</span>
+<span class="pending-card-price">$${task.price.toFixed(2)}</span>
+</div>
+<div class="pending-card-lang">
+${task.langFlag} ${task.lang}
+</div>
+<div class="pending-card-client">
+<span>${task.client.flag}</span> ${task.client.name}
+</div>
+<div class="pending-card-desc">
+${task.description}
+</div>
+<div class="pending-card-timer ${timerClass}" data-pending-timer-id="${task.id}">
+<span>${isSubmitted ? '✅' : (isExpired ? '⚠️' : '⏳')}</span>
+<span class="pending-timer-text">${isSubmitted ? 'Awaiting approval' : countdownText}</span>
+</div>
+${bodyHtml}
+</div>
+`;
 });
-
-taskGrid.onclick = (e) => {
-  if (e.target.classList.contains('take-btn')) {
-    if (!currentUser) {
-      openAuth('login');
-      showToast("Please log in to take tasks.");
-    } else {
-      showToast("Task taken! Proceeding to translation workspace...");
-    }
-  }
-};
-
-document.getElementById('navTasksBtn').onclick = () => {
-  document.getElementById('tasksSection').scrollIntoView({ behavior: 'smooth' });
-};
-document.getElementById('navHowBtn').onclick = () => {
-  document.getElementById('howSection').scrollIntoView({ behavior: 'smooth' });
-};
-
-// INITIAL RENDER
+pendingDrawerList.innerHTML = html;
+}
+// ---------- RENDER: SIDEBAR ACTIVE TASKS ----------
+function renderSidebarActiveTasks() {
+const relevantTasks = tasksState.filter(t => t.taken);
+const activeCount = relevantTasks.filter(t => !t.submitted).length;
+activeTasksCount.textContent = activeCount;
+activeTasksCount.classList.toggle('zero', activeCount === 0);
+if (relevantTasks.length === 0) {
+sidebarActiveList.innerHTML = `
+<div class="sidebar-active-empty">
+<span class="empty-icon">📭</span>
+<span>No active tasks right now.</span>
+<span>Take a task from the main page to see it here.</span>
+</div>
+`;
+return;
+}
+let html = '';
+relevantTasks.forEach(task => {
+const isSubmitted = task.submitted;
+const remainingMs = getRemainingMs(task);
+const isUrgent = !isSubmitted && remainingMs > 0 && remainingMs < 30 * 60 * 1000;
+const isExpired = !isSubmitted && remainingMs <= 0;
+const countdownText = isExpired ? "Expired" : formatCountdown(remainingMs);
+const timerClass = isSubmitted ? 'submitted' : (isUrgent || isExpired ? 'urgent' : '');
+let bodyHtml = '';
+if (isSubmitted) {
+bodyHtml = `
+<textarea class="sidebar-active-textarea" disabled rows="3" placeholder="Translation submitted.">${task.sidebarDraft || ''}</textarea>
+<div class="sidebar-active-submitted-note">✅ Submitted · awaiting review · cannot resubmit</div>
+<div class="sidebar-active-actions">
+<button class="sidebar-active-btn view" data-action="scroll-to-task" data-id="${task.id}" style="flex:1;">
+🔍 View card
+</button>
+</div>
+`;
+} else {
+bodyHtml = `
+<textarea class="sidebar-active-textarea" rows="3" placeholder="Type your translation here…" data-draft-id="${task.id}">${task.sidebarDraft || ''}</textarea>
+<div class="sidebar-active-actions">
+<button class="sidebar-active-btn send" data-action="sidebar-submit" data-id="${task.id}">
+📤 Submit
+</button>
+<button class="sidebar-active-btn view" data-action="scroll-to-task" data-id="${task.id}">
+🔍 View
+</button>
+</div>
+`;
+}
+html += `
+<div class="sidebar-active-card ${isSubmitted ? 'submitted' : ''}" data-active-id="${task.id}">
+<div class="sidebar-active-top">
+<span class="sidebar-active-ref">${task.refId}</span>
+<span class="sidebar-active-price">$${task.price.toFixed(2)}</span>
+</div>
+<div class="sidebar-active-lang">
+${task.langFlag} ${task.lang}
+</div>
+<div class="sidebar-active-client">
+<span>${task.client.flag}</span> ${task.client.name}
+</div>
+<div class="sidebar-active-timer ${timerClass}" data-timer-id="${task.id}">
+<span>${isSubmitted ? '✅' : (isExpired ? '⚠️' : '⏳')}</span>
+<span class="timer-text">${isSubmitted ? 'Completed' : countdownText}</span>
+</div>
+${bodyHtml}
+</div>
+`;
+});
+sidebarActiveList.innerHTML = html;
+}
+function tickCountdowns() {
+const activeTasks = tasksState.filter(t => t.taken && !t.submitted);
+// Sidebar timers
+activeTasks.forEach(task => {
+const timerText = document.querySelector(`.sidebar-active-timer[data-timer-id="${task.id}"] .timer-text`);
+const timerContainer = document.querySelector(`.sidebar-active-timer[data-timer-id="${task.id}"]`);
+if (timerText) {
+const remainingMs = getRemainingMs(task);
+const isUrgent = remainingMs > 0 && remainingMs < 30 * 60 * 1000;
+const isExpired = remainingMs <= 0;
+timerText.textContent = isExpired ? "Expired" : formatCountdown(remainingMs);
+if (timerContainer) {
+timerContainer.classList.toggle('urgent', isUrgent || isExpired);
+}
+}
+});
+// Pending drawer timers
+activeTasks.forEach(task => {
+const timerText = document.querySelector(`.pending-card-timer[data-pending-timer-id="${task.id}"] .pending-timer-text`);
+const timerContainer = document.querySelector(`.pending-card-timer[data-pending-timer-id="${task.id}"]`);
+if (timerText) {
+const remainingMs = getRemainingMs(task);
+const isUrgent = remainingMs > 0 && remainingMs < 30 * 60 * 1000;
+const isExpired = remainingMs <= 0;
+timerText.textContent = isExpired ? "Expired" : formatCountdown(remainingMs);
+if (timerContainer) {
+timerContainer.classList.toggle('urgent', isUrgent || isExpired);
+}
+}
+});
+}
+function startCountdownTicker() {
+if (countdownInterval) return;
+countdownInterval = setInterval(tickCountdowns, 1000);
+}
+// ---------- RENDER: MAIN TASK GRID ----------
+function renderTasks() {
+let allMatching = tasksState;
+if (currentFilter !== 'all') {
+const filterPrice = parseFloat(currentFilter);
+allMatching = tasksState.filter(t => Math.abs(t.price - filterPrice) < 0.001);
+}
+let visibleTasks;
+if (currentFilter === 'all') {
+visibleTasks = allMatching.slice(0, visibleCount);
+} else {
+visibleTasks = allMatching.slice(0, 100);
+}
+document.getElementById('availableCount').textContent = tasksState.length;
+let html = '';
+visibleTasks.forEach(task => {
+const isTaken = task.taken;
+const isSubmitted = task.submitted;
+const panelOpen = task.submissionOpen;
+const isHighlighted = currentFilter !== 'all' &&
+Math.abs(task.price - parseFloat(currentFilter)) < 0.001;
+let cardClass = 'task-card';
+if (isSubmitted) cardClass += ' submitted';
+else if (isTaken) cardClass += ' taken';
+if (isHighlighted) cardClass += ' highlighted';
+const priceFormatted = `$${task.price.toFixed(2)}`;
+const clientInitials = task.client.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+let actionButtons = '';
+if (isSubmitted) {
+actionButtons = `
+<div style="display: flex; width: 100%;">
+<span class="status-indicator" style="background:#c4e6d1; color:#135c32; font-weight:600;">✅ Pending approval</span>
+</div>
+`;
+} else if (isTaken) {
+actionButtons = `
+<button class="btn btn-primary" data-action="toggle-submit" data-id="${task.id}">
+${panelOpen ? '📝 Close submission' : '📤 Open submission'}
+</button>
+`;
+} else {
+actionButtons = `
+<button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take task</button>
+`;
+}
+let submissionPanelHtml = '';
+if (isTaken && !isSubmitted && panelOpen) {
+submissionPanelHtml = `
+<div class="submission-panel open" data-panel-id="${task.id}">
+<textarea id="textarea-${task.id}" placeholder="Paste or type your translation here…" rows="4">${task.sidebarDraft || ''}</textarea>
+<div class="panel-actions">
+<button class="btn btn-ghost btn-small" data-action="cancel-submit" data-id="${task.id}">Cancel</button>
+<button class="btn btn-send btn-small" data-action="confirm-submit" data-id="${task.id}">Submit for approval</button>
+</div>
+</div>
+`;
+}
+const deadlineText = task.deadlineHours <= 4
+? `⏰ ${task.deadlineHours}h left`
+: `📅 ${task.deadlineHours}h deadline`;
+const hotBadge = task.isHot ? '<span class="badge hot">🔥 Urgent</span>' : '';
+const diffBadge = `<span class="badge ${task.difficulty.class}">${task.difficulty.label}</span>`;
+html += `
+<div class="${cardClass}" data-task-id="${task.id}" data-price="${task.price}">
+<div class="client-info">
+<div class="client-avatar">${clientInitials}</div>
+<div class="client-details">
+<div class="client-name">
+<span class="flag">${task.client.flag}</span>
+${task.client.name}
+</div>
+<div class="client-meta">
+<span class="uni">🎓 ${task.client.uni}</span>
+<span class="dot-sep">·</span>
+<span>${task.client.country}</span>
+<span class="dot-sep">·</span>
+<span class="response-time">⚡ ${formatResponseTime(task.client.responseTime)}</span>
+</div>
+</div>
+<div class="client-rating">
+⭐ ${task.client.rating}
+</div>
+</div>
+<div class="task-top-row">
+<span class="task-id">${task.refId}</span>
+<span class="price-tag ${task.price < 1 ? 'small' : ''}">${priceFormatted}</span>
+</div>
+<div class="badge-row">
+<span class="badge">${task.langFlag} ${task.lang}</span>
+${diffBadge}
+${hotBadge}
+</div>
+<div class="task-desc">${task.description}</div>
+<div class="task-meta">
+<span class="task-wordcount">📝 ${task.wordCount} words</span>
+<span class="task-deadline">${deadlineText}</span>
+<span class="escrow-badge">💰 Escrow protected</span>
+</div>
+<div class="task-posted">
+<span class="clock">🕐</span> Posted ${formatPostedTime(task.postedMinutesAgo)}
+</div>
+<div class="task-actions">
+${actionButtons}
+</div>
+${submissionPanelHtml}
+${isTaken && !isSubmitted && !panelOpen ? '<div class="status-indicator" style="margin-top:0.5rem;">⏳ Task taken — open submission when ready</div>' : ''}
+${isSubmitted ? '<div class="status-indicator" style="margin-top:0.5rem;">💸 Submitted · awaiting approval</div>' : ''}
+</div>
+`;
+});
+taskGrid.innerHTML = html;
+const totalFiltered = allMatching.length;
+if (currentFilter !== 'all') {
+loadMoreWrap.style.display = 'none';
+} else if (visibleCount >= totalFiltered) {
+loadMoreWrap.style.display = 'none';
+} else {
+loadMoreWrap.style.display = 'flex';
+}
+}
+// ---------- ACTIONS ----------
+function takeTask(taskId) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (task.submitted) { showToast('This task is already submitted.'); return; }
+if (task.taken) { showToast('You already took this task.'); return; }
+if (lifetimeTasksTaken >= LIFETIME_TAKE_LIMIT) {
+showToast('❌ This question has already been picked by another person. Please try a different one.', true);
+return;
+}
+task.taken = true;
+task.submissionOpen = false;
+task.takenAt = Date.now();
+task.sidebarDraft = '';
+lifetimeTasksTaken++;
+showToast(`Task ${task.refId} taken: ${task.lang} · $${task.price.toFixed(2)}`);
 renderTasks();
+renderSidebarActiveTasks();
+renderPendingDrawer();
+updateBadges();
+startCountdownTicker();
+}
+function toggleSubmissionPanel(taskId) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (!task.taken) { showToast('Take the task first.'); return; }
+if (task.submitted) { showToast('This task is already submitted.'); return; }
+task.submissionOpen = !task.submissionOpen;
+renderTasks();
+}
+// Submit from main card
+function confirmSubmit(taskId) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (task.submitted) { showToast('Already submitted.'); return; }
+if (!task.taken) { showToast('You must take the task first.'); return; }
+const textarea = document.getElementById(`textarea-${taskId}`);
+const translationText = textarea ? textarea.value.trim() : '';
+if (!translationText) {
+showToast('Please enter your translation before submitting.');
+return;
+}
+task.submitted = true;
+task.submissionOpen = false;
+task.takenAt = null;
+task.sidebarDraft = translationText;
+showToast(`✅ ${task.refId} submitted to ${task.client.name}! $${task.price.toFixed(2)} · awaiting approval`);
+renderTasks();
+renderSidebarActiveTasks();
+renderPendingDrawer();
+updateBadges();
+}
+// Submit from sidebar card
+function submitFromSidebar(taskId) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (task.submitted) {
+showToast('This task has already been submitted and cannot be resubmitted.', true);
+return;
+}
+if (!task.taken) { showToast('Take the task first.'); return; }
+const textarea = document.querySelector(`.sidebar-active-textarea[data-draft-id="${taskId}"]`);
+const text = textarea ? textarea.value.trim() : '';
+if (!text) {
+showToast('Please type your translation before submitting.', true);
+return;
+}
+task.submitted = true;
+task.submissionOpen = false;
+task.takenAt = null;
+task.sidebarDraft = text;
+showToast(`✅ ${task.refId} submitted to ${task.client.name}! $${task.price.toFixed(2)} · awaiting approval`);
+renderTasks();
+renderSidebarActiveTasks();
+renderPendingDrawer();
+updateBadges();
+}
+// Submit from pending drawer
+function submitFromPending(taskId) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (task.submitted) {
+showToast('This task has already been submitted and cannot be resubmitted.', true);
+return;
+}
+if (!task.taken) { showToast('Take the task first.'); return; }
+const textarea = document.querySelector(`.pending-card-textarea[data-pending-draft-id="${taskId}"]`);
+const text = textarea ? textarea.value.trim() : '';
+if (!text) {
+showToast('Please type your translation before submitting.', true);
+return;
+}
+task.submitted = true;
+task.submissionOpen = false;
+task.takenAt = null;
+task.sidebarDraft = text;
+showToast(`✅ ${task.refId} submitted to ${task.client.name}! $${task.price.toFixed(2)} · awaiting approval`);
+renderTasks();
+renderSidebarActiveTasks();
+renderPendingDrawer();
+updateBadges();
+}
+function cancelSubmission(taskId) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task) return;
+if (task.submitted) return;
+task.submissionOpen = false;
+renderTasks();
+}
+function saveDraft(taskId, value) {
+const task = tasksState.find(t => t.id === taskId);
+if (!task || task.submitted) return;
+task.sidebarDraft = value;
+}
+// ---------- EVENT LISTENERS ----------
+taskGrid.addEventListener('click', (e) => {
+const button = e.target.closest('button');
+if (!button) return;
+const action = button.dataset.action;
+const taskId = parseInt(button.dataset.id, 10);
+if (isNaN(taskId)) return;
+if (action === 'take') takeTask(taskId);
+else if (action === 'toggle-submit') toggleSubmissionPanel(taskId);
+else if (action === 'confirm-submit') confirmSubmit(taskId);
+else if (action === 'cancel-submit') cancelSubmission(taskId);
+});
+// Sidebar active tasks interactions
+sidebarActiveList.addEventListener('click', (e) => {
+const button = e.target.closest('button');
+if (!button) return;
+const action = button.dataset.action;
+const taskId = parseInt(button.dataset.id, 10);
+if (isNaN(taskId)) return;
+if (action === 'sidebar-submit') {
+submitFromSidebar(taskId);
+} else if (action === 'scroll-to-task') {
+closeSidebar();
+closePendingDrawer();
+setTimeout(() => {
+const card = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+if (card) {
+card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+card.style.transition = 'box-shadow 0.3s ease';
+card.style.boxShadow = '0 0 0 4px rgba(26, 110, 140, 0.35), 0 20px 32px -10px rgba(18,80,110,0.25)';
+setTimeout(() => { card.style.boxShadow = ''; }, 1500);
+}
+}, 320);
+}
+});
+// Pending drawer interactions
+pendingDrawerList.addEventListener('click', (e) => {
+const button = e.target.closest('button');
+if (!button) return;
+const action = button.dataset.action;
+const taskId = parseInt(button.dataset.id, 10);
+if (isNaN(taskId)) return;
+if (action === 'pending-submit') {
+submitFromPending(taskId);
+} else if (action === 'scroll-to-task') {
+closePendingDrawer();
+closeSidebar();
+setTimeout(() => {
+const card = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+if (card) {
+card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+card.style.transition = 'box-shadow 0.3s ease';
+card.style.boxShadow = '0 0 0 4px rgba(26, 110, 140, 0.35), 0 20px 32px -10px rgba(18,80,110,0.25)';
+setTimeout(() => { card.style.boxShadow = ''; }, 1500);
+}
+}, 320);
+}
+});
+// Save drafts on typing (sidebar)
+sidebarActiveList.addEventListener('input', (e) => {
+const textarea = e.target.closest('.sidebar-active-textarea');
+if (!textarea) return;
+const draftId = textarea.dataset.draftId;
+if (!draftId) return;
+saveDraft(parseInt(draftId, 10), textarea.value);
+});
+// Save drafts on typing (pending drawer)
+pendingDrawerList.addEventListener('input', (e) => {
+const textarea = e.target.closest('.pending-card-textarea');
+if (!textarea) return;
+const draftId = textarea.dataset.pendingDraftId;
+if (!draftId) return;
+saveDraft(parseInt(draftId, 10), textarea.value);
+});
+document.querySelectorAll('.filter-tab').forEach(tab => {
+tab.addEventListener('click', () => {
+document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+tab.classList.add('active');
+currentFilter = tab.dataset.filter;
+renderTasks();
+if (currentFilter !== 'all') {
+setTimeout(() => {
+const firstHighlight = document.querySelector('.task-card.highlighted');
+if (firstHighlight) {
+firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+}, 50);
+showToast(`Highlighting all ${currentFilter === '1.00' ? '$1.00' : '$' + currentFilter} tasks`);
+} else {
+showToast('Showing all tasks');
+}
+});
+});
+loadMoreBtn.addEventListener('click', () => {
+visibleCount = Math.min(visibleCount + PAGE_SIZE, tasksState.length);
+renderTasks();
+showToast(`Showing ${visibleCount} of ${tasksState.length} questions`);
+});
+// ---------- INITIAL RENDER ----------
+renderTasks();
+renderSidebarActiveTasks();
+renderPendingDrawer();
+updateBadges();
 })();
 </script>
 </body>
