@@ -3,8 +3,6 @@ import streamlit.components.v1 as components
 import pandas as pd
 import random
 import os
-import json
-import hashlib
 
 # ─────────────────────────────────────────────
 #  PAGE CONFIG  (must be first Streamlit call)
@@ -17,36 +15,6 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-#  USER STORAGE  (simple JSON file)
-# ─────────────────────────────────────────────
-USERS_FILE = os.path.join(os.path.dirname(__file__), "users.json")
-
-def load_users():
-    if os.path.exists(USERS_FILE):
-        with open(USERS_FILE, "r") as f:
-            return json.load(f)
-    return {}
-
-def save_users(users: dict):
-    with open(USERS_FILE, "w") as f:
-        json.dump(users, f, indent=2)
-
-def hash_pw(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
-
-# ─────────────────────────────────────────────
-#  SESSION STATE DEFAULTS
-# ─────────────────────────────────────────────
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-if "user_name" not in st.session_state:
-    st.session_state.user_name = ""
-if "user_email" not in st.session_state:
-    st.session_state.user_email = ""
-if "auth_tab" not in st.session_state:
-    st.session_state.auth_tab = "login"   # "login" | "register"
-
-# ─────────────────────────────────────────────
 #  GLOBAL CSS
 # ─────────────────────────────────────────────
 st.markdown("""
@@ -55,63 +23,12 @@ st.markdown("""
 
 html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
 
-/* Hide default Streamlit chrome on auth screen */
 .block-container {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
     max-width: 100% !important;
 }
 header[data-testid="stHeader"] { background: transparent !important; }
-
-/* ── Auth page layout ── */
-.auth-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
-    font-family: 'Inter', sans-serif;
-}
-.hero-side {
-    background: linear-gradient(135deg, #0d0d1a 0%, #13132a 55%, #1a1a35 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 2.5rem 3rem;
-    position: relative;
-    overflow: hidden;
-}
-.hero-side::before {
-    content:'';
-    position:absolute;width:420px;height:420px;border-radius:50%;
-    background:radial-gradient(circle,rgba(232,24,92,.18) 0%,transparent 70%);
-    top:-80px;left:-80px;pointer-events:none;
-}
-.hero-logo { display:flex;align-items:center;gap:.7rem;z-index:2;position:relative; }
-.hero-logo .li {
-    width:38px;height:38px;border-radius:10px;
-    background:#e8185c;display:flex;align-items:center;justify-content:center;
-    font-weight:900;font-size:1.1rem;color:#fff;
-    box-shadow:0 4px 18px rgba(232,24,92,.35);
-}
-.hero-logo span { font-size:1rem;font-weight:700;color:#e8eaf6;letter-spacing:-.01em; }
-.hero-body { z-index:2;position:relative; }
-.eyebrow {
-    font-size:.72rem;font-weight:600;letter-spacing:.16em;
-    text-transform:uppercase;color:#e8185c;margin-bottom:1.4rem;
-}
-.headline {
-    font-size:clamp(2.2rem,4vw,3.2rem);font-weight:900;
-    line-height:1.08;color:#e8eaf6;letter-spacing:-.03em;
-}
-.headline .acc { color:#00e5a0; }
-.hero-sub {
-    margin-top:1.4rem;font-size:.93rem;line-height:1.65;
-    color:#8888aa;max-width:340px;
-}
-.stats-row { display:flex;gap:2rem;margin-top:2.5rem;z-index:2;position:relative; }
-.stat { display:flex;flex-direction:column; }
-.stat-v { font-size:1.4rem;font-weight:800;color:#e8eaf6;letter-spacing:-.03em; }
-.stat-l { font-size:.7rem;font-weight:500;color:#8888aa;margin-top:2px; }
-.hero-foot { font-size:.7rem;color:#333355;z-index:2;position:relative; }
 
 /* ── Dashboard CSS ── */
 .block-container-inner {
@@ -139,127 +56,7 @@ header[data-testid="stHeader"] { background: transparent !important; }
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-#  AUTH SCREEN
-# ─────────────────────────────────────────────
-def show_auth():
-    tab = st.session_state.auth_tab
-
-    # Split-screen hero HTML (left panel — pure display)
-    st.markdown("""
-    <div style="
-        background:linear-gradient(135deg,#0d0d1a 0%,#13132a 55%,#1a1a35 100%);
-        padding:1.4rem 1.5rem 1.8rem;
-        border-radius:14px;
-        position:relative;
-        overflow:hidden;
-    ">
-      <!-- logo row -->
-      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1.4rem;">
-        <div style="width:32px;height:32px;border-radius:9px;background:#e8185c;
-             display:flex;align-items:center;justify-content:center;
-             font-weight:900;font-size:1rem;color:#fff;flex-shrink:0;">M</div>
-        <span style="font-size:.85rem;font-weight:700;color:#e8eaf6;">MegaQash Technologies</span>
-      </div>
-      <!-- eyebrow -->
-      <p style="font-size:.65rem;font-weight:700;letter-spacing:.15em;
-                text-transform:uppercase;color:#e8185c;margin-bottom:.8rem;">Translation Task Platform</p>
-      <!-- headline -->
-      <h2 style="font-size:clamp(1.4rem,5vw,2.2rem);font-weight:900;line-height:1.1;
-                 color:#e8eaf6;letter-spacing:-.03em;margin:0;">
-        Translate tasks.<br>
-        <span style="color:#00e5a0;">Get paid instantly.</span>
-      </h2>
-      <!-- sub -->
-      <p style="margin-top:.8rem;font-size:.82rem;line-height:1.6;color:#8888aa;">
-        Find translation jobs, submit work, receive instant M-Pesa payouts.
-      </p>
-      <!-- stats row -->
-      <div style="display:flex;gap:1.2rem;margin-top:1.2rem;flex-wrap:wrap;">
-        <div><div style="font-size:1.1rem;font-weight:800;color:#e8eaf6;">12k+</div>
-             <div style="font-size:.65rem;color:#8888aa;">Translators</div></div>
-        <div><div style="font-size:1.1rem;font-weight:800;color:#e8eaf6;">$2.4M</div>
-             <div style="font-size:.65rem;color:#8888aa;">Paid Out</div></div>
-        <div><div style="font-size:1.1rem;font-weight:800;color:#e8eaf6;">98%</div>
-             <div style="font-size:.65rem;color:#8888aa;">On-Time</div></div>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    # Tab switcher
-    col_t1, col_t2 = st.columns(2)
-    with col_t1:
-        if st.button("🔑  Sign In", use_container_width=True,
-                     type="primary" if tab == "login" else "secondary"):
-            st.session_state.auth_tab = "login"
-            st.rerun()
-    with col_t2:
-        if st.button("✨  Create Account", use_container_width=True,
-                     type="primary" if tab == "register" else "secondary"):
-            st.session_state.auth_tab = "register"
-            st.rerun()
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    # ── LOGIN ──
-    if tab == "login":
-        st.markdown("#### Welcome Back · Enter your space")
-        with st.form("login_form", clear_on_submit=False):
-            email = st.text_input("Email", placeholder="you@example.com")
-            password = st.text_input("Password", type="password", placeholder="••••••••")
-            submitted = st.form_submit_button("Open dashboard  ↗", use_container_width=True, type="primary")
-
-        if submitted:
-            if not email or not password:
-                st.error("Please fill in all fields.")
-            else:
-                users = load_users()
-                key = email.strip().lower()
-                if key not in users:
-                    st.error("No account found with this email. Please register first.")
-                elif users[key]["password"] != hash_pw(password):
-                    st.error("Incorrect password. Please try again.")
-                else:
-                    st.session_state.authenticated = True
-                    st.session_state.user_email = key
-                    st.session_state.user_name = users[key]["name"]
-                    st.success(f"Welcome back, {users[key]['name']}! Loading dashboard…")
-                    st.rerun()
-
-    # ── REGISTER ──
-    else:
-        st.markdown("#### Create Your Space · Join thousands of writers")
-        with st.form("register_form", clear_on_submit=False):
-            name     = st.text_input("Full Name", placeholder="Jane Doe")
-            email    = st.text_input("Email", placeholder="you@example.com")
-            password = st.text_input("Password (min 6 chars)", type="password", placeholder="••••••••")
-            confirm  = st.text_input("Confirm Password", type="password", placeholder="••••••••")
-            submitted = st.form_submit_button("Create account  ↗", use_container_width=True, type="primary")
-
-        if submitted:
-            if not name or not email or not password or not confirm:
-                st.error("Please fill in all fields.")
-            elif len(password) < 6:
-                st.error("Password must be at least 6 characters.")
-            elif password != confirm:
-                st.error("Passwords do not match.")
-            else:
-                users = load_users()
-                key = email.strip().lower()
-                if key in users:
-                    st.error("An account with this email already exists. Please sign in.")
-                else:
-                    users[key] = {"name": name.strip(), "password": hash_pw(password)}
-                    save_users(users)
-                    st.session_state.authenticated = True
-                    st.session_state.user_email = key
-                    st.session_state.user_name = name.strip()
-                    st.success(f"Account created! Welcome, {name.strip()}! Loading dashboard…")
-                    st.rerun()
-
-# ─────────────────────────────────────────────
-#  DASHBOARD  (shown only when authenticated)
+#  DASHBOARD  (loads directly — no auth required)
 # ─────────────────────────────────────────────
 def get_html_content():
     html_path = os.path.join(os.path.dirname(__file__), "index.html")
@@ -282,17 +79,16 @@ def show_dashboard():
     RATES     = [0.20, 0.30, 0.40, 0.50, 0.75, 0.80, 1.00]
 
     # ── Sidebar ──
-    initials = "".join(w[0] for w in st.session_state.user_name.split()).upper()[:2]
     st.sidebar.markdown(f"""
     <div style="display:flex;align-items:center;gap:.6rem;
                 background:rgba(11,45,68,.08);border-radius:10px;padding:.6rem .9rem;margin-bottom:.5rem;">
       <div style="width:36px;height:36px;border-radius:50%;
                   background:linear-gradient(135deg,#4a9ec9,#1a6e8c);
                   display:flex;align-items:center;justify-content:center;
-                  font-weight:700;color:#fff;font-size:.85rem;">{initials}</div>
+                  font-weight:700;color:#fff;font-size:.85rem;">MW</div>
       <div>
-        <div style="font-weight:700;font-size:.9rem;color:#0b2d44;">{st.session_state.user_name}</div>
-        <div style="font-size:.72rem;color:#6b8fa3;">{st.session_state.user_email}</div>
+        <div style="font-weight:700;font-size:.9rem;color:#0b2d44;">MegaQash Writer</div>
+        <div style="font-size:.72rem;color:#6b8fa3;">writer@megaqash.com</div>
       </div>
     </div>
     """, unsafe_allow_html=True)
@@ -312,15 +108,6 @@ def show_dashboard():
     st.sidebar.markdown("**Rating:** ⭐ 4.9 / 5.0")
     st.sidebar.markdown("**Completed Tasks:** 147")
     st.sidebar.markdown("**On-Time Delivery:** 98%")
-
-    st.sidebar.markdown("---")
-    # ── LOGOUT BUTTON ── lives in sidebar, fully Streamlit-native
-    if st.sidebar.button("⏻  Logout", use_container_width=True, type="secondary"):
-        st.session_state.authenticated = False
-        st.session_state.user_name = ""
-        st.session_state.user_email = ""
-        st.session_state.auth_tab = "login"
-        st.rerun()
 
     # ── Views ──
     if view_mode == "🌐 Live Web Platform":
@@ -428,9 +215,6 @@ def show_dashboard():
 
 
 # ─────────────────────────────────────────────
-#  ENTRY POINT
+#  ENTRY POINT — dashboard loads directly
 # ─────────────────────────────────────────────
-if st.session_state.authenticated:
-    show_dashboard()
-else:
-    show_auth()
+show_dashboard()
