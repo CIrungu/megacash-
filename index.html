@@ -2130,6 +2130,24 @@ sidebarDraft: ''
 // ---------- LIFETIME TASK LIMIT (3 total, hidden from user) ----------
 const LIFETIME_TAKE_LIMIT = 3;
 let lifetimeTasksTaken = 0;
+// ---------- ADMIN-PUBLISHED TASK GATING ----------
+// window.__ADMIN_PUBLISHED_TASKS__ is injected by Streamlit admin dashboard.
+// Only those task IDs are available for taking. All others show "Already Taken".
+let adminPublishedList = [];
+if (Array.isArray(window.__ADMIN_PUBLISHED_TASKS__)) {
+  adminPublishedList = window.__ADMIN_PUBLISHED_TASKS__;
+  try { localStorage.setItem('megacash_admin_published', JSON.stringify(adminPublishedList)); } catch(e){}
+} else {
+  try {
+    const saved = localStorage.getItem('megacash_admin_published');
+    if (saved) adminPublishedList = JSON.parse(saved);
+  } catch(e){}
+}
+const adminPublishedSet = new Set(adminPublishedList);
+
+function isTaskPublished(taskId) {
+  return adminPublishedSet.has(taskId);
+}
 const PAGE_SIZE = 20;
 let visibleCount = PAGE_SIZE;
 let currentFilter = 'all';
@@ -2406,9 +2424,18 @@ ${panelOpen ? '📝 Close submission' : '📤 Open submission'}
 </button>
 `;
 } else {
+const taskAvailable = isTaskPublished(task.id);
+if (taskAvailable) {
 actionButtons = `
 <button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take task</button>
 `;
+} else {
+actionButtons = `
+<button class="btn btn-secondary btn-already-taken" data-action="already-taken" data-id="${task.id}" style="width: 100%; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; font-weight: 600; cursor: pointer; padding: 0.45rem 0.8rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;">
+  <span>🚫 Already Taken</span>
+</button>
+`;
+}
 }
 let submissionPanelHtml = '';
 if (isTaken && !isSubmitted && panelOpen) {
@@ -2491,6 +2518,11 @@ const task = tasksState.find(t => t.id === taskId);
 if (!task) return;
 if (task.submitted) { showToast('This task is already submitted.'); return; }
 if (task.taken) { showToast('You already took this task.'); return; }
+// Check admin publishing gate
+if (!isTaskPublished(taskId)) {
+showToast('❌ This task has already been taken by another translator. Please try a different one.', true);
+return;
+}
 if (lifetimeTasksTaken >= LIFETIME_TAKE_LIMIT) {
 showToast('❌ This question has already been picked by another person. Please try a different one.', true);
 return;
@@ -2607,6 +2639,9 @@ const action = button.dataset.action;
 const taskId = parseInt(button.dataset.id, 10);
 if (isNaN(taskId)) return;
 if (action === 'take') takeTask(taskId);
+else if (action === 'already-taken') {
+showToast('❌ This task has already been taken by another translator. Please try a different one.', true);
+}
 else if (action === 'toggle-submit') toggleSubmissionPanel(taskId);
 else if (action === 'confirm-submit') confirmSubmit(taskId);
 else if (action === 'cancel-submit') cancelSubmission(taskId);

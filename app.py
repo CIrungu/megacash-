@@ -3,6 +3,8 @@ import streamlit.components.v1 as components
 import pandas as pd
 import random
 import os
+import json
+import hashlib
 
 # ─────────────────────────────────────────────
 #  PAGE CONFIG  (must be first Streamlit call)
@@ -56,6 +58,81 @@ header[data-testid="stHeader"] { background: transparent !important; }
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
+#  DATA PERSISTENCE LAYER
+# ─────────────────────────────────────────────
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+ADMINS_FILE = os.path.join(DATA_DIR, "admins.json")
+PUBLISHED_FILE = os.path.join(DATA_DIR, "published_tasks.json")
+
+def hash_password(password):
+    """SHA-256 hash for password storage."""
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def load_admins():
+    """Load admin accounts from persistent JSON file."""
+    if os.path.exists(ADMINS_FILE):
+        with open(ADMINS_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+def save_admins(admins):
+    """Save admin accounts to persistent JSON file."""
+    with open(ADMINS_FILE, "w") as f:
+        json.dump(admins, f, indent=2)
+
+def seed_admin():
+    """Ensure a default super-admin account exists."""
+    admins = load_admins()
+    default_email = "admin@megaqash.com"
+    if default_email not in admins:
+        admins[default_email] = {
+            "name": "Super Admin",
+            "password_hash": hash_password("MegaQash2024!"),
+            "role": "super_admin"
+        }
+        save_admins(admins)
+
+def verify_admin(email, password):
+    """Verify admin credentials. Returns admin dict on success, None on failure."""
+    admins = load_admins()
+    email = email.strip().lower()
+    if email in admins:
+        if admins[email]["password_hash"] == hash_password(password):
+            return admins[email]
+    return None
+
+def load_published_tasks():
+    """Load published task IDs from persistent JSON file."""
+    if os.path.exists(PUBLISHED_FILE):
+        try:
+            with open(PUBLISHED_FILE, "r") as f:
+                return set(json.load(f))
+        except (json.JSONDecodeError, TypeError):
+            return set()
+    return set()
+
+def save_published_tasks(tasks):
+    """Save published task IDs to persistent JSON file."""
+    with open(PUBLISHED_FILE, "w") as f:
+        json.dump(sorted(list(tasks)), f)
+
+# ── Seed admin on startup ──
+seed_admin()
+
+# ─────────────────────────────────────────────
+#  SESSION STATE INITIALIZATION
+# ─────────────────────────────────────────────
+if "published_tasks" not in st.session_state:
+    st.session_state.published_tasks = load_published_tasks()
+if "admin_authenticated" not in st.session_state:
+    st.session_state.admin_authenticated = False
+if "admin_email" not in st.session_state:
+    st.session_state.admin_email = ""
+if "admin_name" not in st.session_state:
+    st.session_state.admin_name = ""
+
+# ─────────────────────────────────────────────
 #  DASHBOARD  (loads directly — no auth required)
 # ─────────────────────────────────────────────
 def get_html_content():
@@ -99,7 +176,8 @@ def show_dashboard():
     view_mode = st.sidebar.radio(
         "Navigation View",
         ["🌐 Live Web Platform","📊 Dashboard & Metrics",
-         "🎯 Task Explorer","💳 Financials & M-Pesa","✍️ AI Translator Assistant"]
+         "🎯 Task Explorer","💳 Financials & M-Pesa","✍️ AI Translator Assistant",
+         "🛡️ Admin Dashboard"]
     )
 
     st.sidebar.markdown("---")
@@ -112,6 +190,10 @@ def show_dashboard():
     # ── Views ──
     if view_mode == "🌐 Live Web Platform":
         html_content = get_html_content()
+        # Inject published task IDs into the HTML so the client JS knows which tasks are available
+        published_ids = list(st.session_state.published_tasks)
+        injection_script = f'<script>window.__ADMIN_PUBLISHED_TASKS__ = {json.dumps(published_ids)};</script>'
+        html_content = html_content.replace('</head>', injection_script + '</head>')
         components.html(html_content, height=920, scrolling=True)
 
     elif view_mode == "📊 Dashboard & Metrics":
@@ -212,6 +294,316 @@ def show_dashboard():
             if st.button("✨ Draft Translation"):
                 st.info(f"**[{target_lang} Draft]:**\n\n*(High-Accuracy Translation Draft)*")
                 st.text_area("Final Edited Version", f"[Translated text in {target_lang} goes here]", height=120)
+
+    elif view_mode == "🛡️ Admin Dashboard":
+        show_admin_dashboard(CLIENTS, LANGUAGES, RATES)
+
+
+# ─────────────────────────────────────────────
+#  ADMIN LOGIN PORTAL
+# ─────────────────────────────────────────────
+def show_admin_login():
+    """Render admin sign-in portal with seeded credentials hint."""
+    st.markdown("")
+
+    col_left, col_center, col_right = st.columns([1, 2, 1])
+    with col_center:
+        st.markdown("""
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+                    border-radius:20px;padding:2.5rem 2rem;margin-top:2rem;
+                    box-shadow:0 12px 40px rgba(0,0,0,0.3);text-align:center;">
+          <div style="font-size:3rem;margin-bottom:0.8rem;">🛡️</div>
+          <div style="font-size:1.5rem;font-weight:800;color:#e8e8e8;letter-spacing:-0.3px;margin-bottom:0.3rem;">
+            Admin Portal
+          </div>
+          <div style="font-size:0.85rem;color:#8fa8c8;">
+            Sign in to manage and publish translation tasks.
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<div style='height:1.5rem;'></div>", unsafe_allow_html=True)
+
+        with st.form("admin_login_form"):
+            email = st.text_input("📧 Admin Email", placeholder="admin@megaqash.com")
+            password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
+            submitted = st.form_submit_button("🔐 Sign In", type="primary", use_container_width=True)
+
+        if submitted:
+            if not email or not password:
+                st.error("❌ Please fill in both email and password.")
+            else:
+                admin = verify_admin(email, password)
+                if admin:
+                    st.session_state.admin_authenticated = True
+                    st.session_state.admin_email = email.strip().lower()
+                    st.session_state.admin_name = admin["name"]
+                    st.rerun()
+                else:
+                    st.error("❌ Invalid email or password. Please try again.")
+
+        st.markdown("""
+        <div style="background:#f0f4fa;border-radius:12px;padding:1rem;margin-top:1rem;
+                    border:1px solid #d0d8e8;text-align:center;">
+          <div style="font-size:0.78rem;color:#6b7c93;margin-bottom:0.3rem;font-weight:600;">
+            🔑 Default Admin Credentials
+          </div>
+          <div style="font-size:0.82rem;color:#0b2d44;">
+            <b>Email:</b> admin@megaqash.com<br>
+            <b>Password:</b> MegaQash2024!
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+# ─────────────────────────────────────────────
+#  ADMIN DASHBOARD FUNCTION
+# ─────────────────────────────────────────────
+def show_admin_dashboard(CLIENTS, LANGUAGES, RATES):
+    """Admin control panel: view all translation tasks and publish them to make them available to clients."""
+
+    # ── Auth Gate ──
+    if not st.session_state.admin_authenticated:
+        show_admin_login()
+        return
+
+    # ── Signed-in bar + Logout ──
+    col_user, col_logout = st.columns([5, 1])
+    with col_user:
+        st.markdown(f"""
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+          <div style="width:32px;height:32px;border-radius:50%;
+                      background:linear-gradient(135deg,#27ae60,#2ecc71);
+                      display:flex;align-items:center;justify-content:center;
+                      font-weight:700;color:#fff;font-size:0.8rem;">
+            {st.session_state.admin_name[0].upper()}
+          </div>
+          <div>
+            <span style="font-weight:700;font-size:0.88rem;color:#0b2d44;">
+              {st.session_state.admin_name}
+            </span>
+            <span style="font-size:0.75rem;color:#6b8fa3;margin-left:0.3rem;">
+              {st.session_state.admin_email}
+            </span>
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_logout:
+        if st.button("🚪 Sign Out", use_container_width=True):
+            st.session_state.admin_authenticated = False
+            st.session_state.admin_email = ""
+            st.session_state.admin_name = ""
+            st.rerun()
+
+    # ── Admin Header ──
+    st.markdown("""
+    <div style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+                border-radius:18px;padding:1.8rem 2rem;margin-bottom:1.5rem;
+                box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+      <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;">
+        <span style="font-size:1.8rem;">🛡️</span>
+        <span style="font-size:1.6rem;font-weight:800;color:#e8e8e8;letter-spacing:-0.3px;">Admin Control Center</span>
+      </div>
+      <div style="font-size:0.88rem;color:#8fa8c8;line-height:1.5;">
+        Manage and publish translation tasks. Tasks remain <b style="color:#f39c12;">"Already Taken"</b> on the
+        client side until you press <b style="color:#27ae60;">Submit</b> to make them available.
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── Admin Stats Row ──
+    total_tasks = 200
+    published_count = len(st.session_state.published_tasks)
+    pending_count = total_tasks - published_count
+
+    col_s1, col_s2, col_s3, col_s4 = st.columns(4)
+    with col_s1:
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#0f3460,#1a4a6b);color:white;padding:1rem;
+                    border-radius:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <div style="font-size:1.8rem;font-weight:800;color:#a8d8ea;">{total_tasks}</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;">Total Tasks</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_s2:
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#1b5e20,#2e7d32);color:white;padding:1rem;
+                    border-radius:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <div style="font-size:1.8rem;font-weight:800;color:#a5d6a7;">{published_count}</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;">Published</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_s3:
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#e65100,#f57c00);color:white;padding:1rem;
+                    border-radius:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <div style="font-size:1.8rem;font-weight:800;color:#ffe0b2;">{pending_count}</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;">Unpublished</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_s4:
+        pct = int((published_count / total_tasks) * 100) if total_tasks > 0 else 0
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:1rem;
+                    border-radius:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <div style="font-size:1.8rem;font-weight:800;color:#ce93d8;">{pct}%</div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;">Published Rate</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<div style='height:1rem;'></div>", unsafe_allow_html=True)
+
+    # ── Bulk Actions ──
+    col_bulk1, col_bulk2, col_bulk3 = st.columns([1, 1, 2])
+    with col_bulk1:
+        if st.button("✅ Publish All Tasks", use_container_width=True, type="primary"):
+            st.session_state.published_tasks = set(range(1, total_tasks + 1))
+            save_published_tasks(st.session_state.published_tasks)
+            st.rerun()
+    with col_bulk2:
+        if st.button("🔄 Unpublish All Tasks", use_container_width=True):
+            st.session_state.published_tasks = set()
+            save_published_tasks(st.session_state.published_tasks)
+            st.rerun()
+
+    st.markdown("---")
+
+    # ── Filters ──
+    st.markdown("### 📋 Translation Task Control Panel")
+    col_f1, col_f2, col_f3 = st.columns(3)
+    with col_f1:
+        status_filter = st.selectbox("Filter by Status", ["All", "Published", "Unpublished"])
+    with col_f2:
+        lang_filter = st.selectbox("Filter by Language", ["All"] + LANGUAGES, key="admin_lang")
+    with col_f3:
+        rate_filter = st.selectbox("Filter by Rate ($)", ["All"] + RATES, key="admin_rate")
+
+    # ── Generate task data (same seed as client side) ──
+    language_pairs = [
+        {"code": "es", "name": "Spanish"},  {"code": "fr", "name": "French"},
+        {"code": "de", "name": "German"},   {"code": "it", "name": "Italian"},
+        {"code": "pt", "name": "Portuguese"},{"code": "ja", "name": "Japanese"},
+        {"code": "zh", "name": "Mandarin"}, {"code": "ko", "name": "Korean"},
+        {"code": "ru", "name": "Russian"},  {"code": "ar", "name": "Arabic"},
+        {"code": "hi", "name": "Hindi"},    {"code": "nl", "name": "Dutch"},
+        {"code": "sv", "name": "Swedish"},  {"code": "tr", "name": "Turkish"},
+        {"code": "pl", "name": "Polish"},   {"code": "vi", "name": "Vietnamese"},
+        {"code": "th", "name": "Thai"},     {"code": "id", "name": "Indonesian"},
+        {"code": "el", "name": "Greek"},    {"code": "he", "name": "Hebrew"},
+    ]
+    paragraph_templates = [
+        "Hi, how are you today?",
+        "Thank you so much!",
+        "See you tomorrow morning.",
+        "The meeting starts at nine.",
+        "Please send me the file.",
+        "I love this weather.",
+        "Where is the bathroom?",
+        "Have a great weekend!",
+        "Good morning, I hope you are having a wonderful day. The weather today is perfect for a walk in the park.",
+        "Thank you very much for your help yesterday. I really appreciated your advice about the project.",
+        "Excuse me, could you please tell me where the nearest train station is? I need to catch a train.",
+    ]
+    price_tiers = [0.20, 0.30, 0.40, 0.50, 0.75, 0.80, 1.00]
+    all_clients = [
+        {"name": "Emily Carter",     "country": "United States", "flag": "🇺🇸", "uni": "NYU"},
+        {"name": "Liam O'Sullivan",  "country": "Ireland",       "flag": "🇮🇪", "uni": "Trinity College"},
+        {"name": "Sophie Müller",    "country": "Germany",       "flag": "🇩🇪", "uni": "Heidelberg"},
+        {"name": "James Whitfield",  "country": "United Kingdom","flag": "🇬🇧", "uni": "Oxford"},
+        {"name": "Chloé Dubois",     "country": "France",        "flag": "🇫🇷", "uni": "Sorbonne"},
+        {"name": "Isabella Rossi",   "country": "Italy",         "flag": "🇮🇹", "uni": "Bocconi"},
+        {"name": "Ava Thompson",     "country": "Canada",        "flag": "🇨🇦", "uni": "UofT"},
+        {"name": "Lucas van der Berg","country": "Netherlands",  "flag": "🇳🇱", "uni": "Utrecht"},
+        {"name": "Oliver Hansen",    "country": "Denmark",       "flag": "🇩🇰", "uni": "Copenhagen"},
+        {"name": "Mia Andersson",    "country": "Sweden",        "flag": "🇸🇪", "uni": "Lund"},
+    ]
+
+    tasks_data = []
+    for i in range(total_tasks):
+        task_id = i + 1
+        lang = language_pairs[i % len(language_pairs)]
+        paragraph = paragraph_templates[i % len(paragraph_templates)]
+        client = all_clients[i % len(all_clients)]
+        price = price_tiers[i % len(price_tiers)]
+        deadline = [2, 4, 6, 8, 12, 24][i % 6]
+        is_published = task_id in st.session_state.published_tasks
+
+        tasks_data.append({
+            "Task ID": task_id,
+            "Ref": f"#MQ-2024-{str(task_id).zfill(4)}",
+            "Client": f"{client['flag']} {client['name']}",
+            "University": client['uni'],
+            "Language": f"English → {lang['name']}",
+            "Rate ($)": price,
+            "Deadline (hrs)": deadline,
+            "Description": f"Translate: '{paragraph[:60]}...'",
+            "Status": "✅ Published" if is_published else "⏳ Unpublished",
+            "_id": task_id,
+            "_lang_name": lang['name'],
+        })
+
+    # ── Apply filters ──
+    filtered_data = tasks_data
+    if status_filter == "Published":
+        filtered_data = [t for t in filtered_data if t["_id"] in st.session_state.published_tasks]
+    elif status_filter == "Unpublished":
+        filtered_data = [t for t in filtered_data if t["_id"] not in st.session_state.published_tasks]
+    if lang_filter != "All":
+        filtered_data = [t for t in filtered_data if lang_filter in t["_lang_name"]]
+    if rate_filter != "All":
+        filtered_data = [t for t in filtered_data if abs(t["Rate ($)"] - float(rate_filter)) < 0.001]
+
+    st.markdown(f"**Showing {len(filtered_data)} tasks**")
+
+    # ── Display tasks as interactive cards with submit buttons ──
+    for task in filtered_data:
+        task_id = task["_id"]
+        is_pub = task_id in st.session_state.published_tasks
+
+        # Card styling based on status
+        if is_pub:
+            border_color = "#27ae60"
+            bg_color = "#f0faf4"
+            status_badge = '<span style="background:#27ae60;color:white;padding:0.2rem 0.7rem;border-radius:30px;font-size:0.72rem;font-weight:700;">✅ Published</span>'
+        else:
+            border_color = "#f39c12"
+            bg_color = "#fffdf5"
+            status_badge = '<span style="background:#f39c12;color:white;padding:0.2rem 0.7rem;border-radius:30px;font-size:0.72rem;font-weight:700;">⏳ Unpublished</span>'
+
+        st.markdown(f"""
+        <div style="background:{bg_color};border:2px solid {border_color};border-radius:14px;
+                    padding:1rem 1.2rem;margin-bottom:0.5rem;
+                    box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <span style="font-family:monospace;font-size:0.72rem;color:#7a9fb5;font-weight:600;">{task['Ref']}</span>
+              <span style="font-weight:700;color:#0b2d44;font-size:0.88rem;">{task['Client']}</span>
+              <span style="font-size:0.72rem;color:#6b93aa;">🎓 {task['University']}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.6rem;">
+              <span style="font-weight:800;color:#106a4b;background:#e2f0e9;padding:0.15rem 0.6rem;border-radius:30px;font-size:0.85rem;">${task['Rate ($)']:.2f}</span>
+              <span style="background:#e8f2fa;color:#0b4b6b;padding:0.15rem 0.6rem;border-radius:30px;font-size:0.72rem;font-weight:600;">{task['Language']}</span>
+              <span style="font-size:0.72rem;color:#8a6d1a;">⏰ {task['Deadline (hrs)']}h</span>
+              {status_badge}
+            </div>
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Submit / Unpublish button
+        col_a1, col_a2, col_a3 = st.columns([4, 1, 1])
+        with col_a2:
+            if not is_pub:
+                if st.button("📤 Submit", key=f"pub_{task_id}", use_container_width=True, type="primary"):
+                    st.session_state.published_tasks.add(task_id)
+                    save_published_tasks(st.session_state.published_tasks)
+                    st.rerun()
+        with col_a3:
+            if is_pub:
+                if st.button("↩️ Revoke", key=f"unpub_{task_id}", use_container_width=True):
+                    st.session_state.published_tasks.discard(task_id)
+                    save_published_tasks(st.session_state.published_tasks)
+                    st.rerun()
 
 
 # ─────────────────────────────────────────────
