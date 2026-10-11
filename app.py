@@ -402,7 +402,7 @@ def show_admin_login():
         st.markdown("<div style='height:1.5rem;'></div>", unsafe_allow_html=True)
 
         with st.form("admin_login_form"):
-            email = st.text_input("📧 Admin Email", value="admin@megaqash.com", placeholder="admin@megaqash.com")
+            email = st.text_input("📧 Admin Email", placeholder="Enter your email")
             password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
             submitted = st.form_submit_button("🔐 Sign In", type="primary", use_container_width=True)
 
@@ -420,21 +420,8 @@ def show_admin_login():
                 else:
                     st.error("❌ Invalid email or password. Please try again.")
 
-        st.markdown("""
-        <div style="background:#f0f4fa;border-radius:12px;padding:1rem;margin-top:1rem;
-                    border:1px solid #d0d8e8;text-align:center;">
-          <div style="font-size:0.78rem;color:#6b7c93;margin-bottom:0.3rem;font-weight:600;">
-            🔑 Default Admin Credentials
-          </div>
-          <div style="font-size:0.82rem;color:#0b2d44;">
-            <b>Email:</b> admin@megaqash.com<br>
-            <b>Password:</b> MegaQash2024!
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-
         st.markdown("<div style='height:1rem;'></div>", unsafe_allow_html=True)
-        if st.button("🌐 Return to Client Platform (No Auth Required)", use_container_width=True):
+        if st.button("🌐 Return to Client Platform", use_container_width=True):
             st.session_state.current_view = "🌐 Live Web Platform"
             if "admin" in st.query_params: del st.query_params["admin"]
             if "view" in st.query_params: del st.query_params["view"]
