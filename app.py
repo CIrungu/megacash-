@@ -93,13 +93,21 @@ def seed_admin():
         }
         save_admins(admins)
 
+DEFAULT_ADMIN_EMAIL = "admin@megaqash.com"
+DEFAULT_ADMIN_PASS = "MegaQash2024!"
+
 def verify_admin(email, password):
     """Verify admin credentials. Returns admin dict on success, None on failure."""
+    if not email or not password:
+        return None
+    email_clean = email.strip().lower()
+    # Built-in fallback so super admin always logs in successfully
+    if email_clean == DEFAULT_ADMIN_EMAIL and password == DEFAULT_ADMIN_PASS:
+        return {"name": "Super Admin", "email": DEFAULT_ADMIN_EMAIL, "role": "super_admin"}
     admins = load_admins()
-    email = email.strip().lower()
-    if email in admins:
-        if admins[email]["password_hash"] == hash_password(password):
-            return admins[email]
+    if email_clean in admins:
+        if admins[email_clean].get("password_hash") == hash_password(password):
+            return admins[email_clean]
     return None
 
 def load_published_tasks():
@@ -131,6 +139,8 @@ if "admin_email" not in st.session_state:
     st.session_state.admin_email = ""
 if "admin_name" not in st.session_state:
     st.session_state.admin_name = ""
+if "current_view" not in st.session_state:
+    st.session_state.current_view = "🌐 Live Web Platform"
 
 # ─────────────────────────────────────────────
 #  DASHBOARD  (loads directly — no auth required)
@@ -155,6 +165,47 @@ def show_dashboard():
     LANGUAGES = ["Spanish","French","German","Italian","Portuguese","Japanese","Mandarin","Swahili"]
     RATES     = [0.20, 0.30, 0.40, 0.50, 0.75, 0.80, 1.00]
 
+    # ── Check query parameters for direct admin access (?view=admin or ?admin=true) ──
+    query_view = str(st.query_params.get("view", "")).lower()
+    is_admin_query = ("admin" in st.query_params) or (query_view == "admin")
+
+    NAV_OPTIONS = [
+        "🌐 Live Web Platform",
+        "📊 Dashboard & Metrics",
+        "🎯 Task Explorer",
+        "💳 Financials & M-Pesa",
+        "✍️ AI Translator Assistant",
+        "🛡️ Admin Dashboard"
+    ]
+
+    if is_admin_query:
+        st.session_state.current_view = "🛡️ Admin Dashboard"
+    elif "current_view" not in st.session_state or st.session_state.current_view not in NAV_OPTIONS:
+        st.session_state.current_view = "🌐 Live Web Platform"
+
+    # ── Top Bar Switcher (Always visible on mobile & desktop) ──
+    col_t_brand, col_t_btn = st.columns([3, 1])
+    with col_t_brand:
+        st.markdown("""
+        <div style="display:flex;align-items:center;gap:0.6rem;padding:0.3rem 0;margin-bottom:0.4rem;">
+          <span style="font-size:1.3rem;">✍️</span>
+          <span style="font-weight:800;font-size:1.15rem;color:#0b2d44;letter-spacing:-0.2px;">MegaQash Writers</span>
+          <span style="background:#e8f2fa;color:#0b4b6b;font-size:0.72rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:12px;">Open Platform</span>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_t_btn:
+        if st.session_state.current_view == "🛡️ Admin Dashboard":
+            if st.button("🌐 Client Platform", key="top_to_client", use_container_width=True, type="secondary"):
+                st.session_state.current_view = "🌐 Live Web Platform"
+                if "admin" in st.query_params: del st.query_params["admin"]
+                if "view" in st.query_params: del st.query_params["view"]
+                st.rerun()
+        else:
+            if st.button("🛡️ Admin Portal", key="top_to_admin", use_container_width=True, type="primary"):
+                st.session_state.current_view = "🛡️ Admin Dashboard"
+                st.query_params["view"] = "admin"
+                st.rerun()
+
     # ── Sidebar ──
     st.sidebar.markdown(f"""
     <div style="display:flex;align-items:center;gap:.6rem;
@@ -170,15 +221,41 @@ def show_dashboard():
     </div>
     """, unsafe_allow_html=True)
 
+    col_sb1, col_sb2 = st.sidebar.columns(2)
+    with col_sb1:
+        if st.sidebar.button("🌐 Client View", key="sb_client_btn", use_container_width=True,
+                             type="primary" if st.session_state.current_view != "🛡️ Admin Dashboard" else "secondary"):
+            st.session_state.current_view = "🌐 Live Web Platform"
+            if "admin" in st.query_params: del st.query_params["admin"]
+            if "view" in st.query_params: del st.query_params["view"]
+            st.rerun()
+    with col_sb2:
+        if st.sidebar.button("🛡️ Admin Portal", key="sb_admin_btn", use_container_width=True,
+                             type="primary" if st.session_state.current_view == "🛡️ Admin Dashboard" else "secondary"):
+            st.session_state.current_view = "🛡️ Admin Dashboard"
+            st.query_params["view"] = "admin"
+            st.rerun()
+
     st.sidebar.title("MegaQash Writers")
     st.sidebar.caption("Translation Task Platform")
 
-    view_mode = st.sidebar.radio(
+    cur_idx = NAV_OPTIONS.index(st.session_state.current_view)
+    selected_view = st.sidebar.radio(
         "Navigation View",
-        ["🌐 Live Web Platform","📊 Dashboard & Metrics",
-         "🎯 Task Explorer","💳 Financials & M-Pesa","✍️ AI Translator Assistant",
-         "🛡️ Admin Dashboard"]
+        NAV_OPTIONS,
+        index=cur_idx,
+        key="nav_radio"
     )
+    if selected_view != st.session_state.current_view:
+        st.session_state.current_view = selected_view
+        if selected_view == "🛡️ Admin Dashboard":
+            st.query_params["view"] = "admin"
+        else:
+            if "admin" in st.query_params: del st.query_params["admin"]
+            if "view" in st.query_params: del st.query_params["view"]
+        st.rerun()
+
+    view_mode = st.session_state.current_view
 
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 🏅 Translator Status")
@@ -325,7 +402,7 @@ def show_admin_login():
         st.markdown("<div style='height:1.5rem;'></div>", unsafe_allow_html=True)
 
         with st.form("admin_login_form"):
-            email = st.text_input("📧 Admin Email", placeholder="admin@megaqash.com")
+            email = st.text_input("📧 Admin Email", value="admin@megaqash.com", placeholder="admin@megaqash.com")
             password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
             submitted = st.form_submit_button("🔐 Sign In", type="primary", use_container_width=True)
 
@@ -338,6 +415,7 @@ def show_admin_login():
                     st.session_state.admin_authenticated = True
                     st.session_state.admin_email = email.strip().lower()
                     st.session_state.admin_name = admin["name"]
+                    st.success("✅ Logged in successfully!")
                     st.rerun()
                 else:
                     st.error("❌ Invalid email or password. Please try again.")
@@ -355,6 +433,13 @@ def show_admin_login():
         </div>
         """, unsafe_allow_html=True)
 
+        st.markdown("<div style='height:1rem;'></div>", unsafe_allow_html=True)
+        if st.button("🌐 Return to Client Platform (No Auth Required)", use_container_width=True):
+            st.session_state.current_view = "🌐 Live Web Platform"
+            if "admin" in st.query_params: del st.query_params["admin"]
+            if "view" in st.query_params: del st.query_params["view"]
+            st.rerun()
+
 
 # ─────────────────────────────────────────────
 #  ADMIN DASHBOARD FUNCTION
@@ -367,8 +452,8 @@ def show_admin_dashboard(CLIENTS, LANGUAGES, RATES):
         show_admin_login()
         return
 
-    # ── Signed-in bar + Logout ──
-    col_user, col_logout = st.columns([5, 1])
+    # ── Signed-in bar + Navigation + Logout ──
+    col_user, col_client, col_logout = st.columns([4, 2, 1])
     with col_user:
         st.markdown(f"""
         <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
@@ -388,6 +473,12 @@ def show_admin_dashboard(CLIENTS, LANGUAGES, RATES):
           </div>
         </div>
         """, unsafe_allow_html=True)
+    with col_client:
+        if st.button("🌐 Switch to Client View", use_container_width=True):
+            st.session_state.current_view = "🌐 Live Web Platform"
+            if "admin" in st.query_params: del st.query_params["admin"]
+            if "view" in st.query_params: del st.query_params["view"]
+            st.rerun()
     with col_logout:
         if st.button("🚪 Sign Out", use_container_width=True):
             st.session_state.admin_authenticated = False

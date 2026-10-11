@@ -209,31 +209,34 @@ border-radius: 30px;
 font-weight: 700;
 margin-left: 0.3rem;
 }
-/* ---------- LOGOUT BUTTON ---------- */
-.btn-logout {
+/* ---------- ADMIN PORTAL BUTTON ---------- */
+.btn-admin-portal {
 display: flex;
 align-items: center;
 gap: 0.45rem;
-background: rgba(232,24,92,0.15);
-color: #ff6b8a;
-border: 1px solid rgba(232,24,92,0.35);
-padding: 0.38rem 0.9rem;
+background: linear-gradient(135deg, rgba(26,78,110,0.4), rgba(11,45,68,0.7));
+color: #a8d8ea;
+border: 1px solid rgba(168,216,234,0.35);
+padding: 0.38rem 0.95rem;
 border-radius: 50px;
 font-size: 0.78rem;
 font-weight: 700;
 font-family: inherit;
+text-decoration: none;
 cursor: pointer;
 transition: 0.2s;
 letter-spacing: 0.01em;
 white-space: nowrap;
+box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
-.btn-logout:hover {
-background: rgba(232,24,92,0.30);
-color: #fff;
-border-color: rgba(232,24,92,0.7);
+.btn-admin-portal:hover {
+background: linear-gradient(135deg, #0b2d44, #1a6e8c);
+color: #ffffff;
+border-color: #a8d8ea;
 transform: translateY(-1px);
+box-shadow: 0 4px 12px rgba(11,45,68,0.35);
 }
-.btn-logout:active { transform: translateY(0); }
+.btn-admin-portal:active { transform: translateY(0); }
 /* ---------- PENDING DRAWER (right side) ---------- */
 .pending-drawer {
 position: fixed;
@@ -1788,6 +1791,7 @@ border-left-color: #e67e22;
 </div>
 <!-- Sidebar Footer Links -->
 <div class="sidebar-footer">
+<a href="?view=admin" target="_top" class="sidebar-footer-item" style="color:#a8d8ea;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:0.4rem;cursor:pointer;">🛡️ Admin Portal (Login)</a>
 <div class="sidebar-footer-item">⚙️ Account Settings</div>
 <div class="sidebar-footer-item">🔔 Notification Preferences</div>
 <div class="sidebar-footer-item">🛡️ Security & Privacy</div>
@@ -1837,9 +1841,9 @@ border-left-color: #e67e22;
 </div>
 <span class="nav-badge">3</span>
 </div>
-<button class="btn-logout" id="logoutBtn" title="Sign out">
-&#x23FB; Logout
-</button>
+<a href="?view=admin" target="_top" class="btn-admin-portal" id="adminPortalBtn" title="Admin Portal · Manage and Publish Tasks">
+🛡️ Admin Portal
+</a>
 </div>
 </nav>
 <!-- ========== MAIN APP ========== -->
@@ -2753,15 +2757,17 @@ updateBadges();
       }
     } catch (e) { /* silent */ }
 
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', function () {
-        sessionStorage.removeItem('mqSession');
-        // Use window.top so redirect escapes the Streamlit iframe
+    const adminPortalBtn = document.getElementById('adminPortalBtn');
+    if (adminPortalBtn) {
+      adminPortalBtn.addEventListener('click', function (e) {
         try {
-          window.top.location.href = 'landing.html';
-        } catch (e) {
-          window.location.href = 'landing.html';
+          if (window.top && window.top !== window) {
+            window.top.location.search = '?view=admin';
+            e.preventDefault();
+            return;
+          }
+        } catch (err) {
+          /* Fallback: default anchor behavior with target="_top" navigates top frame */
         }
       });
     }
