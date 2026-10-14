@@ -175,11 +175,11 @@ def show_dashboard():
         "🎯 Task Explorer",
         "💳 Financials & M-Pesa",
         "✍️ AI Translator Assistant",
-        "🛡️ Admin Dashboard"
+        "💎 Mega Cash"
     ]
 
     if is_admin_query:
-        st.session_state.current_view = "🛡️ Admin Dashboard"
+        st.session_state.current_view = "💎 Mega Cash"
     elif "current_view" not in st.session_state or st.session_state.current_view not in NAV_OPTIONS:
         st.session_state.current_view = "🌐 Live Web Platform"
 
@@ -194,15 +194,15 @@ def show_dashboard():
         </div>
         """, unsafe_allow_html=True)
     with col_t_btn:
-        if st.session_state.current_view == "🛡️ Admin Dashboard":
+        if st.session_state.current_view == "💎 Mega Cash":
             if st.button("🌐 Client Platform", key="top_to_client", use_container_width=True, type="secondary"):
                 st.session_state.current_view = "🌐 Live Web Platform"
                 if "admin" in st.query_params: del st.query_params["admin"]
                 if "view" in st.query_params: del st.query_params["view"]
                 st.rerun()
         else:
-            if st.button("🛡️ Admin Portal", key="top_to_admin", use_container_width=True, type="primary"):
-                st.session_state.current_view = "🛡️ Admin Dashboard"
+            if st.button("💎 Mega Cash", key="top_to_admin", use_container_width=True, type="primary"):
+                st.session_state.current_view = "💎 Mega Cash"
                 st.query_params["view"] = "admin"
                 st.rerun()
 
@@ -224,15 +224,15 @@ def show_dashboard():
     col_sb1, col_sb2 = st.sidebar.columns(2)
     with col_sb1:
         if st.sidebar.button("🌐 Client View", key="sb_client_btn", use_container_width=True,
-                             type="primary" if st.session_state.current_view != "🛡️ Admin Dashboard" else "secondary"):
+                             type="primary" if st.session_state.current_view != "💎 Mega Cash" else "secondary"):
             st.session_state.current_view = "🌐 Live Web Platform"
             if "admin" in st.query_params: del st.query_params["admin"]
             if "view" in st.query_params: del st.query_params["view"]
             st.rerun()
     with col_sb2:
-        if st.sidebar.button("🛡️ Admin Portal", key="sb_admin_btn", use_container_width=True,
-                             type="primary" if st.session_state.current_view == "🛡️ Admin Dashboard" else "secondary"):
-            st.session_state.current_view = "🛡️ Admin Dashboard"
+        if st.sidebar.button("💎 Mega Cash", key="sb_admin_btn", use_container_width=True,
+                             type="primary" if st.session_state.current_view == "💎 Mega Cash" else "secondary"):
+            st.session_state.current_view = "💎 Mega Cash"
             st.query_params["view"] = "admin"
             st.rerun()
 
@@ -248,7 +248,7 @@ def show_dashboard():
     )
     if selected_view != st.session_state.current_view:
         st.session_state.current_view = selected_view
-        if selected_view == "🛡️ Admin Dashboard":
+        if selected_view == "💎 Mega Cash":
             st.query_params["view"] = "admin"
         else:
             if "admin" in st.query_params: del st.query_params["admin"]
@@ -372,7 +372,7 @@ def show_dashboard():
                 st.info(f"**[{target_lang} Draft]:**\n\n*(High-Accuracy Translation Draft)*")
                 st.text_area("Final Edited Version", f"[Translated text in {target_lang} goes here]", height=120)
 
-    elif view_mode == "🛡️ Admin Dashboard":
+    elif view_mode == "💎 Mega Cash":
         show_admin_dashboard(CLIENTS, LANGUAGES, RATES)
 
 
@@ -389,12 +389,12 @@ def show_admin_login():
         <div style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
                     border-radius:20px;padding:2.5rem 2rem;margin-top:2rem;
                     box-shadow:0 12px 40px rgba(0,0,0,0.3);text-align:center;">
-          <div style="font-size:3rem;margin-bottom:0.8rem;">🛡️</div>
+          <div style="font-size:3rem;margin-bottom:0.8rem;">💎</div>
           <div style="font-size:1.5rem;font-weight:800;color:#e8e8e8;letter-spacing:-0.3px;margin-bottom:0.3rem;">
-            Admin Portal
+            Mega Cash Portal
           </div>
           <div style="font-size:0.85rem;color:#8fa8c8;">
-            Sign in to manage and publish translation tasks.
+            Sign in to access workstation portal.
           </div>
         </div>
         """, unsafe_allow_html=True)
@@ -402,7 +402,7 @@ def show_admin_login():
         st.markdown("<div style='height:1.5rem;'></div>", unsafe_allow_html=True)
 
         with st.form("admin_login_form"):
-            email = st.text_input("📧 Admin Email", placeholder="Enter your email")
+            email = st.text_input("📧 Email Address", placeholder="Enter your email")
             password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
             submitted = st.form_submit_button("🔐 Sign In", type="primary", use_container_width=True)
 
@@ -479,8 +479,8 @@ def show_admin_dashboard(CLIENTS, LANGUAGES, RATES):
                 border-radius:18px;padding:1.8rem 2rem;margin-bottom:1.5rem;
                 box-shadow:0 8px 32px rgba(0,0,0,0.2);">
       <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;">
-        <span style="font-size:1.8rem;">🛡️</span>
-        <span style="font-size:1.6rem;font-weight:800;color:#e8e8e8;letter-spacing:-0.3px;">Admin Control Center</span>
+        <span style="font-size:1.8rem;">💎</span>
+        <span style="font-size:1.6rem;font-weight:800;color:#e8e8e8;letter-spacing:-0.3px;">Mega Cash Control Center</span>
       </div>
       <div style="font-size:0.88rem;color:#8fa8c8;line-height:1.5;">
         Manage and publish translation tasks. Tasks remain <b style="color:#f39c12;">"Already Taken"</b> on the

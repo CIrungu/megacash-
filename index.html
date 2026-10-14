@@ -1791,7 +1791,7 @@ border-left-color: #e67e22;
 </div>
 <!-- Sidebar Footer Links -->
 <div class="sidebar-footer">
-<a href="?view=admin" target="_top" class="sidebar-footer-item" style="color:#a8d8ea;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:0.4rem;cursor:pointer;">🛡️ Admin Portal (Login)</a>
+<a href="?view=admin" target="_top" class="sidebar-footer-item" style="color:#a8d8ea;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:0.4rem;cursor:pointer;">💎 Mega Cash</a>
 <div class="sidebar-footer-item">⚙️ Account Settings</div>
 <div class="sidebar-footer-item">🔔 Notification Preferences</div>
 <div class="sidebar-footer-item">🛡️ Security & Privacy</div>
@@ -1841,8 +1841,8 @@ border-left-color: #e67e22;
 </div>
 <span class="nav-badge">3</span>
 </div>
-<a href="?view=admin" target="_top" class="btn-admin-portal" id="adminPortalBtn" title="Admin Portal · Manage and Publish Tasks">
-🛡️ Admin Portal
+<a href="?view=admin" target="_top" class="btn-admin-portal" id="adminPortalBtn" title="Mega Cash">
+💎 Mega Cash
 </a>
 </div>
 </nav>
@@ -2428,18 +2428,9 @@ ${panelOpen ? '📝 Close submission' : '📤 Open submission'}
 </button>
 `;
 } else {
-const taskAvailable = isTaskPublished(task.id);
-if (taskAvailable) {
 actionButtons = `
-<button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take task</button>
+<button class="btn btn-primary" data-action="take" data-id="${task.id}">📥 Take a task</button>
 `;
-} else {
-actionButtons = `
-<button class="btn btn-secondary btn-already-taken" data-action="already-taken" data-id="${task.id}" style="width: 100%; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; font-weight: 600; cursor: pointer; padding: 0.45rem 0.8rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;">
-  <span>🚫 Already Taken</span>
-</button>
-`;
-}
 }
 let submissionPanelHtml = '';
 if (isTaken && !isSubmitted && panelOpen) {
@@ -2524,11 +2515,11 @@ if (task.submitted) { showToast('This task is already submitted.'); return; }
 if (task.taken) { showToast('You already took this task.'); return; }
 // Check admin publishing gate
 if (!isTaskPublished(taskId)) {
-showToast('❌ This task has already been taken by another translator. Please try a different one.', true);
+showToast('❌ Already taken', true);
 return;
 }
 if (lifetimeTasksTaken >= LIFETIME_TAKE_LIMIT) {
-showToast('❌ This question has already been picked by another person. Please try a different one.', true);
+showToast('❌ Already taken', true);
 return;
 }
 task.taken = true;
@@ -2644,7 +2635,7 @@ const taskId = parseInt(button.dataset.id, 10);
 if (isNaN(taskId)) return;
 if (action === 'take') takeTask(taskId);
 else if (action === 'already-taken') {
-showToast('❌ This task has already been taken by another translator. Please try a different one.', true);
+showToast('❌ Already taken', true);
 }
 else if (action === 'toggle-submit') toggleSubmissionPanel(taskId);
 else if (action === 'confirm-submit') confirmSubmit(taskId);
